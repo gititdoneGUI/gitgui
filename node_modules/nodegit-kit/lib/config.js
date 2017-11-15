@@ -1,0 +1,114 @@
+'use strict';
+
+var Git = require('nodegit');
+var debug = require('debug')('kit:config');
+
+function getConfigs(config, options){
+    if (typeof options == 'string'){
+        debug('get %s', options);
+        return config.getStringBuf(options);
+    }
+    if (!Array.isArray(options)){
+        return;
+    }
+    return Promise.all(options.map(function(option){
+        debug('get %s', option);
+        return config.getStringBuf(option);
+    }));
+}
+
+function sequential(all){
+    return all.reduce(function(prev, current){
+        return prev = prev.then(current);
+    }, Promise.resolve());
+}
+
+function setConfig(config, key, value){
+    return function(){
+        debug('set %s %s', key, value);
+        if (typeof value == 'number'){
+            return config.setInt64(key, value);
+        }
+        return config.setString(key, value);
+    };
+}
+
+function setUser(config, user){
+    return Promise.resolve()
+    .then(function(){
+        if (!user.name) return;
+        debug('set user.name %s', user.name);
+        return config.setString('user.name', user.name);
+    })
+    .then(function(){
+        if (!user.email) return;
+        debug('set user.email %s', user.email);
+        return config.setString('user.email', user.email);
+    });
+}
+
+module.exports = {
+
+    set: function(repo, o){
+        var options = o || repo;
+        return (!!o ? repo.config() : Git.Config.openDefault())
+        .then(function(config){
+            var changes = [];
+            for (var key in options){
+                if (key == 'user') continue;
+                changes.push(setConfig(config, key, options[key]));
+            }
+            return sequential(changes)
+            .then(function(){
+                return config;
+            });
+        })
+        .then(function(config){
+            if (!options.user) return;
+            return setUser(config, options.user);
+        });
+    },
+
+    get: function(repo, o){
+        var options = o || repo;
+        return (!!o ? repo.config() : Git.Config.openDefault())
+        .then(function(config){
+            return getConfigs(config, options);
+        });
+    },
+
+    getSignature: function(repo){
+        var user = ['user.name', 'user.email'];
+        return (!!repo ? this.get(repo, user) : this.get(user))
+        .then(function(user){
+            return Git.Signature.now(user[0], user[1]);
+        });
+    }
+
+};
+
+/*
+function getConfigsByObject(config, options){
+
+    if (options != null && typeof options == 'object'){
+        var values = [];
+        for (var key in options){
+            values.push({
+                'key': key,
+                'value': options[key]
+            });
+        }
+
+        return Promise.all(values.map(function(value){
+            return config.getString(value);
+        }))
+        .then(function(results){
+            var data = {};
+            values.forEach(function(value, i){
+                data[value.key] = results[i]
+            });
+            return data;
+        });
+    }
+}
+*/
