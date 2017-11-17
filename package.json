@@ -18,6 +18,7 @@
     "react": "^15.6.1",
     "react-d3-tree": "^1.6.0",
     "react-dom": "^15.6.1",
+    "react-graph-vis": "^1.0.2",
     "react-redux": "^5.0.2",
     "react-router": "^4.1.2",
     "react-router-redux": "^5.0.0-alpha.6",

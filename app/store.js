@@ -5,13 +5,13 @@ import thunk from 'redux-thunk';
 
 import user from './reducers/user';
 import repo from './reducers/repo';
-import userActions from './actions/user';
+import {userLogin} from './reducers/user';
 
 export default function configureStore(initialState, routerHistory) {
   const router = routerMiddleware(routerHistory);
 
   const actionCreators = {
-    ...userActions,
+    ...userLogin,
     push
   };
 

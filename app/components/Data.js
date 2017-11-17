@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchHistory } from '../reducers/repo';
-import Tree from 'react-d3-tree';
+import TestGraph from './Test';
 
 class Data extends Component {
   constructor(){
@@ -14,12 +14,11 @@ class Data extends Component {
   }
 
   render() {
-    console.log(this.props.repo);
-    return (
-      <div id="treeWrapper" style={{width: '5000em', height: '2000em'}}>
 
-        <Tree orientation="vertical"
-        data={[this.props.repo]} />
+    return (
+      <div>
+
+        <TestGraph />
 
 
       </div>
