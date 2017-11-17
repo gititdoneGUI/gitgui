@@ -10,44 +10,45 @@ const addEdge = edge => ({type: ADD_EDGE, edge});
 const eraseHistory = () => ({type: ERASE_HISTORY});
 
 export const fetchHistory = () => (dispatch) => {
-  console.log('got to thunk');
   nodegit.Repository.open(path.resolve(__dirname, '../../../juke-react/.git'))
     .then(function(repo){
-      console.log('GOT TO REPO');
       return repo.getMasterCommit();
     })
     .then(firstCommit =>{
       dispatch(eraseHistory());
       const history = firstCommit.history(nodegit.Revwalk.SORT.Time);
-      console.log(firstCommit.sha());
       history.on('commit', commit => {
-        console.log("OVER HERE");
-        console.log(commit.sha());
         let obj = {};
         obj.id = commit.sha();
-        obj.label= commit.messsage();
+        obj.label= commit.message();              
         obj.title = commit.date();
-        dispatch(addCommit((obj))); 
-        console.log('PARENTS', commit.parents());
-        commit.parents().forEach(parent => 
-          dispatch(addEdge(
-            {from: parent, to: commit.sha()})
-          )
-        );
-        history.start();
-      })
-        .done();
-    });
+        console.log("about to addCommit");
+        dispatch(addCommit(obj)); 
+        var numParents = commit.parentcount();
+        for (let i = 0; i < numParents; i++ ) {
+          commit.parent(i).then(function(parent) {
+            console.log(parent.sha());
+            dispatch(addEdge(
+              {from: parent.sha(), to: commit.sha()}
+            ));
+          });
+        }
+      });
+
+      history.start();
+      
+    }).done();
 };
 
 const defaultState = { nodes: [], edges: [] };
 
-export default function (state = defaultState, action){
+export default function reducer (state = defaultState, action){
+  console.log('reached reducer', action.type);
   switch (action.type){
   case ADD_COMMIT:
-    return {...state, nodes: state.nodes.concat(action.commit)};
+    return {...state, nodes: [...state.nodes, action.commit]};
   case ADD_EDGE:
-    return {...state, edges: state.edges.concat(action.edge)};
+    return {...state, edges: [...state.edges, action.edge]};
   case ERASE_HISTORY:
     return defaultState;
   default:

@@ -35,7 +35,7 @@ const events = {
 };
 
 const mapState = ({ repo }) => ({ repo });
-const mapDispatch = ({ fetchHistory });
+const mapDispatch = (dispatch ) => ({fetchHistory});
 
 class TestGraph extends React.Component {
 
@@ -48,7 +48,7 @@ class TestGraph extends React.Component {
   }
 
   render() {
-      console.log(this.props.repo);
+    //   console.log(this.props.repo);
     return (
       <div>
         <h1>React graph vis</h1>
