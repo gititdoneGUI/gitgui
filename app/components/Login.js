@@ -8,6 +8,7 @@ export default class Login extends Component {
 
   _inputRef: null;
 
+
   handleLogin = () => {
     this.props.onLogin({
       username: this._inputRef.value,
