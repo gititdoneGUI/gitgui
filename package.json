@@ -14,11 +14,8 @@
     "babel-runtime": "^6.22.0",
     "history": "^4.6.3",
     "nodegit": "^0.20.3",
-<<<<<<< HEAD
     "passport-github": "^1.1.0",
-=======
     "path": "^0.12.7",
->>>>>>> origin/master
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-d3-tree": "^1.6.0",
