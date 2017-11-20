@@ -1,0 +1,6 @@
+#!/bin/sh
+
+if [ -n $GIT_REPO ]; then
+  GIT_REPO=$1 npm run develop
+fi
+npm run develop
