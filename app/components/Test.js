@@ -58,20 +58,37 @@ class TestGraph extends React.Component {
     //   console.log(this.props.repo);
     console.log('nodes', this.state.nodes);
     console.log('edges', this.state.edges);
+    // if(this.state.nodes[0])
+    // console.log('try',  (this.props.repo.nodes.filter(node => (node.id == this.state.nodes[0])) )[0]['id']);
+
+    const ele = this.state.nodes[0]
+      ? this.props.repo.nodes.filter(node => node.id == this.state.nodes[0])[0]
+      : null;
+
     return (
       <div>
         <h1>React graph vis</h1>
 
-          <div >
-          {this.state.nodes &&  <p> Node info: {this.state.nodes}</p>}
+        <div>
+          {/* {this.state.nodes &&  <p> Node info: {    (this.state.nodes[0])  && ( this.props.repo.nodes.filter(node => (node.id == this.state.nodes[0])) )[0]['id']  }</p>}   */}
+
+          <div>
+            <p>Node Info</p>
+            { ele && 
+            <ul>
+              <li> sha: { ele.id}</li>
+              <li> message: {ele.label}</li>
+               <li> DateTime: {ele.title.toString()}</li>
+            </ul>
+            }
           </div>
+        </div>
         <Graph
           graph={this.props.repo}
           options={options}
           events={this.events}
           style={{ height: '640px' }}
         />
-       
       </div>
     );
   }
