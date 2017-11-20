@@ -19,6 +19,8 @@ export function statusCheck() {
   
         statuses.forEach(function(file) {
           console.log(file.path() + ' '  + statusToText(file));
+
+          return statuses;
         });
       });
     });
@@ -36,9 +38,10 @@ export function statusCheck() {
 //     .then(function(repo){
 //     // git status
 //       return git.status(repo)
-//         .then(function(status){
-//           console.log(status);
-//         });
+//         // .then(function(status){
+//         //   console.log(status);
+//         //   return status;
+//         // });
 //     });
 // }
  

@@ -40,8 +40,8 @@ const mapDispatch = (dispatch) => {
   return { 
     fetchHistory: () =>
       dispatch(fetchHistory()),
-    statusCheck: () => 
-      dispatch(statusCheck())
+    // statusCheck: () => 
+    //   dispatch(statusCheck())
   };
 };
 
@@ -53,12 +53,11 @@ class TestGraph extends React.Component {
 
   componentDidMount(){
     this.props.fetchHistory();
-    this.props.statusCheck();
-    
+    // this.props.statusCheck();
+    console.log(statusCheck());
   }
 
   render() {
-    //   console.log(this.props.repo);
     return (
       <div>
         <h1>React graph vis</h1>
