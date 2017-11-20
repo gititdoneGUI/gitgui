@@ -2,7 +2,6 @@ import Graph from "react-graph-vis";
 import { connect } from 'react-redux';
 import { fetchHistory } from '../reducers/repo';
 import React from "react";
-import { render } from "react-dom";
 
 const graph = {
   nodes: [
@@ -35,7 +34,12 @@ const events = {
 };
 
 const mapState = ({ repo }) => ({ repo });
-const mapDispatch = (dispatch ) => ({fetchHistory});
+const mapDispatch = (dispatch) => {
+  return { 
+    fetchHistory: () =>
+      dispatch(fetchHistory())
+  };
+};
 
 class TestGraph extends React.Component {
 

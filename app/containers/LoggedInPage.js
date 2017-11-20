@@ -1,8 +1,7 @@
 import { connect } from 'react-redux';
 import LoggedIn from '../components/LoggedIn';
 import { bindActionCreators } from 'redux';
-// import userActions from '../actions/user';
-import {userLogin} from '../reducers/user';
+import userActions from '../actions/user';
 import { push } from 'react-router-redux';
 
 
@@ -11,7 +10,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => { // eslint-disable-line no-unused-vars
-  const user = bindActionCreators(userLogin, dispatch);
+  const user = bindActionCreators(userActions, dispatch);
   return {
     onLogout: () => {
       user.login();
