@@ -132,15 +132,16 @@ app.on('ready', () => {
       authWindow.destroy();
     }
     if (code) {
+      console.log('IM GETTING HERE');
       axios.post('https://github.com/login/oauth/access_token', {
         client_id: options.client_id,
         client_secret: options.client_secret,
         code: code
       })
-        .end((err, response) => {
+        .then((err, response) => {
           if (response && response.ok) {
             console.log('this sohuld be the token', response.body.access_token);
-          } else
+          } else{
             console.log(err);
           }
         });
