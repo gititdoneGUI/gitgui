@@ -4,6 +4,8 @@ import persistState from 'redux-localstorage';
 import thunk from 'redux-thunk';
 
 import user from './reducers/user';
+import repos from './reducers/repos';
+import userActions from './actions/user';
 import repo from './reducers/repo';
 import {userLogin} from './reducers/user';
 
@@ -18,6 +20,7 @@ export default function configureStore(initialState, routerHistory) {
   const reducers = {
     user,
     routing,
+    repos,
     repo
   };
 

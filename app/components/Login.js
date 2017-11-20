@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+
 export default class Login extends Component {
+
+  constructor(){
+    super();
+  }
+
+
   static propTypes = {
     onLogin: PropTypes.func.isRequired
   };
@@ -19,7 +26,7 @@ export default class Login extends Component {
     return (
       <div>
         <h2>Login</h2>
-        <input ref={(ref) => { this._inputRef = ref; }} type="text" />
+        GitHub username:<input ref={(ref) => { this._inputRef = ref; }} type="text" />
         <button onClick={this.handleLogin}>Log In</button>
       </div>
     );
