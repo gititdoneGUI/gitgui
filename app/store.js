@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 
 import user from './reducers/user';
 import repos from './reducers/repos';
-import userActions from './actions/user';
+// import userActions from './actions/user';
 import repo from './reducers/repo';
 import {userLogin} from './reducers/user';
 

@@ -11,12 +11,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-<<<<<<< HEAD
-  console.log("i m in loginpage");
-  const user = bindActionCreators(userActions, dispatch);
-=======
   const user = bindActionCreators(userLogin, dispatch);
->>>>>>> origin/master
   return {
     onLogin: (data) => {
       user.userLogin(data);
