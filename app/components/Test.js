@@ -1,6 +1,8 @@
 import Graph from "react-graph-vis";
 import { connect } from 'react-redux';
 import { fetchHistory } from '../reducers/repo';
+import { statusCheck } from '../nodegit/status';
+
 import React from "react";
 
 const graph = {
@@ -37,7 +39,9 @@ const mapState = ({ repo }) => ({ repo });
 const mapDispatch = (dispatch) => {
   return { 
     fetchHistory: () =>
-      dispatch(fetchHistory())
+      dispatch(fetchHistory()),
+    statusCheck: () => 
+      dispatch(statusCheck())
   };
 };
 
@@ -49,6 +53,8 @@ class TestGraph extends React.Component {
 
   componentDidMount(){
     this.props.fetchHistory();
+    this.props.statusCheck();
+    
   }
 
   render() {
