@@ -9,8 +9,8 @@ export const addCommit = commit => ({type: ADD_COMMIT, commit});
 const addEdge = edge => ({type: ADD_EDGE, edge});
 const eraseHistory = () => ({type: ERASE_HISTORY});
 
-export const fetchHistory = () => (dispatch) => {
-  nodegit.Repository.open(path.resolve(path.join(__dirname, '..', '..')))
+export const fetchHistory = rootDir => (dispatch) => {
+  nodegit.Repository.open(rootDir)
     .then(function(repo){
       return repo.getMasterCommit();
     })
