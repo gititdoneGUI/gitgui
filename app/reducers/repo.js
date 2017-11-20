@@ -10,7 +10,7 @@ const addEdge = edge => ({type: ADD_EDGE, edge});
 const eraseHistory = () => ({type: ERASE_HISTORY});
 
 export const fetchHistory = () => (dispatch) => {
-  nodegit.Repository.open(path.resolve(__dirname, '../../../juke-react/.git'))
+  nodegit.Repository.open(path.resolve(__dirname, '../../../cheerbot/.git'))
     .then(function(repo){
       return repo.getMasterCommit();
     })
