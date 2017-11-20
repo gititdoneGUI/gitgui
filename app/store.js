@@ -6,19 +6,22 @@ import thunk from 'redux-thunk';
 import user from './reducers/user';
 import repos from './reducers/repos';
 import userActions from './actions/user';
+import repo from './reducers/repo';
+import {userLogin} from './reducers/user';
 
 export default function configureStore(initialState, routerHistory) {
   const router = routerMiddleware(routerHistory);
 
   const actionCreators = {
-    ...userActions,
+    ...userLogin,
     push
   };
 
   const reducers = {
     user,
     routing,
-    repos
+    repos,
+    repo
   };
 
   const middlewares = [ thunk, router ];
@@ -31,7 +34,7 @@ export default function configureStore(initialState, routerHistory) {
     return compose;
   })();
 
-  const enhancer = composeEnhancers(applyMiddleware(...middlewares), persistState());
+  const enhancer = composeEnhancers(applyMiddleware(...middlewares));
   const rootReducer = combineReducers(reducers);
 
   return createStore(rootReducer, initialState, enhancer);
