@@ -10,6 +10,7 @@ const addEdge = edge => ({type: ADD_EDGE, edge});
 const eraseHistory = () => ({type: ERASE_HISTORY});
 
 export const fetchHistory = rootDir => (dispatch) => {
+  rootDir = rootDir ? rootDir : path.resolve(path.join(__dirname, '..', '..'));
   nodegit.Repository.open(rootDir)
     .then(function(repo){
       return repo.getMasterCommit();

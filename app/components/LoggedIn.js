@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {fetchRepos} from '../actions/repos';
-import {NavLink} from 'react-router-dom';
+// import {NavLink} from 'react-router-dom';
 import { fetchHistory } from '../reducers/repo';
 import CommitGraph from './Graph';
 
@@ -10,13 +10,6 @@ class LoggedIn extends Component {
     super();
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
-  handleLogOut = () => {
-    this.props.onLogout({
-      username: '',
-      loggedIn: false
-    });
-  };
 
   componentDidMount() {
     this.props.allRepos(this.props.user.username);
@@ -40,10 +33,6 @@ class LoggedIn extends Component {
           <input type="text" name="dirname"></input><button>Enter</button>
         </form>
         <CommitGraph />
-        <br />
-        <br />
-        <br />
-        <button onClick={this.handleLogOut}>Log Out</button>
       </div>
     );
   }

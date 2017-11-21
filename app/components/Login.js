@@ -26,8 +26,16 @@ export default class Login extends Component {
     return (
       <div>
         <h2>Login</h2>
-        GitHub username:<input ref={(ref) => { this._inputRef = ref; }} type="text" />
-        <button onClick={this.handleLogin}>Log In</button>
+        <form>
+          <div className="form-group">
+            <label>GitHub Username</label>
+            <input ref={(ref) => { this._inputRef = ref; }} type="text" className="form-control" placeholder="haxor99"/>
+            <button className="btn btn-default" onClick={this.handleLogin}>
+              <span className="icon icon-login"></span>
+            </button>
+          </div>
+        </form>
+
       </div>
     );
   }
