@@ -5,6 +5,9 @@ import thunk from 'redux-thunk';
 
 import user from './reducers/user';
 import repos from './reducers/repos';
+import status from './reducers/status';
+import commit from './reducers/commit';
+
 // import userActions from './actions/user';
 import repo from './reducers/repo';
 import {userLogin} from './reducers/user';
@@ -21,7 +24,9 @@ export default function configureStore(initialState, routerHistory) {
     user,
     routing,
     repos,
-    repo
+    repo,
+    status,
+    commit
   };
 
   const middlewares = [ thunk, router ];
