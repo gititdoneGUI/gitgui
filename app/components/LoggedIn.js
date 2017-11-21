@@ -18,9 +18,9 @@ class LoggedIn extends Component {
     });
   };
 
-  // componentDidMount() {
-  //   // this.props.allRepos(this.props.user.username);
-  // }
+  componentDidMount() {
+    this.props.allRepos(this.props.user.username);
+  }
 
   handleSubmit(evt){
     evt.preventDefault();
@@ -32,15 +32,11 @@ class LoggedIn extends Component {
       <div>
         <h2>Logged in as {this.props.user.username}</h2>
         <h2>Repos:</h2>
-        {/*
         {this.props.repos &&
-          this.props.repos.map((repo,i) => <li key={i}>
-          <NavLink onClick={this.props.oneRepo(repo.name)}to={`/graph/${repo.name}`}>*/}
-        {/*</NavLink>
-          </li>)}
-          */}
+          this.props.repos.map((repo,i) => <li key={i}>{repo.name}</li>
+          )}
         <form onSubmit={this.handleSubmit}>
-          Input your directory name <br/>
+          Input the aboslute path to your directory.<br/>
           <input type="text" name="dirname"></input><button>Enter</button>
         </form>
         <CommitGraph />
