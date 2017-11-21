@@ -39,13 +39,13 @@ const events = {
 
 const mapState = ({ repo, status, commit }) => ({ repo, status, commit });
 const mapDispatch = (dispatch) => {
-  return { 
+  return {
     fetchHistory: () =>
       dispatch(fetchHistory()),
-    statusCheck: () => 
+    statusCheck: () =>
       dispatch(statusCheck()),
-    commitTest: (commitMessage) => 
-      dispatch(commitTest(commitMessage)) 
+    commitTest: (commitMessage) =>
+      dispatch(commitTest(commitMessage))
   };
 };
 
@@ -60,15 +60,14 @@ class TestGraph extends React.Component {
 
   componentDidMount(){
     this.props.statusCheck();
-    this.props.fetchHistory();         
-    
+    this.props.fetchHistory();
   }
 
   handleClick() {
     if (this.props.status) {
       console.log(this.state.commitMessage);
       this.props.commitTest(this.state.commitMessage);
-    } 
+    }
   }
 
   handleChange(event){
@@ -79,7 +78,7 @@ class TestGraph extends React.Component {
       <div>
         <h1>React graph vis</h1>
         <button type="button" disabled={this.props.status.length === 0} onClick ={this.handleClick} >Commit</button>
-        {(this.props.status.length !== 0) && <form> 
+        {(this.props.status.length !== 0) && <form>
           <input value={this.state.commitMessage} onChange={this.handleChange} />
         </form>}
         <Graph graph={this.props.repo} options={options} events={events} style={{ height: "640px" }} />

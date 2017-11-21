@@ -9,8 +9,9 @@ export const emptyStatus = () => ({type: EMPTY_STATUS});
 
 
 export const statusCheck = (rootDir) => (dispatch) => {
-  rootDir = rootDir ? rootDir : path.resolve(path.join(__dirname, '..', '..'));
-  nodegit.Repository.open(rootDir)
+  // rootDir = rootDir ? rootDir : path.resolve(path.join(__dirname, '..', '..'));
+  // console.log(rootDir);
+  nodegit.Repository.open(path.resolve(path.join(__dirname, '..', '..')))
     .then(function(repo) {
       dispatch(emptyStatus());
       repo.getStatus().then(function(statuses) {
@@ -19,7 +20,7 @@ export const statusCheck = (rootDir) => (dispatch) => {
           if (status.isNew()) { words.push('NEW'); }
           if (status.isModified()) { words.push('MODIFIED'); }
           if (status.isTypechange()) { words.push('TYPECHANGE'); }
-          if (status.isRenamed()) { words.push('RENAMED'); } 
+          if (status.isRenamed()) { words.push('RENAMED'); }
           if (status.isIgnored()) { words.push('IGNORED'); }
           return words.join(' ');
         }
@@ -28,9 +29,9 @@ export const statusCheck = (rootDir) => (dispatch) => {
         });
       });
     });
-  
+
 };
-  
+
 export default function reducer (state = [], action){
   // console.log('reached reducer', action.type);
   switch (action.type){
