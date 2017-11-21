@@ -9,8 +9,9 @@ export const addCommit = commit => ({type: ADD_COMMIT, commit});
 const addEdge = edge => ({type: ADD_EDGE, edge});
 const eraseHistory = () => ({type: ERASE_HISTORY});
 
-export const fetchHistory = () => (dispatch) => {
-  nodegit.Repository.open(path.resolve(__dirname, '../../../juke-react/.git'))
+export const fetchHistory = rootDir => (dispatch) => {
+  rootDir = rootDir ? rootDir : path.resolve(path.join(__dirname, '..', '..'));
+  nodegit.Repository.open(rootDir)
     .then(function(repo){
       return repo.getMasterCommit();
     })
@@ -20,10 +21,9 @@ export const fetchHistory = () => (dispatch) => {
       history.on('commit', commit => {
         let obj = {};
         obj.id = commit.sha();
-        obj.label= commit.message();              
+        obj.label= commit.message();
         obj.title = commit.date();
-        // console.log("about to addCommit");
-        dispatch(addCommit(obj)); 
+        dispatch(addCommit(obj));
         var numParents = commit.parentcount();
         for (let i = 0; i < numParents; i++ ) {
           commit.parent(i).then(function(parent) {
@@ -36,7 +36,7 @@ export const fetchHistory = () => (dispatch) => {
       });
 
       history.start();
-      
+
     }).done();
 };
 
