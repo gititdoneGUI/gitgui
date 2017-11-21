@@ -4,12 +4,10 @@ import { Switch, Route } from 'react-router';
 import LoginPage from './containers/LoginPage';
 import LoggedInPage from './containers/LoggedInPage';
 import CommitGraph from './components/Graph';
-import Header from './components/Header';
 import * as qs from 'querystring';
 
 export default (
   <div>
-    <Header />
     <Switch>
       <Route exact path="/" component={LoginPage} />
       <Route exact path="/loggedin" component={LoggedInPage} />
