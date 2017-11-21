@@ -4,6 +4,7 @@ import { fetchHistory } from '../reducers/repo';
 import React from 'react';
 import { commitTest } from '../reducers/commit';
 import { statusCheck } from '../reducers/status';
+import { pull } from '../nodegit/pull';
 
 const options = {
   layout: {
@@ -22,7 +23,7 @@ const mapDispatch = (dispatch) => {
     statusCheck: (rootDir) =>
       dispatch(statusCheck(rootDir)),
     commitTest: (commitMessage, userPath) =>
-      dispatch(commitTest(commitMessage, userPath))
+      dispatch(commitTest(commitMessage, userPath)),
   };
 };
 
@@ -37,6 +38,7 @@ class CommitGraph extends React.Component {
     this.events.select = this.events.select.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handlePullClick = this.handlePullClick.bind(this);
   }
 
   componentDidMount() {
@@ -56,7 +58,11 @@ class CommitGraph extends React.Component {
     event.preventDefault();
     console.log(this.state.commitMessage);
     this.props.commitTest(this.state.commitMessage, this.props.userPath);
+  }
 
+  handlePullClick(event){
+    event.preventDefault();
+    pull(this.props.userPath);
   }
 
   handleChange(event){
@@ -81,7 +87,9 @@ class CommitGraph extends React.Component {
               </button>
             </form>
           }
-
+          <button type="button" onClick={this.handlePullClick}>
+                  Pull
+          </button>
           <p>Node Info</p>
           { ele &&
             <ul>
