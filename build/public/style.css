@@ -1,0 +1,19 @@
+.login-div{
+  padding: 20px;
+}
+
+.login-div .form-control{
+  width: 20em;
+  margin-right: 10px;
+}
+
+.home-page-div {
+  padding: 20px
+}
+
+.home-page-forms{
+    width: 20em;
+    margin-right: 10px;
+}
+
+
