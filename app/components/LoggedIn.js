@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchRepos } from '../actions/repos';
 // import {NavLink} from 'react-router-dom';
 import { fetchHistory } from '../reducers/repo';
+import { getRepo } from '../actions/userRepo';
 import CommitGraph from './Graph';
 import Header from './Header';
 
@@ -18,6 +19,7 @@ class LoggedIn extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
+    this.props.getUserRepo(evt.target.dirname.value);
     this.props.getRepo(evt.target.dirname.value);
   }
 
@@ -71,6 +73,9 @@ const mapDispatch = dispatch => {
     },
     getRepo: name => {
       dispatch(fetchHistory(name));
+    },
+    getUserRepo: path =>{
+      dispatch(getRepo(path));
     }
   };
 };
