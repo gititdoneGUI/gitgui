@@ -1,4 +1,4 @@
-import { action } from '../actions/repo';
+import { action } from '../actions/userRepo';
 
 //REDUCER
 export default function(state = {}, action) {
