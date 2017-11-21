@@ -4,6 +4,7 @@ import {fetchRepos} from '../actions/repos';
 // import {NavLink} from 'react-router-dom';
 import { fetchHistory } from '../reducers/repo';
 import CommitGraph from './Graph';
+import Header from './Header';
 
 class LoggedIn extends Component {
   constructor(){
@@ -23,6 +24,9 @@ class LoggedIn extends Component {
   render() {
     return (
       <div>
+        <Header />
+
+      <div className="home-page-div">
         <h2>Logged in as {this.props.user.username}</h2>
         <h2>Repos:</h2>
         {this.props.repos &&
@@ -33,6 +37,7 @@ class LoggedIn extends Component {
           <input type="text" name="dirname"></input><button>Enter</button>
         </form>
         <CommitGraph />
+      </div>
       </div>
     );
   }

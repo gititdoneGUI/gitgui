@@ -24,11 +24,12 @@ export default class Login extends Component {
 
   render() {
     return (
-      <div>
+      <div className="login-div">
         <h2>Login</h2>
         <form>
           <div className="form-group">
-            <label>GitHub Username</label>
+            <label>Enter your github username.</label>
+            <br/>
             <input ref={(ref) => { this._inputRef = ref; }} type="text" className="form-control" placeholder="haxor99"/>
             <button className="btn btn-default" onClick={this.handleLogin}>
               <span className="icon icon-login"></span>
