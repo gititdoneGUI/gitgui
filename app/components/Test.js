@@ -44,8 +44,8 @@ const mapDispatch = (dispatch) => {
       dispatch(fetchHistory()),
     statusCheck: () => 
       dispatch(statusCheck()),
-    commitTest: () => 
-      dispatch(commitTest())
+    commitTest: (commitMessage) => 
+      dispatch(commitTest(commitMessage)) 
   };
 };
 
@@ -54,6 +54,8 @@ class TestGraph extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.state = {commitMessage: ''};
   }
 
   componentDidMount(){
@@ -62,24 +64,24 @@ class TestGraph extends React.Component {
     
   }
 
-  // componentWillReceiveProps(newProps) {
-  //   if(this.props !== newProps) {
-  //   }
-  // }
-
   handleClick() {
     if (this.props.status) {
-      this.props.commitTest();
-      this.props.fetchHistory(); 
+      console.log(this.state.commitMessage);
+      this.props.commitTest(this.state.commitMessage);
     } 
   }
 
+  handleChange(event){
+    this.setState({commitMessage: event.target.value});
+  }
   render() {
     return (
       <div>
         <h1>React graph vis</h1>
-        <button onClick ={this.handleClick} >Commit</button>
-
+        <button type="button" disabled={this.props.status.length === 0} onClick ={this.handleClick} >Commit</button>
+        {(this.props.status.length !== 0) && <form> 
+          <input value={this.state.commitMessage} onChange={this.handleChange} />
+        </form>}
         <Graph graph={this.props.repo} options={options} events={events} style={{ height: "640px" }} />
       </div>
     );
