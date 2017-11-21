@@ -1,20 +1,22 @@
 import Graph from "react-graph-vis";
 import { connect } from 'react-redux';
 import { fetchHistory } from '../reducers/repo';
-import { statusCheck } from '../nodegit/status';
+import { statusCheck } from '../reducers/status';
+import { commitTest } from '../reducers/commit';
+
 
 import React from "react";
 
-const graph = {
-  nodes: [
-    { id: 1, label: "Node 1", color: "#e04141" },
-    { id: 2, label: "Node 2", color: "#e09c41" },
-    { id: 3, label: "Node 3", color: "#e0df41" },
-    { id: 4, label: "Node 4", color: "#7be041" },
-    { id: 5, label: "Node 5", color: "#41e0c9" }
-  ],
-  edges: [{ from: 1, to: 2 }, { from: 3, to: 1 }, { from: 2, to: 4 }, { from: 2, to: 5 }]
-};
+// const graph = {
+//   nodes: [
+//     { id: 1, label: "Node 1", color: "#e04141" },
+//     { id: 2, label: "Node 2", color: "#e09c41" },
+//     { id: 3, label: "Node 3", color: "#e0df41" },
+//     { id: 4, label: "Node 4", color: "#7be041" },
+//     { id: 5, label: "Node 5", color: "#41e0c9" }
+//   ],
+//   edges: [{ from: 1, to: 2 }, { from: 3, to: 1 }, { from: 2, to: 4 }, { from: 2, to: 5 }]
+// };
 
 const options = {
   layout: {
@@ -35,13 +37,15 @@ const events = {
   }
 };
 
-const mapState = ({ repo }) => ({ repo });
+const mapState = ({ repo, status, commit }) => ({ repo, status, commit });
 const mapDispatch = (dispatch) => {
   return { 
     fetchHistory: () =>
       dispatch(fetchHistory()),
-    // statusCheck: () => 
-    //   dispatch(statusCheck())
+    statusCheck: () => 
+      dispatch(statusCheck()),
+    commitTest: () => 
+      dispatch(commitTest())
   };
 };
 
@@ -49,31 +53,32 @@ class TestGraph extends React.Component {
 
   constructor(props) {
     super(props);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount(){
-    this.props.fetchHistory();
-    // this.props.statusCheck();
-    console.log(statusCheck());
+    this.props.statusCheck();
+    this.props.fetchHistory();         
+    
+  }
+
+  // componentWillReceiveProps(newProps) {
+  //   if(this.props !== newProps) {
+  //   }
+  // }
+
+  handleClick() {
+    if (this.props.status) {
+      this.props.commitTest();
+      this.props.fetchHistory(); 
+    } 
   }
 
   render() {
     return (
       <div>
         <h1>React graph vis</h1>
-        <p>
-          <a href="https://github.com/crubier/react-graph-vis">Github</a> -{" "}
-          <a href="https://www.npmjs.com/package/react-graph-vis">NPM</a>
-        </p>
-        <p>
-          <a href="https://github.com/crubier/react-graph-vis/tree/master/example">Source of this page</a>
-        </p>
-        <p>A React component to display beautiful network graphs using vis.js</p>
-        <p>
-                    Make sure to visit <a href="http://visjs.org">visjs.org</a> for more info.
-        </p>
-        <p>This package allows to render network graphs using vis.js.</p>
-        <p>Rendered graphs are scrollable, zoomable, retina ready, dynamic, and switch layout on double click.</p>
+        <button onClick ={this.handleClick} >Commit</button>
 
         <Graph graph={this.props.repo} options={options} events={events} style={{ height: "640px" }} />
       </div>

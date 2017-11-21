@@ -1,11 +1,17 @@
-
 const nodegit = require('nodegit');
 const path = require('path');
 
-// This code shows working directory changes similar to git status
-export function statusCheck() {
+const ADD_FILE_STATUS = 'ADD_FILE_STATUS';
+const EMPTY_STATUS = 'EMPTY_STATUS';
+
+export const addFileStatus = fileStatus => ({type: ADD_FILE_STATUS, fileStatus});
+export const emptyStatus = () => ({type: EMPTY_STATUS});
+
+
+export const statusCheck = () => (dispatch) => {
   nodegit.Repository.open(path.resolve(__dirname,'../../../juke-react/.git'))
     .then(function(repo) {
+      dispatch(emptyStatus());
       repo.getStatus().then(function(statuses) {
         function statusToText(status) {
           let words = [];
@@ -16,34 +22,22 @@ export function statusCheck() {
           if (status.isIgnored()) { words.push('IGNORED'); }
           return words.join(' ');
         }
-  
         statuses.forEach(function(file) {
-          console.log(file.path() + ' '  + statusToText(file));
-
+          dispatch(addFileStatus(file.path() + ' '  + statusToText(file)));
         });
       });
     });
-
-}
-
-
-
-
-// var git = require('nodegit-kit');
-
-// export function statusCheck() {
-//     console.log('in function');
-//   git.open(path.resolve(__dirname,'../../../juke-react/.git'))
-//     .then(function(repo){
-//     // git status
-//       return git.status(repo)
-//         // .then(function(status){
-//         //   console.log(status);
-//         //   return status;
-//         // });
-//     });
-// }
- 
-
-
   
+};
+  
+export default function reducer (state = [], action){
+  // console.log('reached reducer', action.type);
+  switch (action.type){
+  case ADD_FILE_STATUS:
+    return [...state, action.fileStatus];
+  case EMPTY_STATUS:
+    return [];
+  default:
+    return state;
+  }
+}
