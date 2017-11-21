@@ -62,7 +62,6 @@ const mapDispatch = dispatch => {
       dispatch(fetchRepos(username));
     },
     getRepo: name => {
-      console.log('!!!!!!', name);
       dispatch(fetchHistory(name));
     }
   };

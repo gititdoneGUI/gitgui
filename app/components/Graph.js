@@ -34,12 +34,6 @@ class CommitGraph extends React.Component {
   };
 
   render() {
-    //   console.log(this.props.repo);
-    // console.log('nodes', this.state.nodes);
-    // console.log('edges', this.state.edges);
-    // if(this.state.nodes[0])
-    // console.log('try',  (this.props.repo.nodes.filter(node => (node.id == this.state.nodes[0])) )[0]['id']);
-
     const ele = this.state.nodes[0]
       ? this.props.repo.nodes.filter(node => node.id == this.state.nodes[0])[0]
       : null;
