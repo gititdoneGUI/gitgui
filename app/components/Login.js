@@ -31,11 +31,17 @@ export default class Login extends Component {
             <label>Enter your github username.</label>
             <br/>
             <input ref={(ref) => { this._inputRef = ref; }} type="text" className="form-control" placeholder="haxor99"/>
+
             <button className="btn btn-default" onClick={this.handleLogin}>
-              <span className="icon icon-login"></span>
+            <span className="icon icon-login"></span>
             </button>
           </div>
         </form>
+        <h3>OR</h3>
+        <br />
+        <button className="btn btn-default">
+          Continue as guest
+        </button>
 
       </div>
     );

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {fetchRepos} from '../actions/repos';
+import { fetchRepos } from '../actions/repos';
 // import {NavLink} from 'react-router-dom';
 import { fetchHistory } from '../reducers/repo';
 import CommitGraph from './Graph';
 import Header from './Header';
 
 class LoggedIn extends Component {
-  constructor(){
+  constructor() {
     super();
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -16,7 +16,7 @@ class LoggedIn extends Component {
     this.props.allRepos(this.props.user.username);
   }
 
-  handleSubmit(evt){
+  handleSubmit(evt) {
     evt.preventDefault();
     this.props.getRepo(evt.target.dirname.value);
   }
@@ -25,20 +25,34 @@ class LoggedIn extends Component {
     return (
       <div>
         <Header />
+        <div className="home-page-div">
+          <h2>Logged in as {this.props.user.username}</h2>
+          <div className="home-page-forms">
+          <select className="form-control">
+              <option>Pick a github repo</option>
+            {this.props.repos &&
+              this.props.repos.map((repo, i) => <option key={i}>{repo.name}</option>
+              )}
+          </select>
+          <br/>
+          <br />
 
-      <div className="home-page-div">
-        <h2>Logged in as {this.props.user.username}</h2>
-        <h2>Repos:</h2>
-        {this.props.repos &&
-          this.props.repos.map((repo,i) => <li key={i}>{repo.name}</li>
-          )}
-        <form onSubmit={this.handleSubmit}>
-          Input the aboslute path to your directory.<br/>
-          <input type="text" name="dirname"></input><button>Enter</button>
-        </form>
-        <CommitGraph />
+          <form onSubmit={this.handleSubmit}>
+            <div className="form-group">
+              <label>Input the aboslute path to your directory.</label>
+              <input ref={(ref) => { this._inputRef = ref; }} type="text" className="form-control" placeholder="haxor99" name="dirname" />
+
+              <button className="btn btn-default" onClick={this.handleLogin}>
+              <span className="icon icon-login"></span>
+              </button>
+            </div>
+          </form>
+          </div>
+          <br />
+          <CommitGraph />
       </div>
       </div>
+
     );
   }
 }
