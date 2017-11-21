@@ -19,8 +19,8 @@ const mapDispatch = (dispatch) => {
   return { 
     fetchHistory: () =>
       dispatch(fetchHistory()),
-    statusCheck: () => 
-      dispatch(statusCheck()),
+    statusCheck: (rootDir) => 
+      dispatch(statusCheck(rootDir)),
     commitTest: (commitMessage) => 
       dispatch(commitTest(commitMessage)) 
   };
@@ -31,15 +31,16 @@ class CommitGraph extends React.Component {
     super(props);
     this.state = {
       nodes: [],
-      edges: []
+      edges: [],
+      commitMessage: ''
     };
     this.events.select = this.events.select.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.state = {commitMessage: ''};
   }
 
   componentDidMount() {
+    this.props.statusCheck(this.props.root);
     this.props.fetchHistory(this.props.root);
   }
 
@@ -76,21 +77,24 @@ class CommitGraph extends React.Component {
         <h1>React graph vis</h1>
 
         <div>
-          {/* {this.state.nodes &&  <p> Node info: {    (this.state.nodes[0])  && ( this.props.repo.nodes.filter(node => (node.id == this.state.nodes[0])) )[0]['id']  }</p>}   */}
-          <button type="button" disabled={this.props.status.length === 0} onClick ={this.handleClick} >Commit</button>
-      {(this.props.status.length !== 0) && <form> 
-        <input value={this.state.commitMessage} onChange={this.handleChange} />
-      </form>}
-          <div>
-            <p>Node Info</p>
-            { ele &&
+
+          {
+            (this.props.status.length !== 0) && <form onSubmit={this.handleClick}> 
+              <input value={this.state.commitMessage} onChange={this.handleChange} ></input>
+              <button type="button" disabled={this.props.status.length === 0}>
+                  Commit 
+              </button>
+            </form>
+          }
+    
+          <p>Node Info</p>
+          { ele &&
             <ul>
               <li> sha: { ele.id}</li>
               <li> message: {ele.label}</li>
-               <li> DateTime: {ele.title.toString()}</li>
+              <li> DateTime: {ele.title.toString()}</li>
             </ul>
-            }
-          </div>
+          }
         </div>
         <Graph
           graph={this.props.repo}

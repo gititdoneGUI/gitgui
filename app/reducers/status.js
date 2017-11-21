@@ -8,8 +8,9 @@ export const addFileStatus = fileStatus => ({type: ADD_FILE_STATUS, fileStatus})
 export const emptyStatus = () => ({type: EMPTY_STATUS});
 
 
-export const statusCheck = () => (dispatch) => {
-  nodegit.Repository.open(path.resolve(__dirname,'../../../juke-react/.git'))
+export const statusCheck = (rootDir) => (dispatch) => {
+  rootDir = rootDir ? rootDir : path.resolve(path.join(__dirname, '..', '..'));
+  nodegit.Repository.open(rootDir)
     .then(function(repo) {
       dispatch(emptyStatus());
       repo.getStatus().then(function(statuses) {
