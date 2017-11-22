@@ -17,6 +17,7 @@ class LoggedIn extends Component {
   componentDidMount() {
     this.props.allRepos(this.props.user.username);
     this.props.getUserPath(path.resolve(path.join(__dirname, '..', '..')));
+    // change back to using root
   }
 
   handleSubmit(evt) {
