@@ -41,12 +41,8 @@ class LoggedIn extends Component {
 
           <form onSubmit={this.handleSubmit}>
             <div className="form-group">
-              <label>To view a local directory, input its aboslute path:</label>
-              <input ref={(ref) => { this._inputRef = ref; }} type="text" className="form-control" placeholder="haxor99" name="dirname" />
-
-              <button className="btn btn-default" onClick={this.handleLogin}>
-              <span className="icon icon-login"></span>
-              </button>
+              <label>Choose a local directory.</label>
+                <input type="file" webkitdirectory className="form-control" name="dirname"  />
             </div>
           </form>
           </div>
