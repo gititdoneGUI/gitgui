@@ -41,7 +41,7 @@ class LoggedIn extends Component {
 
           <form onSubmit={this.handleSubmit}>
             <div className="form-group">
-              <label>To view a directory, input its aboslute path:</label>
+              <label>To view a local directory, input its aboslute path:</label>
               <input ref={(ref) => { this._inputRef = ref; }} type="text" className="form-control" placeholder="haxor99" name="dirname" />
 
               <button className="btn btn-default" onClick={this.handleLogin}>
@@ -62,7 +62,8 @@ class LoggedIn extends Component {
 //CONTAINER
 const mapState = state => {
   return {
-    repos: state.repos
+    repos: state.repos,
+    user: state.user
   };
 };
 
