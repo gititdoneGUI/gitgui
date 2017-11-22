@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { fetchRepos } from '../actions/repos';
 // import {NavLink} from 'react-router-dom';
 import { fetchHistory } from '../reducers/repo';
-import { getPath } from '../actions/userRepo';
+import { getPath } from '../actions/userPath';
 import { statusCheck } from '../reducers/status';
 import CommitGraph from './CommitGraph';
 import path from 'path';
@@ -35,29 +35,29 @@ class LoggedIn extends Component {
         <div className="home-page-div">
           <h2>Logged in as {this.props.user.username}</h2>
           <div className="home-page-forms">
-          <select className="form-control">
+            <select className="form-control">
               <option>Pick a github repo</option>
-            {this.props.repos &&
+              {this.props.repos &&
               this.props.repos.map((repo, i) => <option key={i}>{repo.name}</option>
               )}
-          </select>
-          <br/>
-          <br />
+            </select>
+            <br/>
+            <br />
 
-          <form onSubmit={this.handleSubmit}>
-            <div className="form-group">
-              <label>Input the aboslute path to your directory.</label>
-              <input ref={(ref) => { this._inputRef = ref; }} type="text" className="form-control" placeholder="haxor99" name="dirname" />
+            <form onSubmit={this.handleSubmit}>
+              <div className="form-group">
+                <label>Input the aboslute path to your directory.</label>
+                <input ref={(ref) => { this._inputRef = ref; }} type="text" className="form-control" placeholder="haxor99" name="dirname" />
 
-              <button className="btn btn-default" onClick={this.handleLogin}>
-              <span className="icon icon-login"></span>
-              </button>
-            </div>
-          </form>
+                <button className="btn btn-default" onClick={this.handleLogin}>
+                  <span className="icon icon-login"></span>
+                </button>
+              </div>
+            </form>
           </div>
           <br />
           <CommitGraph />
-      </div>
+        </div>
       </div>
 
     );

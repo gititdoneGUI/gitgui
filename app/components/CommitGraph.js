@@ -6,6 +6,7 @@ import { commitTest } from '../reducers/commit';
 import { statusCheck } from '../reducers/status';
 import { pull } from '../nodegit/pull';
 
+
 const options = {
   layout: {
     hierarchical: true
@@ -39,6 +40,7 @@ class CommitGraph extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handlePullClick = this.handlePullClick.bind(this);
+
   }
 
   componentDidMount() {
@@ -61,9 +63,19 @@ class CommitGraph extends React.Component {
   }
 
   handlePullClick(event){
+    
     event.preventDefault();
-    pull(this.props.userPath);
+    console.log("im in handlepullclick ")
+    //pull(this.props.userPath);
+  
+    
+    pull(this.props.userPath, event.target.value);
+   
+
+
   }
+
+  
 
   handleChange(event){
     this.setState({commitMessage: event.target.value});
@@ -87,9 +99,18 @@ class CommitGraph extends React.Component {
               </button>
             </form>
           }
-          <button type="button" onClick={this.handlePullClick}>
+         
+          <form >
+            <div className="form-group">
+              <label>Branch to pull from (by default master): </label>
+              <input  type="text" className="form-control" placeholder="haxor99" name= "branch" />
+              <button type="button" onClick={this.handlePullClick}>
                   Pull
-          </button>
+              </button>
+
+            </div>
+          </form>
+
           <p>Node Info</p>
           { ele &&
             <ul>

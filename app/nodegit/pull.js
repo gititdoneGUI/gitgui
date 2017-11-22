@@ -1,23 +1,12 @@
-var nodegit = require('nodegit');
-var repository;
+//const git = require('simple-git')('/Users/sreepriyav/Desktop/seniors/test/dummy');
 
-export const pull = (userPath) =>{
-  console.log("path",userPath);
-  return nodegit.Repository.open(userPath)
-  .then(function(repo) {
-    console.log(repo);
-    repository = repo;
-    return repository.fetchAll();
-  })
-  .then(function(branches){
-    console.log(branches);
-  })
-  // Now that we're finished fetching, go ahead and merge our local branch
-  // with the new one
-  // .then(function() {
-  //   return repository.mergeBranches('master', 'origin/master');
-  // })
-  .done(function() {
-    console.log('Done!');
-  });
+
+ 
+export const pull = (path, branch) =>{
+  console.log("hello");
+  branch? branch : 'master';
+  console.log("branch", branch);
+  require('simple-git')(`${path}`).pull('origin', `${branch}`, {'--no-rebase': null});
+  // git.pull('origin', 'master', {'--no-rebase': null});
+  
 };

@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.17.1",
     "babel-runtime": "^6.22.0",
+    "gitlet": "^0.1.20",
     "history": "^4.6.3",
     "minimist": "^1.2.0",
     "nodegit": "^0.20.3",
@@ -30,7 +31,8 @@
     "redux": "^3.0.0",
     "redux-actions": "^2.2.1",
     "redux-localstorage": "^0.4.1",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "simple-git": "^1.82.0"
   },
   "devDependencies": {
     "babel-cli": "^6.22.2",
