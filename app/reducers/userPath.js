@@ -1,12 +1,11 @@
-import { action } from '../actions/userRepo';
+import { action } from '../actions/userPath';
 
 //REDUCER
-export default function(state = {}, action) {
+export default function (state = '', action) {
   switch (action.type) {
-    case 'GET_REPO':
-      return action.repo;
-
-    default:
-      return state;
+  case 'GET_PATH':
+    return action.path;
+  default:
+    return state;
   }
 }

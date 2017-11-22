@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchRepos } from '../actions/repos';
-// import {NavLink} from 'react-router-dom';
 import { fetchHistory } from '../reducers/repo';
-import { getRepo } from '../actions/userRepo';
-import CommitGraph from './Graph';
+import { getPath } from '../actions/userPath';
+import { statusCheck } from '../reducers/status';
+import CommitGraph from './CommitGraph';
 import Header from './Header';
+import path from 'path';
 
 class LoggedIn extends Component {
   constructor() {
@@ -15,12 +16,14 @@ class LoggedIn extends Component {
 
   componentDidMount() {
     this.props.allRepos(this.props.user.username);
+    this.props.getUserPath(path.resolve(path.join(__dirname, '..', '..')));
   }
 
   handleSubmit(evt) {
     evt.preventDefault();
-    this.props.getUserRepo(evt.target.dirname.value);
+    this.props.getUserPath(evt.target.dirname.value);
     this.props.getRepo(evt.target.dirname.value);
+    this.props.statusCheck(evt.target.dirname.value);
   }
 
   render() {
@@ -74,8 +77,11 @@ const mapDispatch = dispatch => {
     getRepo: name => {
       dispatch(fetchHistory(name));
     },
-    getUserRepo: path =>{
-      dispatch(getRepo(path));
+    getUserPath: path =>{
+      dispatch(getPath(path));
+    },
+    statusCheck: userPath => {
+      dispatch(statusCheck(userPath));
     }
   };
 };

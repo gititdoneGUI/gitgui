@@ -11,22 +11,22 @@ const MAKE_COMMIT = 'MAKE_COMMIT';
 export const makeCommit = commit => ({type: MAKE_COMMIT, commit});
 
 
-export const commitTest = (commitMessage) => (dispatch) => {
-  git.open(path.resolve(__dirname, '../../../juke-react/.git'))
+export const commitTest = (commitMessage, userPath) => (dispatch) => {
+  git.open(userPath)
     .then(function(repo){
     // git commit -am"a new commit"
       return git.commit(repo, {
-        'message': commitMessage 
+        'message': commitMessage
       })
         .then(function(oid){
           console.log(oid.tostrS());
           dispatch(makeCommit(oid.tostrS()));
           dispatch(emptyStatus());
-          dispatch(fetchHistory());
+          dispatch(fetchHistory(userPath));
         });
     });
 };
-  
+
 export default function reducer (state = [], action){
   switch (action.type){
   case MAKE_COMMIT:
