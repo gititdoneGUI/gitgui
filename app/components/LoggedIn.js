@@ -28,10 +28,10 @@ class LoggedIn extends Component {
       <div>
         <Header />
         <div className="home-page-div">
-          <h2>Logged in as {this.props.user.username}</h2>
+          <p>Logged in as <b>{this.props.user.username}</b></p>
           <div className="home-page-forms">
           <select className="form-control">
-              <option>Pick a github repo</option>
+              <option>Pick a github repo...</option>
             {this.props.repos &&
               this.props.repos.map((repo, i) => <option key={i}>{repo.name}</option>
               )}
@@ -41,7 +41,7 @@ class LoggedIn extends Component {
 
           <form onSubmit={this.handleSubmit}>
             <div className="form-group">
-              <label>Input the aboslute path to your directory.</label>
+              <label>To view a directory, input its aboslute path:</label>
               <input ref={(ref) => { this._inputRef = ref; }} type="text" className="form-control" placeholder="haxor99" name="dirname" />
 
               <button className="btn btn-default" onClick={this.handleLogin}>

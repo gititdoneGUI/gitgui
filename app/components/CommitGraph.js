@@ -16,13 +16,13 @@ const options = {
 
 const mapState = ({ repo, status, commit }) => ({ repo, status, commit });
 const mapDispatch = (dispatch) => {
-  return { 
+  return {
     fetchHistory: () =>
       dispatch(fetchHistory()),
-    statusCheck: (rootDir) => 
+    statusCheck: (rootDir) =>
       dispatch(statusCheck(rootDir)),
-    commitTest: (commitMessage) => 
-      dispatch(commitTest(commitMessage)) 
+    commitTest: (commitMessage) =>
+      dispatch(commitTest(commitMessage))
   };
 };
 
@@ -46,7 +46,7 @@ class CommitGraph extends React.Component {
 
   // componentDidMount(){
   //   this.props.statusCheck();
-  //   this.props.fetchHistory();         
+  //   this.props.fetchHistory();
   // } //fetchHistory deal?
 
   events = {
@@ -60,7 +60,7 @@ class CommitGraph extends React.Component {
     if (this.props.status) {
       console.log(this.state.commitMessage);
       this.props.commitTest(this.state.commitMessage);
-    } 
+    }
   }
 
   handleChange(event){
@@ -74,25 +74,21 @@ class CommitGraph extends React.Component {
 
     return (
       <div>
-        <h1>React graph vis</h1>
-
         <div>
-
           {
-            (this.props.status.length !== 0) && <form onSubmit={this.handleClick}> 
+            (this.props.status.length !== 0) && <form onSubmit={this.handleClick}>
               <input value={this.state.commitMessage} onChange={this.handleChange} ></input>
               <button type="button" disabled={this.props.status.length === 0}>
-                  Commit 
+                  Commit
               </button>
             </form>
           }
-    
-          <p>Node Info</p>
           { ele &&
             <ul>
-              <li> sha: { ele.id}</li>
-              <li> message: {ele.label}</li>
-              <li> DateTime: {ele.title.toString()}</li>
+              <li>Info:</li>
+              <li> commit sha: { ele.id}</li>
+              <li> commit message: {ele.label}</li>
+              <li> time of commit: {ele.title.toString()}</li>
             </ul>
           }
         </div>
