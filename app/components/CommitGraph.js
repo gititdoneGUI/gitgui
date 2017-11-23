@@ -7,6 +7,7 @@ import { statusCheck } from '../reducers/status';
 import { pull } from '../nodegit/pull';
 import { fetch } from '../nodegit/fetch';
 import { stash } from '../nodegit/stash';
+import { clone } from '../nodegit/clone';
 
 const options = {
   layout: {
@@ -32,6 +33,7 @@ class CommitGraph extends React.Component {
     this.handlePullClick = this.handlePullClick.bind(this);
     this.handleFetchClick = this.handleFetchClick.bind(this);
     this.handleStashClick = this.handleStashClick.bind(this);
+    this.handleCloneClick = this.handleCloneClick.bind(this);
   }
 
   componentDidMount() {
@@ -64,6 +66,10 @@ class CommitGraph extends React.Component {
   handleStashClick(event) {
     event.preventDefault();
     stash(this.props.userPath);
+  }
+  handleCloneClick(event) {
+    event.preventDefault();
+    clone(event.target.cloneinto.value, event.target.clonefrom.value);
   }
 
   handleChange(event) {
@@ -102,6 +108,25 @@ class CommitGraph extends React.Component {
             <button onClick={this.handlePullClick}>Pull</button>
             <button onClick={this.handleFetchClick}>fetch</button>
           </form>
+
+          <form  className="form-group"  onSubmit={this.handleCloneClick}>
+            <label>Clone into (Local Repo): </label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="haxor99"
+              name="cloneinto"
+            />
+            <label>Clone from (Remote Repo): </label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="haxor99"
+              name="clonefrom"
+            />
+            <button>Clone</button>
+          </form>
+
 
           <button onClick={this.handleStashClick}>Stash</button>
 
