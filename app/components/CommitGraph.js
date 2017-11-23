@@ -6,7 +6,6 @@ import { commitTest } from '../reducers/commit';
 import { statusCheck } from '../reducers/status';
 import { pull } from '../nodegit/pull';
 
-
 const options = {
   layout: {
     hierarchical: true
@@ -16,15 +15,18 @@ const options = {
   }
 };
 
-const mapState = ({ repo, status, commit, userPath }) => ({ repo, status, commit, userPath });
-const mapDispatch = (dispatch) => {
+const mapState = ({ repo, status, commit, userPath }) => ({
+  repo,
+  status,
+  commit,
+  userPath
+});
+const mapDispatch = dispatch => {
   return {
-    fetchHistory: () =>
-      dispatch(fetchHistory()),
-    statusCheck: (rootDir) =>
-      dispatch(statusCheck(rootDir)),
+    fetchHistory: () => dispatch(fetchHistory()),
+    statusCheck: rootDir => dispatch(statusCheck(rootDir)),
     commitTest: (commitMessage, userPath) =>
-      dispatch(commitTest(commitMessage, userPath)),
+      dispatch(commitTest(commitMessage, userPath))
   };
 };
 
@@ -40,7 +42,6 @@ class CommitGraph extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handlePullClick = this.handlePullClick.bind(this);
-
   }
 
   componentDidMount() {
@@ -62,23 +63,14 @@ class CommitGraph extends React.Component {
     this.props.commitTest(this.state.commitMessage, this.props.userPath);
   }
 
-  handlePullClick(event){
-    
+  handlePullClick(event) {
     event.preventDefault();
-    console.log("im in handlepullclick ")
-    //pull(this.props.userPath);
-  
-    
-    pull(this.props.userPath, event.target.value);
-   
 
-
+    pull(this.props.userPath, event.target.branch.value);
   }
 
-  
-
-  handleChange(event){
-    this.setState({commitMessage: event.target.value});
+  handleChange(event) {
+    this.setState({ commitMessage: event.target.value });
   }
 
   render() {
@@ -90,35 +82,37 @@ class CommitGraph extends React.Component {
         <h1>React graph vis</h1>
 
         <div>
-
-          {
-            (this.props.status.length !== 0) && <form>
-              <input value={this.state.commitMessage} onChange={this.handleChange} ></input>
+          {this.props.status.length !== 0 && (
+            <form>
+              <input
+                value={this.state.commitMessage}
+                onChange={this.handleChange}
+              />
               <button type="button" onClick={this.handleClick}>
-                  Commit
+                Commit
               </button>
             </form>
-          }
-         
-          <form >
-            <div className="form-group">
-              <label>Branch to pull from (by default master): </label>
-              <input  type="text" className="form-control" placeholder="haxor99" name= "branch" />
-              <button type="button" onClick={this.handlePullClick}>
-                  Pull
-              </button>
+          )}
 
-            </div>
+          <form onSubmit={this.handlePullClick} className="form-group">
+            <label>Branch to pull from : </label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="haxor99"
+              name="branch"
+            />
+            <button>Pull</button>
           </form>
 
           <p>Node Info</p>
-          { ele &&
+          {ele && (
             <ul>
-              <li> sha: { ele.id}</li>
+              <li> sha: {ele.id}</li>
               <li> message: {ele.label}</li>
               <li> DateTime: {ele.title.toString()}</li>
             </ul>
-          }
+          )}
         </div>
         <Graph
           graph={this.props.repo}
