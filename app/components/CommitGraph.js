@@ -6,6 +6,7 @@ import { commitTest } from '../reducers/commit';
 import { statusCheck } from '../reducers/status';
 import { pull } from '../nodegit/pull';
 import { fetch } from '../nodegit/fetch';
+import { stash } from '../nodegit/stash';
 
 const options = {
   layout: {
@@ -30,6 +31,7 @@ class CommitGraph extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handlePullClick = this.handlePullClick.bind(this);
     this.handleFetchClick = this.handleFetchClick.bind(this);
+    this.handleStashClick = this.handleStashClick.bind(this);
   }
 
   componentDidMount() {
@@ -59,6 +61,10 @@ class CommitGraph extends React.Component {
     event.preventDefault();
     fetch(this.props.userPath, event.target.value);
   }
+  handleStashClick(event) {
+    event.preventDefault();
+    stash(this.props.userPath);
+  }
 
   handleChange(event) {
     this.setState({ commitMessage: event.target.value });
@@ -86,7 +92,7 @@ class CommitGraph extends React.Component {
           )}
 
           <form  className="form-group">
-            <label>Branch to pull from : </label>
+            <label>Branch to pull/fetch from : </label>
             <input
               type="text"
               className="form-control"
@@ -96,6 +102,8 @@ class CommitGraph extends React.Component {
             <button onClick={this.handlePullClick}>Pull</button>
             <button onClick={this.handleFetchClick}>fetch</button>
           </form>
+
+          <button onClick={this.handleStashClick}>Stash</button>
 
           <p>Node Info</p>
           {ele && (
