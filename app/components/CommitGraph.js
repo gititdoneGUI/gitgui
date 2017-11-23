@@ -5,6 +5,7 @@ import React from 'react';
 import { commitTest } from '../reducers/commit';
 import { statusCheck } from '../reducers/status';
 import { pull } from '../nodegit/pull';
+import { fetch } from '../nodegit/fetch';
 
 const options = {
   layout: {
@@ -15,20 +16,6 @@ const options = {
   }
 };
 
-const mapState = ({ repo, status, commit, userPath }) => ({
-  repo,
-  status,
-  commit,
-  userPath
-});
-const mapDispatch = dispatch => {
-  return {
-    fetchHistory: () => dispatch(fetchHistory()),
-    statusCheck: rootDir => dispatch(statusCheck(rootDir)),
-    commitTest: (commitMessage, userPath) =>
-      dispatch(commitTest(commitMessage, userPath))
-  };
-};
 
 class CommitGraph extends React.Component {
   constructor(props) {
@@ -42,6 +29,7 @@ class CommitGraph extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handlePullClick = this.handlePullClick.bind(this);
+    this.handleFetchClick = this.handleFetchClick.bind(this);
   }
 
   componentDidMount() {
@@ -65,8 +53,11 @@ class CommitGraph extends React.Component {
 
   handlePullClick(event) {
     event.preventDefault();
-
-    pull(this.props.userPath, event.target.branch.value);
+    pull(this.props.userPath, event.target.value);
+  }
+  handleFetchClick(event) {
+    event.preventDefault();
+    fetch(this.props.userPath, event.target.value);
   }
 
   handleChange(event) {
@@ -94,7 +85,7 @@ class CommitGraph extends React.Component {
             </form>
           )}
 
-          <form onSubmit={this.handlePullClick} className="form-group">
+          <form  className="form-group">
             <label>Branch to pull from : </label>
             <input
               type="text"
@@ -102,7 +93,8 @@ class CommitGraph extends React.Component {
               placeholder="haxor99"
               name="branch"
             />
-            <button>Pull</button>
+            <button onClick={this.handlePullClick}>Pull</button>
+            <button onClick={this.handleFetchClick}>fetch</button>
           </form>
 
           <p>Node Info</p>
@@ -124,5 +116,21 @@ class CommitGraph extends React.Component {
     );
   }
 }
+
+
+const mapState = ({ repo, status, commit, userPath }) => ({
+  repo,
+  status,
+  commit,
+  userPath
+});
+const mapDispatch = dispatch => {
+  return {
+    fetchHistory: () => dispatch(fetchHistory()),
+    statusCheck: rootDir => dispatch(statusCheck(rootDir)),
+    commitTest: (commitMessage, userPath) =>
+      dispatch(commitTest(commitMessage, userPath))
+  };
+};
 
 export default connect(mapState, mapDispatch)(CommitGraph);
