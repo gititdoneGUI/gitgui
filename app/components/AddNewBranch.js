@@ -4,8 +4,8 @@ import { fetchHistory } from '../reducers/repo';
 import React from 'react';
 import { commitTest } from '../reducers/commit';
 import { statusCheck } from '../reducers/status';
-import  {checkout, checkoutBranch, checkoutLocalBranch} from '../reducers/checkout';
-import  {deleteLocalBranch} from '../reducers/deleteBranch';
+import {checkout, checkoutBranch, checkoutLocalBranch, deleteLocalBranch} from '../reducers/branches';
+
 
 
 const options = {
@@ -17,7 +17,7 @@ const options = {
   }
 };
 
-const mapState = ({ repo, status, commit, userPath }) => ({ repo, status, commit, userPath });
+const mapState = ({ repo, status, commit, userPath, branch }) => ({ repo, status, commit, userPath, branch});
 const mapDispatch = (dispatch) => {
   return {
     fetchHistory: () =>
@@ -25,11 +25,17 @@ const mapDispatch = (dispatch) => {
     statusCheck: (rootDir) =>
       dispatch(statusCheck(rootDir)),
     commitTest: (commitMessage, userPath) =>
-      dispatch(commitTest(commitMessage, userPath))
+      dispatch(commitTest(commitMessage, userPath)),
+    checkoutBranch: (path, branchName, startPoint) => 
+      dispatch(checkoutBranch(path, branchName, startPoint)),
+    checkoutLocalBranch: (path, branchName) =>
+      dispatch(checkoutLocalBranch(path, branchName)),
+    deleteLocalBranch: (path, branchName) =>
+      dispatch(deleteLocalBranch(path, branchName))
   };
 };
 
-class CommitGraph extends React.Component {
+class NewBranch extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -66,30 +72,11 @@ class CommitGraph extends React.Component {
   }
 
   render() {
-    const ele = this.state.nodes[0]
-      ? this.props.repo.nodes.filter(node => node.id == this.state.nodes[0])[0]
-      : null;
-
     return (
       <div>
-        <div>
-          {
-            (this.props.status.length !== 0) && <form onSubmit={this.handleClick}>
-              <input value={this.state.commitMessage} onChange={this.handleChange} ></input>
-              <button type="submit">
-                  Commit
-              </button>
-            </form>
-          }
-          { ele &&
-            <ul>
-              <li>Info:</li>
-              <li> commit sha: { ele.id}</li>
-              <li> commit message: {ele.label}</li>
-              <li> time of commit: {ele.title.toString()}</li>
-            </ul>
-          }
-        </div>
+          <button> Checkout </button>
+          <button type='submit'> Branch </button>
+
         <Graph
           graph={this.props.repo}
           options={options}
@@ -101,4 +88,4 @@ class CommitGraph extends React.Component {
   }
 }
 
-export default connect(mapState, mapDispatch)(CommitGraph);
+export default connect(mapState, mapDispatch)(NewBranch);
