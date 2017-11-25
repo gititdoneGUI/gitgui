@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchRepos } from '../actions/repos';
-// import {NavLink} from 'react-router-dom';
 import { fetchHistory } from '../reducers/repo';
 import { getPath } from '../actions/userPath';
 import { statusCheck } from '../reducers/status';
 import CommitGraph from './CommitGraph';
 import path from 'path';
 import Header from './Header';
+
 
 class LoggedIn extends Component {
   constructor() {
@@ -17,13 +17,13 @@ class LoggedIn extends Component {
 
   componentDidMount() {
     this.props.allRepos(this.props.user.username);
-    this.props.getUserRepo(path.resolve(path.join(__dirname, '..','..')));
+    this.props.getUserPath(path.resolve(path.join(__dirname, '..','..')));
     // this.props.statusCheck(this.props.userPath);
   }
 
   handleSubmit(evt) {
     evt.preventDefault();
-    this.props.getUserRepo(evt.target.dirname.value);
+    this.props.getUserPath(evt.target.dirname.value);
     this.props.getRepo(evt.target.dirname.value);
     // this.props.statusCheck(evt.target.dirname.value);
   }
@@ -33,7 +33,7 @@ class LoggedIn extends Component {
       <div>
         <Header />
         <div className="home-page-div">
-          <h2>Logged in as {this.props.user.username}</h2>
+          <p>Logged in as <b>{this.props.user.username}</b></p>
           <div className="home-page-forms">
             <select className="form-control">
               <option>Pick a github repo</option>
@@ -75,7 +75,7 @@ const mapDispatch = dispatch => {
     getRepo: name => {
       dispatch(fetchHistory(name));
     },
-    getUserRepo: path =>{
+    getUserPath: path =>{
       dispatch(getPath(path));
     },
     statusCheck: (rootDir) =>

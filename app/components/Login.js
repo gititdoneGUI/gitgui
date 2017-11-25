@@ -22,6 +22,13 @@ export default class Login extends Component {
     });
   }
 
+  handleGuestLogin = () => {
+    this.props.onLogin({
+      username: 'Guest',
+      loggedIn: true
+    });
+  }
+
   render() {
     return (
       <div className="login-div">
@@ -33,13 +40,13 @@ export default class Login extends Component {
             <input ref={(ref) => { this._inputRef = ref; }} type="text" className="form-control" placeholder="haxor99"/>
 
             <button className="btn btn-default" onClick={this.handleLogin}>
-            <span className="icon icon-login"></span>
+              <span className="icon icon-login"></span>
             </button>
           </div>
         </form>
         <h3>OR</h3>
         <br />
-        <button className="btn btn-default">
+        <button className="btn btn-default" onClick={this.handleGuestLogin}>
           Continue as guest
         </button>
 

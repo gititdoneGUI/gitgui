@@ -79,8 +79,6 @@ class CommitGraph extends React.Component {
       : null;
     return (
       <div>
-        <h1>React graph vis</h1>
-
         <div>
           {this.props.status.length !== 0 && (
             <form>

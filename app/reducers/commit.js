@@ -22,7 +22,7 @@ export const commitTest = (commitMessage, userPath) => (dispatch) => {
           console.log(oid.tostrS());
           dispatch(makeCommit(oid.tostrS()));
           dispatch(emptyStatus());
-          dispatch(fetchHistory());
+          dispatch(fetchHistory(userPath));
         });
     });
 };
