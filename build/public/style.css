@@ -7,13 +7,38 @@
   margin-right: 10px;
 }
 
-.home-page-div {
-  padding: 20px
-}
-
 .home-page-forms{
+    padding: 20px;
     width: 20em;
     margin-right: 10px;
 }
 
+/* div.pane-sm.sidebar{
+  width: 50em;
+} */
 
+input.form-control{
+  padding-left: 5px;
+}
+
+.select-files-group{
+  width: 90%;
+  display: flex;
+
+}
+
+.select-files-group > .form-actions{
+  display: flex;
+  width: 1em;
+  display: flex-inline;
+  align-items: center
+}
+
+.form-actions > *{
+  padding: 0px, 0px, 0px,0px;
+  margin-left: 13px;
+}
+
+.git-methods > * {
+  margin: 7px 7px 7px 0px;
+}

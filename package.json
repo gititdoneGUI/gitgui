@@ -12,6 +12,8 @@
   "dependencies": {
     "axios": "^0.17.1",
     "babel-runtime": "^6.22.0",
+    "formsy-react": "^1.0.0",
+    "formsy-react-components": "^1.0.0-beta.2",
     "history": "^4.6.3",
     "minimist": "^1.2.0",
     "nodegit": "^0.20.3",

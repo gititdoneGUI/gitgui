@@ -11,7 +11,10 @@ const options = {
   },
   edges: {
     color: '#000000'
-  }
+  },
+  autoResize: true,
+  height: '100%',
+  width: '100%'
 };
 
 const mapState = ({ repo, status, commit }) => ({ repo, status, commit });
@@ -44,11 +47,6 @@ class CommitGraph extends React.Component {
     this.props.fetchHistory(this.props.root);
   }
 
-  // componentDidMount(){
-  //   this.props.statusCheck();
-  //   this.props.fetchHistory();
-  // } //fetchHistory deal?
-
   events = {
     select: function(event) {
       var { nodes, edges } = event;
@@ -73,15 +71,13 @@ class CommitGraph extends React.Component {
       : null;
 
     return (
-      <div>
+      <div className="graph-container">
         <div>
           {
-            (this.props.status.length !== 0) && <form onSubmit={this.handleClick}>
+            (this.props.status.length !== 0) ? <form onSubmit={this.handleClick}>
               <input value={this.state.commitMessage} onChange={this.handleChange} ></input>
-              <button type="button" disabled={this.props.status.length === 0}>
-                  Commit
-              </button>
-            </form>
+              <button type="button" disabled={this.props.status.length === 0}>Commit</button>
+            </form> : <div>Nothing to commit yet.</div>
           }
           { ele &&
             <ul>
@@ -96,7 +92,7 @@ class CommitGraph extends React.Component {
           graph={this.props.repo}
           options={options}
           events={this.events}
-          style={{ height: '640px' }}
+          style={{ height: '100%', width: '100%' }}
         />
       </div>
     );
