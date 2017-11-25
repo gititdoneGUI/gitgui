@@ -19,6 +19,7 @@
     "nodegit-kit": "^0.17.0",
     "passport-github": "^1.1.0",
     "path": "^0.12.7",
+    "promise": "^8.0.1",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-d3-tree": "^1.6.0",
