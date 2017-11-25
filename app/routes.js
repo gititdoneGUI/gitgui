@@ -3,8 +3,8 @@ import { Switch, Route } from 'react-router';
 // import Data from './components/Data';
 import LoginPage from './containers/LoginPage';
 import LoggedInPage from './containers/LoggedInPage';
-import CommitGraph from './components/Graph';
-import * as qs from 'querystring';
+// import CommitGraph from './components/Graph';
+// import * as qs from 'querystring';
 
 export default (
   <div>
