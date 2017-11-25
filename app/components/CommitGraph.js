@@ -17,15 +17,15 @@ const options = {
   width: '100%'
 };
 
-const mapState = ({ repo, status, commit }) => ({ repo, status, commit });
+const mapState = ({ repo, status, commit, userPath }) => ({ repo, status, commit, userPath });
 const mapDispatch = (dispatch) => {
   return {
     fetchHistory: () =>
       dispatch(fetchHistory()),
     statusCheck: (rootDir) =>
       dispatch(statusCheck(rootDir)),
-    commitTest: (commitMessage) =>
-      dispatch(commitTest(commitMessage))
+    commitTest: (commitMessage, userPath) =>
+      dispatch(commitTest(commitMessage, userPath))
   };
 };
 
@@ -43,8 +43,9 @@ class CommitGraph extends React.Component {
   }
 
   componentDidMount() {
-    this.props.statusCheck(this.props.root);
-    this.props.fetchHistory(this.props.root);
+    console.log('COMPONENT DID MOUNT', this.props.userPath);
+    this.props.fetchHistory(this.props.userPath);
+    this.props.statusCheck(this.props.userPath);
   }
 
   events = {
@@ -54,11 +55,10 @@ class CommitGraph extends React.Component {
     }
   };
 
-  handleClick() {
-    if (this.props.status) {
-      console.log(this.state.commitMessage);
-      this.props.commitTest(this.state.commitMessage);
-    }
+  handleClick(event) {
+    event.preventDefault();
+    console.log(this.state.commitMessage);
+    this.props.commitTest(this.state.commitMessage, this.props.userPath);
   }
 
   handleChange(event){
@@ -76,8 +76,10 @@ class CommitGraph extends React.Component {
           {
             (this.props.status.length !== 0) ? <form onSubmit={this.handleClick}>
               <input value={this.state.commitMessage} onChange={this.handleChange} ></input>
-              <button type="button" disabled={this.props.status.length === 0}>Commit</button>
-            </form> : <div>Nothing to commit yet.</div>
+              <button type="submit">
+                  Commit
+              </button>
+            </form>
           }
           { ele &&
             <ul>

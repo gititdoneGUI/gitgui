@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchRepos } from '../actions/repos';
-// import {NavLink} from 'react-router-dom';
 import { fetchHistory } from '../reducers/repo';
-import { getRepo } from '../actions/userRepo';
-import CommitGraph from './Graph';
+import { getPath } from '../actions/userPath';
+import { statusCheck } from '../reducers/status';
+import CommitGraph from './CommitGraph';
 import Header from './Header';
+<<<<<<< HEAD
 // import Formsy, {withFormsy} from 'formsy-react';
 // import { Form, File } from 'formsy-react-components';
 
+=======
+import path from 'path';
+>>>>>>> origin/master
 
 class LoggedIn extends Component {
   constructor() {
@@ -18,29 +22,15 @@ class LoggedIn extends Component {
 
   componentDidMount() {
     this.props.allRepos(this.props.user.username);
+    this.props.getUserPath(path.resolve(path.join(__dirname, '..', '..')));
+    // change back to using root
   }
 
   handleSubmit(evt) {
     evt.preventDefault();
-    let filePath = evt.target.files.value;
-    console.log('this is the directory evt', evt);
-    console.log(evt.target.files.value);
-
-    if (filePath.substr(0, 12) === 'C:\\fakepath\\')
-      filePath = filePath.substr(12); // modern browser
-
-    let x;
-    x = filePath.lastIndexOf('/');
-    if (x >= 0) // Unix-based filePath
-      filePath= evt.target.value.substr(x + 1);
-
-    x = filePath.lastIndexOf('\\');
-    if (x >= 0) // Windows-based filePath
-      filePath = filePath.substr(x + 1);
-
-    // return filePath; // just the file name
-    this.props.getUserRepo(filePath);
-    this.props.getRepo(filePath);
+    this.props.getUserPath(evt.target.dirname.value);
+    this.props.getRepo(evt.target.dirname.value);
+    this.props.statusCheck(evt.target.dirname.value);
   }
 
   render() {
@@ -154,8 +144,11 @@ const mapDispatch = dispatch => {
     getRepo: name => {
       dispatch(fetchHistory(name));
     },
-    getUserRepo: path =>{
-      dispatch(getRepo(path));
+    getUserPath: path =>{
+      dispatch(getPath(path));
+    },
+    statusCheck: userPath => {
+      dispatch(statusCheck(userPath));
     }
   };
 };
