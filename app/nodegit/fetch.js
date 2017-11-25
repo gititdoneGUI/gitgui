@@ -1,6 +1,7 @@
 export const fetch = (path, branch) =>{
-  require('simple-git')(`${path}`).fetch('origin', `${branch}`, ()=>{
-    console.log('finished fetching ');
-  });
+  
+  require('simple-git/promise')(`${path}`).fetch('origin', `${branch}`)
+    .then(()=> console.log('Fetching Successfully Completed '))
+    .catch((err) => console.log('An Error Occurred: ',err));
 
 };
