@@ -38,10 +38,6 @@ class Clone extends Component {
 
   render() {
     return (
-<<<<<<< HEAD
-=======
-
->>>>>>> f8ca1f110a7d518fd9fbe0b9b4789d68b8862e2a
       <div>
         { !this.state.clicked && <button className="btn btn-large btn-primary" onClick={this.handleUserRes}>
           <span className="icon icon-down-circled icon-text"></span>

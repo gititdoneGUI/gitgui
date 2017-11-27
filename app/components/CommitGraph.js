@@ -4,13 +4,7 @@ import { fetchHistory } from '../reducers/repo';
 import React from 'react';
 // import { commitTest } from '../reducers/commit';
 import { statusCheck } from '../reducers/status';
-<<<<<<< HEAD
-// import  {checkout, checkoutBranch, checkoutLocalBranch} from '../reducers/checkout';
-// import  {deleteLocalBranch} from '../reducers/deleteBranch';
-
-=======
 import chokidar from 'chokidar';
->>>>>>> f8ca1f110a7d518fd9fbe0b9b4789d68b8862e2a
 
 const options = {
   layout: {
