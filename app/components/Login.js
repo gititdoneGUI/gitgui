@@ -3,18 +3,15 @@ import PropTypes from 'prop-types';
 
 
 export default class Login extends Component {
-
   constructor(){
     super();
   }
-
 
   static propTypes = {
     onLogin: PropTypes.func.isRequired
   };
 
   _inputRef: null;
-
 
   handleLogin = () => {
     this.props.onLogin({

@@ -1,7 +1,7 @@
 import path from 'path';
 import url from 'url';
 import axios from 'axios';
-import {app, crashReporter, BrowserWindow, Menu} from 'electron';
+import {app, crashReporter, BrowserWindow, Menu, dialog} from 'electron';
 import {gitRoot} from './gitutil';
 
 const isDevelopment = (process.env.NODE_ENV === 'development');
@@ -56,7 +56,7 @@ app.on('ready', async () => {
   });
 
   const root = await gitRoot(requestedPath);
-  console.log('Root git repo specified at command line:', root)
+  console.log('Root git repo specified at command line:', root);
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
     protocol: 'file:',
@@ -117,53 +117,68 @@ app.on('ready', async () => {
 
 
 /**************************THIS IS ALL THE GITHUB AUTH*******************************/
+const OauthGithub = require('electron-oauth-github');
 
-const options = {
-  client_id: '396886cb334c10fa05cc',
-  client_secret: '2ab56980ab768bb021baf2d361ebfa84c1768632',
-  scope: ['user', 'repo']
-};
-
-app.on('ready', () => {
-  const authWindow = new BrowserWindow({ width: 800, height: 800, show: false, 'node-integration': false });
-  let githubUrl = 'https://github.com/login/oauth/authorize?';
-  let authUrl = githubUrl + 'client_id=' + options.client_id + '&scope=' + options.scopes;
-  authWindow.loadURL(authUrl);
-  authWindow.show();
-
-  function handleCallback(url) {
-    const raw_code = /code=([^&]*)/.exec(url) || null;
-    const code = (raw_code && raw_code.length > 1) ? raw_code[1] : null;
-    const error = /\?error=(.+)$/.exec(url);
-
-    if (code || error) {
-      authWindow.destroy();
-    }
-    if (code) {
-      console.log('IM GETTING HERE');
-      axios.post('https://github.com/login/oauth/access_token', {
-        client_id: options.client_id,
-        client_secret: options.client_secret,
-        code: code
-      })
-        .then((err, response) => {
-          if (response && response.ok) {
-            console.log('this sohuld be the token', response.body.access_token);
-          } else{
-            console.log(err);
-          }
-        });
-    } else if (error) {
-      alert('Oops! Something went wrong and we couldn\'t' +
-        'log you in using Github. Please try again.');
-    }
-  }
-
-  authWindow.webContents.on('will-navigate', (event, url) => {
-    handleCallback(url);
-  });
-
-  authWindow.webContents.on('did-get-redirect-request', (event, oldUrl, newUrl) => {
-    handleCallback(newUrl);
-  });
+const github = new OauthGithub({
+  id: '396886cb334c10fa05cc',
+  secret: '2ab56980ab768bb021baf2d361ebfa84c1768632',
+  scopes: ['user', 'repo']
 });
+
+github.startRequest((access_token, err) => {
+  if(err){
+    console.error(err);
+  }
+  dialog.showOpenDialog();
+  console.log('GIT ACCESS TOKEN:', access_token);
+});
+
+// const options = {
+//   client_id: '396886cb334c10fa05cc',
+//   client_secret: '2ab56980ab768bb021baf2d361ebfa84c1768632',
+//   scope: ['user', 'repo']
+// };
+
+// app.on('ready', () => {
+//   const authWindow = new BrowserWindow({ width: 800, height: 800, show: true, 'node-integration': false });
+//   let githubUrl = 'https://github.com/login/oauth/authorize?';
+//   let authUrl = githubUrl + 'client_id=' + options.client_id + '&scope=' + options.scopes;
+//   authWindow.loadURL(authUrl);
+//   authWindow.show();
+
+//   function handleCallback(url) {
+//     const raw_code = /code=([^&]*)/.exec(url) || null;
+//     const code = (raw_code && raw_code.length > 1) ? raw_code[1] : null;
+//     const error = /\?error=(.+)$/.exec(url);
+
+//     if (code || error) {
+//       authWindow.destroy();
+//     }
+//     if (code) {
+//       console.log('IM GETTING HERE');
+//       axios.post('https://github.com/login/oauth/access_token', {
+//         client_id: options.client_id,
+//         client_secret: options.client_secret,
+//         code: code
+//       })
+//         .then((err, response) => {
+//           if (response) {
+//             console.log('this sohuld be the token', response.body.access_token);
+//           } else{
+//             console.log('There has been an error', err);
+//           }
+//         });
+//     } else if (error) {
+//       alert('Oops! Something went wrong and we couldn\'t' +
+//         'log you in using Github. Please try again.');
+//     }
+//   }
+
+//   authWindow.webContents.on('will-navigate', (event, url) => {
+//     handleCallback(url);
+//   });
+
+//   authWindow.webContents.on('did-get-redirect-request', (event, oldUrl, newUrl) => {
+//     handleCallback(newUrl);
+//   });
+// });
