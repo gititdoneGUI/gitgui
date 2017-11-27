@@ -36,11 +36,7 @@
     "redux-actions": "^2.2.1",
     "redux-localstorage": "^0.4.1",
     "redux-thunk": "^2.2.0",
-<<<<<<< HEAD
-    "smalltalk": "^2.5.1"
-=======
     "simple-git": "^1.82.0"
->>>>>>> 47f3aeb4b8a2586b528607bc6656550717f7b81d
   },
   "devDependencies": {
     "babel-cli": "^6.22.2",

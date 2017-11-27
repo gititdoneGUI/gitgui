@@ -6,7 +6,7 @@ import { commitTest } from '../reducers/commit';
 import { statusCheck } from '../reducers/status';
 import {checkout, checkoutBranch, checkoutLocalBranch, deleteLocalBranch} from '../reducers/branches';
 
-
+//this is a test component!!
 
 const options = {
   layout: {
