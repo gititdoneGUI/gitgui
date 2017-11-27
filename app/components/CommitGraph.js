@@ -21,7 +21,7 @@ const options = {
     }
   },
   height: '1000px',
-  width: '700px',
+  width: '1000px',
   edges: {
     color: '#000000',
     width: 5,
@@ -98,7 +98,6 @@ class CommitGraph extends React.Component {
           graph={this.props.repo}
           options={options}
           events={this.events}
-          style={{height: '100%'}}
         />
       </div>
     );
