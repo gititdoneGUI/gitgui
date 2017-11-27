@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { commitTest } from '../reducers/commit';
-import { statusCheck } from '../reducers/status';
+import Commit from './Commit';
+import Branch from './Branch';
+import Clone from './Clone';
+import Fetch from './Fetch';
+import Merge from './Merge';
+import Pull from './Pull';
+import Push from './Push';
+import Stash from './Stash';
 
-class GitButtons extends Component{
+
+export default class GitButtons extends Component{
   constructor(){
     super();
     this.state = {
@@ -16,7 +22,7 @@ class GitButtons extends Component{
   handleClick(event) {
     event.preventDefault();
     console.log(this.state.commitMessage);
-    this.props.commitTest(this.state.commitMessage, this.props.userPath);
+    this.props.commit(this.state.commitMessage, this.props.userPath);
   }
 
   handleChange(event) {
@@ -26,75 +32,25 @@ class GitButtons extends Component{
   render(){
     return(
       <div className="git-methods">
-      {/*LOGIC FOR COMMIT BUTTON--ALSO IN MAP STATE AND DISPATCH*/}
-        {
-          (this.props.status.length !== 0) ?
-          (<form onSubmit={this.handleClick}>
-            <input value={this.state.commitMessage} onChange={this.handleChange} ></input>
-            <button className="btn btn-large btn-primary">
-              <span className="icon icon-list-add icon-text"></span>
-              Commit
-            </button>
-          </form>)
-          :
-          (<button className="btn btn-large btn-default" disabled={true}>
-              <span className="icon icon-list-add icon-text"></span>
-              Nothing to Commit
-          </button>)
-        }
+        <Commit />
         <br />
-        <button className="btn btn-large btn-primary">
-          <span className="icon icon-down-circled icon-text"></span>
-          Pull
-        </button>
+        <Pull />
         <br />
-
-        <button className="btn btn-large btn-primary">
-          <span className="icon icon-up-circled icon-text"></span>
-          Push
-        </button>
+        <Push />
         <br />
-
-        <button className="btn btn-large btn-primary">
-          <span className="icon icon-right-circled icon-text"></span>
-          Fetch
-        </button>
+        <Fetch />
         <br />
-
-        <button className="btn btn-large btn-primary active">
-          <span className="icon icon-flow-branch icon-text"></span>
-          Branch
-        </button>
+        <Branch />
         <br />
-
-        <button className="btn btn-large btn-primary">
-          <span className="icon icon-switch icon-text"></span>
-          Merge
-        </button>
+        <Merge />
         <br />
-
-        <button className="btn btn-large btn-primary">
-          <span className="icon icon-trash icon-text"></span>
-          Stash
-        </button>
+        <Stash />
+        <br />
+        <Clone />
       </div>
     );
   }
 }
 
-/*MOVED ALL LOGIC OVER  FROM COMMIT GRAPH, DONT THINK WE NEED EVERYTHING*/
-
-const mapState = ({ repo, status, commit, userPath }) => ({ repo, status, commit, userPath });
-
-const mapDispatch = (dispatch) => {
-  return {
-    statusCheck: (rootDir) =>
-      dispatch(statusCheck(rootDir)),
-    commitTest: (commitMessage, userPath) =>
-      dispatch(commitTest(commitMessage, userPath))
-  };
-};
-
-
-export default connect(mapState, mapDispatch)(GitButtons);
+// export default connect(null)(GitButtons);
 

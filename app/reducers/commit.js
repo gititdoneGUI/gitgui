@@ -11,7 +11,7 @@ const MAKE_COMMIT = 'MAKE_COMMIT';
 export const makeCommit = commit => ({type: MAKE_COMMIT, commit});
 
 
-export const commitTest = (commitMessage, userPath) => (dispatch) => {
+export const commit = (commitMessage, userPath) => (dispatch) => {
   git.open(userPath)
     .then(function(repo){
     // git commit -am"a new commit"
