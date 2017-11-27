@@ -13,6 +13,7 @@ import repo from './reducers/repo';
 import userPath from './reducers/userPath';
 import {userLogin} from './reducers/user';
 import localBranch from './reducers/localBranch';
+import remoteBranch from './reducers/remoteBranch';
 
 export default function configureStore(initialState, routerHistory) {
   const router = routerMiddleware(routerHistory);
@@ -30,7 +31,8 @@ export default function configureStore(initialState, routerHistory) {
     repo,
     status,
     commit,
-    localBranch
+    localBranch,
+    remoteBranch
   };
 
   const middlewares = [ thunk, router ];
