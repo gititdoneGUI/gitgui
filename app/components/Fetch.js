@@ -69,4 +69,3 @@ const mapState = ({userPath }) => ({
 
 
 export default connect(mapState, null)(Fetch);
-
