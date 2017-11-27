@@ -6,30 +6,47 @@ class Fetch extends Component {
 
   constructor(props) {
     super(props);
+    this.state={
+      clicked: false
+    };
     this.handleFetchClick = this.handleFetchClick.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleFetchClick(event) {
     event.preventDefault();
     fetch(this.props.userPath, event.target.fetch.value);
+    this.setState({clicked: false});
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    this.setState({clicked: true});
   }
 
   render() {
     return (
-
-      <form  className="form-group" onSubmit={this.handleFetchClick}>
-        <label>Branch to fetch from : </label>
-        <input
-          type="text"
-          className="form-control"
-          placeholder="haxor99"
-          name="fetch"
-        />
-        <button className="btn btn-large btn-primary">
+      <div>
+        { !this.state.clicked && <button className="btn btn-large btn-primary" onClick={this.handleSubmit}>
           <span className="icon icon-down-circled icon-text"></span>
-          Fetch
-        </button>
-      </form>
+        Fetch
+        </button>}
+        { this.state.clicked &&
+        <form  className="form-group" onSubmit={this.handleFetchClick}>
+          <label>Branch to fetch from : </label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="haxor99"
+            name="fetch"
+          />
+          <button type="submit" className="btn btn-large btn-primary">
+            <span className="icon icon-down-circled icon-text"></span>
+            Submit Fetch
+          </button>
+        </form>
+        }
+      </div>
     );
   }
 }
