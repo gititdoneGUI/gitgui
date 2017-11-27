@@ -11,10 +11,12 @@ class Clone extends Component {
   constructor(props) {
     super(props);
     this.state={
-      userFilePath:''
+      userFilePath:'',
+      clicked: false
     };
     this.handleCloneClick = this.handleCloneClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleUserRes = this.handleUserRes.bind(this);
   }
 
   handleSubmit(evt) {
@@ -23,40 +25,49 @@ class Clone extends Component {
     this.setState({userFilePath});
   }
 
+  handleUserRes(event) {
+    event.preventDefault();
+    this.setState({clicked: true});
+  }
+
   handleCloneClick(event) {
     event.preventDefault();
     clone(this.state.userFilePath, event.target.clonefrom.value);
+    this.setState({clicked: false});
   }
 
   render() {
     return (
-      <div>
-        <button className="btn btn-large btn-default" type="submit" onClick={openDir(this.handleSubmit)}>
-          <span className="icon icon-list-add icon-text"></span>
-            Choose a directory to Clone Into
-        </button>
 
-        <form  className="form-group"  onSubmit={this.handleCloneClick}>
-          {/* <label>Clone into (Local Repo): </label>
-        <input
-          type="text"
-          className="form-control"
-          placeholder="haxor99"
-          name="cloneinto"
-        /> */}
-       
-          <label>Clone from (Remote Repo): </label>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="haxor99"
-            name="clonefrom"
-          />
-          <button className="btn btn-large btn-primary">
-            <span className="icon icon-down-circled icon-text"></span>
-          Clone
+      <div>
+        { !this.state.clicked && <button className="btn btn-large btn-primary" onClick={this.handleUserRes}>
+          <span className="icon icon-down-circled icon-text"></span>
+        Clone
+        </button>}
+
+        { this.state.clicked &&
+        <div>
+          <button className="btn btn-large btn-default" type="submit" onClick={openDir(this.handleSubmit)}>
+            <span className="icon icon-list-add icon-text"></span>
+            Choose a directory to Clone Into
           </button>
-        </form>
+
+          <form  className="form-group"  onSubmit={this.handleCloneClick}>
+       
+            <label>Clone from (Remote Repo): </label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="haxor99"
+              name="clonefrom"
+            />
+            <button type="submit" className="btn btn-large btn-primary">
+              <span className="icon icon-down-circled icon-text"></span>
+              Submit Clone
+            </button>
+          </form>
+        </div>
+        }
       </div>
 
     );
