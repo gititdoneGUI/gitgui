@@ -55,14 +55,14 @@ app.on('ready', async () => {
     show: true
   });
 
-  const root = await gitRoot(requestedPath);
-  console.log('Root git repo specified at command line:', root);
-  mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
-    protocol: 'file:',
-    query: {root},
-    slashes: true
-  }));
+  // const root = await gitRoot(requestedPath);
+  // console.log('Root git repo specified at command line:', root);
+  // mainWindow.loadURL(url.format({
+  //   pathname: path.join(__dirname, 'index.html'),
+  //   protocol: 'file:',
+  //   query: {root},
+  //   slashes: true
+  // }));
 
   // mainWindow.show()
 

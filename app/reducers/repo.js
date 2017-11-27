@@ -1,6 +1,8 @@
 const nodegit = require('nodegit');
 const path = require('path');
 
+import {gitRoot} from '../gitutil';
+
 const ADD_COMMIT = 'ADD_COMMIT';
 const ERASE_HISTORY = 'ERASE_HISTORY';
 const ADD_EDGE = 'ADD_EDGE';
@@ -15,8 +17,10 @@ const sliceMessage = string => {
     : string.slice(0, 22) + '...';
 };
 
-export const fetchHistory = rootDir => (dispatch) => {
-  rootDir = rootDir ? rootDir : path.resolve(path.join(__dirname, '..', '..'));
+export const fetchHistory = rootDir => async (dispatch) => {
+  const root = await gitRoot(process.cwd());
+  rootDir = rootDir ? rootDir : root;
+  console.log('THIS IS THE ROOT DIR', rootDir);
   nodegit.Repository.open(rootDir)
     .then(function(repo){
       return repo.getMasterCommit();

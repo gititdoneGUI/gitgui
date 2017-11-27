@@ -65,6 +65,7 @@ class CommitGraph extends React.Component {
 
   componentDidMount() {
     this.props.fetchHistory();
+    this.props.statusCheck();
     console.log(this.props.userPath);
     const watcher = chokidar.watch('.git/FETCH_HEAD', {
       // ignored: /(^|[\/\\])\../,
