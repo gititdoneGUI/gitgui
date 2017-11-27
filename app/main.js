@@ -57,12 +57,12 @@ app.on('ready', async () => {
 
   // const root = await gitRoot(requestedPath);
   // console.log('Root git repo specified at command line:', root);
-  // mainWindow.loadURL(url.format({
-  //   pathname: path.join(__dirname, 'index.html'),
-  //   protocol: 'file:',
-  //   query: {root},
-  //   slashes: true
-  // }));
+  mainWindow.loadURL(url.format({
+    pathname: path.join(__dirname, 'index.html'),
+    protocol: 'file:',
+    query: {root},
+    slashes: true
+  }));
 
   // mainWindow.show()
 
@@ -117,21 +117,21 @@ app.on('ready', async () => {
 
 
 /**************************THIS IS ALL THE GITHUB AUTH*******************************/
-const OauthGithub = require('electron-oauth-github');
+// const OauthGithub = require('electron-oauth-github');
 
-const github = new OauthGithub({
-  id: '396886cb334c10fa05cc',
-  secret: '2ab56980ab768bb021baf2d361ebfa84c1768632',
-  scopes: ['user', 'repo']
-});
+// const github = new OauthGithub({
+//   id: '396886cb334c10fa05cc',
+//   secret: '2ab56980ab768bb021baf2d361ebfa84c1768632',
+//   scopes: ['user', 'repo']
+// });
 
-github.startRequest((access_token, err) => {
-  if(err){
-    console.error(err);
-  }
-  dialog.showOpenDialog();
-  console.log('GIT ACCESS TOKEN:', access_token);
-});
+// github.startRequest((access_token, err) => {
+//   if(err){
+//     console.error(err);
+//   }
+//   dialog.showOpenDialog();
+//   console.log('GIT ACCESS TOKEN:', access_token);
+// });
 
 // const options = {
 //   client_id: '396886cb334c10fa05cc',

@@ -4,6 +4,7 @@ import { fetchRepos } from '../actions/repos';
 import { fetchHistory } from '../reducers/repo';
 import { getPath } from '../actions/userPath';
 import { statusCheck } from '../reducers/status';
+import {gitRoot} from '../gitutil';
 import GitButtons from './GitButtons';
 import CommitGraph from './CommitGraph';
 import Header from './Header';
@@ -26,8 +27,9 @@ class LoggedIn extends Component {
   }
 
   componentDidMount() {
+    const root = gitRoot(process.cwd());
     this.props.allRepos(this.props.user.username);
-    this.props.getUserPath(path.resolve(path.join(__dirname, '..', '..')));
+    this.props.getUserPath(root);
     // change back to using root
   }
 
@@ -116,8 +118,11 @@ const mapDispatch = dispatch => {
     getRepo: name => {
       dispatch(fetchHistory(name));
     },
-    getUserPath: path =>{
-      dispatch(getPath(path));
+    getUserPath: path => {
+      if(typeof path === 'string') dispatch(getPath(path));
+      else path.then(path => dispatch(getPath(path)));
+      // await dispatch(getPath(path));
+      // console.log(path)
     },
     statusCheck: userPath => {
       dispatch(statusCheck(userPath));

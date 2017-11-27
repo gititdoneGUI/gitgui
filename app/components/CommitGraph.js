@@ -44,23 +44,13 @@ const mapDispatch = (dispatch) => {
       dispatch(fetchHistory()),
     statusCheck: (rootDir) =>
       dispatch(statusCheck(rootDir))
-  //   commitTest: (commitMessage, userPath) =>
-  //     dispatch(commitTest(commitMessage, userPath))
-  // };
   };
 };
 
 class CommitGraph extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      nodes: [],
-      edges: [],
-      commitMessage: ''
-    };
     this.events.select = this.events.select.bind(this);
-    // this.handleClick = this.handleClick.bind(this);
-    // this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
