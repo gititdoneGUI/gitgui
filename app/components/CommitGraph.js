@@ -2,7 +2,7 @@ import Graph from 'react-graph-vis';
 import { connect } from 'react-redux';
 import { fetchHistory } from '../reducers/repo';
 import React from 'react';
-import { commitTest } from '../reducers/commit';
+// import { commitTest } from '../reducers/commit';
 import { statusCheck } from '../reducers/status';
 import chokidar from 'chokidar';
 
@@ -28,6 +28,9 @@ const options = {
   nodes: {
     shape: 'dot'
   }
+  // autoResize: true,
+  // height: '100%',
+  // width: '100%'
 };
 
 const mapState = ({ repo, status, commit, userPath }) => ({ repo, status, commit, userPath });
@@ -36,9 +39,10 @@ const mapDispatch = (dispatch) => {
     fetchHistory: () =>
       dispatch(fetchHistory()),
     statusCheck: (rootDir) =>
-      dispatch(statusCheck(rootDir)),
-    commitTest: (commitMessage, userPath) =>
-      dispatch(commitTest(commitMessage, userPath))
+      dispatch(statusCheck(rootDir))
+  //   commitTest: (commitMessage, userPath) =>
+  //     dispatch(commitTest(commitMessage, userPath))
+  // };
   };
 };
 
@@ -51,8 +55,8 @@ class CommitGraph extends React.Component {
       commitMessage: ''
     };
     this.events.select = this.events.select.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    // this.handleClick = this.handleClick.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -85,9 +89,9 @@ class CommitGraph extends React.Component {
     this.props.commitTest(this.state.commitMessage, this.props.userPath);
   }
 
-  handleChange(event){
-    this.setState({commitMessage: event.target.value});
-  }
+  // handleChange(event){
+  //   this.setState({commitMessage: event.target.value});
+  // }
 
   render() {
     const ele = this.state.nodes[0]
@@ -96,30 +100,21 @@ class CommitGraph extends React.Component {
 
 
     return (
-      <div>
-        <div>
-          {
-            (this.props.status.length !== 0) && <form onSubmit={this.handleClick}>
-              <input value={this.state.commitMessage} onChange={this.handleChange} ></input>
-              <button type="submit">
-                  Commit
-              </button>
-            </form>
-          }
-          { ele &&
+      <div className="pane">
+        {
+          ele &&
             <ul>
               <li>Info:</li>
               <li> commit sha: { ele.id}</li>
               <li> commit message: {ele.label}</li>
               <li> time of commit: {ele.title.toString()}</li>
             </ul>
-          }
-        </div>
+        }
         <Graph
           graph={this.props.repo}
           options={options}
           events={this.events}
-          style={{ height: '640px', overflow: 'scroll' }}
+          style={{height: '100%'}}
         />
       </div>
     );
