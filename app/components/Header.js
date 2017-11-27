@@ -15,29 +15,9 @@ class Header extends Component{
     return(
       <header className="toolbar toolbar-header">
         <div className="toolbar-actions">
-          <div className="btn-group">
-            <button className="btn btn-default">
-              <span className="icon icon-home"></span>
-            </button>
-            <button className="btn btn-default">
-              <span className="icon icon-folder"></span>
-            </button>
-            <button className="btn btn-default active">
-              <span className="icon icon-cloud"></span>
-            </button>
-            <button className="btn btn-default">
-              <span className="icon icon-popup"></span>
-            </button>
-            <button className="btn btn-default">
-              <span className="icon icon-shuffle"></span>
-            </button>
-          </div>
-          <button className="btn btn-default">
-            <span className="icon icon-home icon-text"></span>
-            Filters
-          </button>
 
-          <button className="btn btn-default pull-right" onClick={this.props.onLogout}>
+
+          <button className="btn btn-mini btn-default pull-right" onClick={this.props.onLogout}>
             <span className="icon icon-logout icon-text"></span>
             Logout
           </button>

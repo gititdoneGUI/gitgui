@@ -5,8 +5,12 @@ import thunk from 'redux-thunk';
 
 import user from './reducers/user';
 import repos from './reducers/repos';
+import status from './reducers/status';
+import commit from './reducers/commit';
+
 // import userActions from './actions/user';
 import repo from './reducers/repo';
+import userPath from './reducers/userPath';
 import {userLogin} from './reducers/user';
 
 export default function configureStore(initialState, routerHistory) {
@@ -18,10 +22,13 @@ export default function configureStore(initialState, routerHistory) {
   };
 
   const reducers = {
+    userPath,
     user,
     routing,
     repos,
-    repo
+    repo,
+    status,
+    commit
   };
 
   const middlewares = [ thunk, router ];
@@ -37,5 +44,11 @@ export default function configureStore(initialState, routerHistory) {
   const enhancer = composeEnhancers(applyMiddleware(...middlewares));
   const rootReducer = combineReducers(reducers);
 
-  return createStore(rootReducer, initialState, enhancer);
+  //PERSIST THE STORE TO LOCAL STORAGE
+
+  const store = createStore(rootReducer, localStorage.storeState && JSON.parse(localStorage.storeState), enhancer);
+  store.subscribe(() => localStorage.storeState = JSON.stringify(store.getState()));
+
+  return store;
 }
+

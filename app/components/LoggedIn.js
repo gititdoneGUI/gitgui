@@ -1,10 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchRepos } from '../actions/repos';
-// import {NavLink} from 'react-router-dom';
 import { fetchHistory } from '../reducers/repo';
-import CommitGraph from './Graph';
+import { getPath } from '../actions/userPath';
+import { statusCheck } from '../reducers/status';
+import GitButtons from './GitButtons';
+import CommitGraph from './CommitGraph';
 import Header from './Header';
+import path from 'path';
+
+const {dialog} = require('electron').remote;
+
+const openDir = cb => evt => {dialog.showOpenDialog({properties: ['openDirectory']}, cb);
+};
+
+
 
 class LoggedIn extends Component {
   constructor() {
@@ -14,42 +24,54 @@ class LoggedIn extends Component {
 
   componentDidMount() {
     this.props.allRepos(this.props.user.username);
+    this.props.getUserPath(path.resolve(path.join(__dirname, '..', '..')));
+    // change back to using root
   }
 
   handleSubmit(evt) {
-    evt.preventDefault();
-    this.props.getRepo(evt.target.dirname.value);
+    console.log('THIS IS THE EVENT', evt[0]);
+    const userFilePath = evt[0];
+    this.props.getUserPath(userFilePath);
+    this.props.getRepo(userFilePath);
+    this.props.statusCheck(userFilePath);
   }
 
   render() {
+ 
     return (
-      <div>
+      <div className="window">
+
         <Header />
-        <div className="home-page-div">
-          {this.props.user.username && <h2>Logged in as {this.props.user.username}</h2>}
-          <div className="home-page-forms">
-            <select className="form-control">
-              <option>Pick a github repo</option>
-              {this.props.repos &&
-              this.props.repos.map((repo, i) => <option key={i}>{repo.name}</option>
-              )}
-            </select>
-            <br/>
-            <br />
 
-            <form onSubmit={this.handleSubmit}>
-              <div className="form-group">
-                <label>Input the aboslute path to your directory.</label>
-                <input ref={(ref) => { this._inputRef = ref; }} type="text" className="form-control" placeholder="haxor99" name="dirname" />
+        <div className="window-content">
+          <div className="pane-group">
+            <div className="pane-med sidebar">
 
-                <button className="btn btn-default" onClick={this.handleLogin}>
-                  <span className="icon icon-login"></span>
-                </button>
+              {/* WELCOME MSG AND FORM FOR GITHUB REPO*/}
+              <div className="home-page-forms">
+                {this.props.user.username &&  <p>Logged in as <b>{this.props.user.username}</b></p>}
+                {  this.props.repos.length !=0 ?
+
+                  (<select className="form-control">
+                    <option>Pick a github repo...</option>
+                    {   
+                      this.props.repos.map((repo, i) => <option key={i}>{repo.name}</option>
+                      )
+                    }
+                  </select>)
+                  : null
+                }
+               
+                <br/>
+                <br />
+                {/* FORM TO CHOOSE A FILE FROM COMPUTER */}
+                <button className="btn btn-mini" type="submit" onClick={openDir(this.handleSubmit)}>Choose a directory.</button>
+                {/* GITHUB ACTION BUTTONS */}
+                <GitButtons />
               </div>
-            </form>
+            </div>
+            <CommitGraph />
           </div>
-          <br />
-          <CommitGraph />
         </div>
       </div>
 
@@ -57,10 +79,14 @@ class LoggedIn extends Component {
   }
 }
 
-//CONTAINER
+
+
+// setTimeout(openDir(console.log), 200)
+
 const mapState = state => {
   return {
-    repos: state.repos
+    repos: state.repos,
+    user: state.user
   };
 };
 
@@ -71,6 +97,12 @@ const mapDispatch = dispatch => {
     },
     getRepo: name => {
       dispatch(fetchHistory(name));
+    },
+    getUserPath: path =>{
+      dispatch(getPath(path));
+    },
+    statusCheck: userPath => {
+      dispatch(statusCheck(userPath));
     }
   };
 };

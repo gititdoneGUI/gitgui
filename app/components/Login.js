@@ -22,6 +22,13 @@ export default class Login extends Component {
     });
   }
 
+  handleGuestLogin = () => {
+    this.props.onLogin({
+      username: 'Guest',
+      loggedIn: true
+    });
+  }
+
   render() {
     return (
       <div className="login-div">
@@ -39,7 +46,7 @@ export default class Login extends Component {
         </form>
         <h3>OR</h3>
         <br />
-        <button className="btn btn-default">
+        <button className="btn btn-default" onClick={this.handleGuestLogin}>
           Continue as guest
         </button>
 

@@ -23,12 +23,11 @@ export const fetchHistory = rootDir => (dispatch) => {
         obj.id = commit.sha();
         obj.label= commit.message();
         obj.title = commit.date();
-        console.log("about to addCommit");
         dispatch(addCommit(obj));
         var numParents = commit.parentcount();
         for (let i = 0; i < numParents; i++ ) {
           commit.parent(i).then(function(parent) {
-            console.log(parent.sha());
+            // console.log(parent.sha());
             dispatch(addEdge(
               {from: parent.sha(), to: commit.sha()}
             ));
@@ -44,7 +43,7 @@ export const fetchHistory = rootDir => (dispatch) => {
 const defaultState = { nodes: [], edges: [] };
 
 export default function reducer (state = defaultState, action){
-  console.log('reached reducer', action.type);
+  // console.log('reached reducer', action.type);
   switch (action.type){
   case ADD_COMMIT:
     return {...state, nodes: [...state.nodes, action.commit]};
