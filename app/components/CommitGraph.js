@@ -4,8 +4,8 @@ import { fetchHistory } from '../reducers/repo';
 import React from 'react';
 // import { commitTest } from '../reducers/commit';
 import { statusCheck } from '../reducers/status';
-import  {checkout, checkoutBranch, checkoutLocalBranch} from '../reducers/checkout';
-import  {deleteLocalBranch} from '../reducers/deleteBranch';
+// import  {checkout, checkoutBranch, checkoutLocalBranch} from '../reducers/checkout';
+// import  {deleteLocalBranch} from '../reducers/deleteBranch';
 
 
 const options = {
