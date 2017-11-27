@@ -5,7 +5,7 @@ export default class Merge extends Component {
   render() {
     return (
       <button className="btn btn-large btn-primary">
-        <span className="icon icon-down-circled icon-text"></span>
+        <span className="icon icon-switch icon-text"></span>
         Merge
       </button>
     );
