@@ -15,7 +15,10 @@ class Fetch extends Component {
 
   handleFetchClick(event) {
     event.preventDefault();
-    fetch(this.props.userPath, event.target.fetch.value);
+    if (event.target.or.value == 'Origin' ||  event.target.or.value == 'origin' )
+      fetch(this.props.userPath, event.target.fetch.value);
+    else
+      fetch(event.target.or.value, event.target.fetch.value);
     this.setState({clicked: false});
   }
 
@@ -33,6 +36,14 @@ class Fetch extends Component {
         </button>}
         { this.state.clicked &&
         <form  className="form-group" onSubmit={this.handleFetchClick}>
+          <label> Origin/Remote : </label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="haxor99"
+            name="or"
+          />
+
           <label>Branch to fetch from : </label>
           <input
             type="text"
@@ -58,4 +69,3 @@ const mapState = ({userPath }) => ({
 
 
 export default connect(mapState, null)(Fetch);
-
