@@ -1,10 +1,10 @@
 const {dialog} = require('electron').remote;
 
-export const push = (path, branch) =>{
-  require('simple-git/promise')(`${path}`).push('origin', `${branch}`)
-    .then(()=> console.log('Push Successfully Completed '))
+export const stash = (path) =>{
+  require('simple-git/promise')(`${path}`).stash()
+    .then(()=> console.log('Stash Successfully Completed '))
     .catch((err) => openDialogBox(err) );
-       
+  
 };
 
 function openDialogBox(err) {

@@ -1,8 +1,8 @@
 const {dialog} = require('electron').remote;
 
-export const push = (path, branch) =>{
-  require('simple-git/promise')(`${path}`).push('origin', `${branch}`)
-    .then(()=> console.log('Push Successfully Completed '))
+export const pull = (path, branch) =>{
+  require('simple-git/promise')(`${path}`).pull('origin', `${branch}`, {'--no-rebase': null})
+    .then(()=> console.log('Pull Successfully Completed '))
     .catch((err) => openDialogBox(err) );
        
 };
