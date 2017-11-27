@@ -55,10 +55,13 @@ class LoggedIn extends Component {
               this.props.repos.map((repo, i) => <option key={i}>{repo.name}</option>
               )}
                 </select>
-                <br/>
-                <br />
+                <p><b>OR</b></p>
                 {/* FORM TO CHOOSE A FILE FROM COMPUTER */}
-                <button className="btn btn-mini" type="submit" onClick={openDir(this.handleSubmit)}>Choose a directory.</button>
+                <button className="btn btn-large btn-default" type="submit" onClick={openDir(this.handleSubmit)}>
+                <span className="icon icon-list-add icon-text"></span>
+                Choose a directory.
+                </button>
+                <hr />
                 {/* GITHUB ACTION BUTTONS */}
                 <GitButtons />
               </div>
