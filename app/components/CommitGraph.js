@@ -4,13 +4,29 @@ import { fetchHistory } from '../reducers/repo';
 import React from 'react';
 import { commitTest } from '../reducers/commit';
 import { statusCheck } from '../reducers/status';
+import chokidar from 'chokidar';
 
 const options = {
   layout: {
-    hierarchical: true
+    hierarchical: {
+      enabled: true,
+      levelSeparation: 150,
+      nodeSpacing: 100,
+      treeSpacing: 200,
+      blockShifting: true,
+      edgeMinimization: true,
+      parentCentralization: true,
+      direction: 'DU',        // UD, DU, LR, RL
+      sortMethod: 'directed'   // hubsize, directed
+    }
   },
+  height: '1000px',
+  width: '100%',
   edges: {
     color: '#000000'
+  },
+  nodes: {
+    shape: 'dot'
   }
 };
 
@@ -40,9 +56,20 @@ class CommitGraph extends React.Component {
   }
 
   componentDidMount() {
-    console.log('COMPONENT DID MOUNT', this.props.userPath);
-    this.props.fetchHistory(this.props.userPath);
-    this.props.statusCheck(this.props.userPath);
+    this.props.fetchHistory();
+    console.log(this.props.userPath);
+    const watcher = chokidar.watch('.git/FETCH_HEAD', {
+      // ignored: /(^|[\/\\])\../,
+      persistent: true
+    });
+
+    // Something to use when events are received.
+    const log = console.log.bind(console);
+    // Add event listeners.
+    watcher
+      .on('add', path => log(`File ${path} has been added`))
+      .on('change', path => {log(`File ${path} has been changed`);this.props.statusCheck();});
+      // .on('unlink', path => log(`File ${path} has been removed`));
   }
 
   events = {
@@ -54,7 +81,7 @@ class CommitGraph extends React.Component {
 
   handleClick(event) {
     event.preventDefault();
-    console.log(this.state.commitMessage);
+    console.log(this.state.commitMessage, this.props.userPath);
     this.props.commitTest(this.state.commitMessage, this.props.userPath);
   }
 
@@ -66,6 +93,7 @@ class CommitGraph extends React.Component {
     const ele = this.state.nodes[0]
       ? this.props.repo.nodes.filter(node => node.id == this.state.nodes[0])[0]
       : null;
+
 
     return (
       <div>
@@ -91,7 +119,7 @@ class CommitGraph extends React.Component {
           graph={this.props.repo}
           options={options}
           events={this.events}
-          style={{ height: '640px' }}
+          style={{ height: '640px', overflow: 'scroll' }}
         />
       </div>
     );
