@@ -1,5 +1,7 @@
 node_modules
 dist
-build
+/build/*
 .DS_Store
 *.log
+!/build/public
+!/build/index.html

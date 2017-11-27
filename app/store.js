@@ -4,19 +4,31 @@ import persistState from 'redux-localstorage';
 import thunk from 'redux-thunk';
 
 import user from './reducers/user';
-import userActions from './actions/user';
+import repos from './reducers/repos';
+import status from './reducers/status';
+import commit from './reducers/commit';
+
+// import userActions from './actions/user';
+import repo from './reducers/repo';
+import userPath from './reducers/userPath';
+import {userLogin} from './reducers/user';
 
 export default function configureStore(initialState, routerHistory) {
   const router = routerMiddleware(routerHistory);
 
   const actionCreators = {
-    ...userActions,
+    ...userLogin,
     push
   };
 
   const reducers = {
+    userPath,
     user,
-    routing
+    routing,
+    repos,
+    repo,
+    status,
+    commit
   };
 
   const middlewares = [ thunk, router ];
@@ -29,8 +41,14 @@ export default function configureStore(initialState, routerHistory) {
     return compose;
   })();
 
-  const enhancer = composeEnhancers(applyMiddleware(...middlewares), persistState());
+  const enhancer = composeEnhancers(applyMiddleware(...middlewares));
   const rootReducer = combineReducers(reducers);
 
-  return createStore(rootReducer, initialState, enhancer);
+  //PERSIST THE STORE TO LOCAL STORAGE
+
+  const store = createStore(rootReducer, localStorage.storeState && JSON.parse(localStorage.storeState), enhancer);
+  store.subscribe(() => localStorage.storeState = JSON.stringify(store.getState()));
+
+  return store;
 }
+

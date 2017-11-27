@@ -3,13 +3,14 @@ import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import Login from '../components/Login';
 import userActions from '../actions/user';
+// import {userLogin} from '../reducers/user';
+
 
 const mapStateToProps = (state) => {
   return state;
 };
 
 const mapDispatchToProps = (dispatch) => {
-  console.log("i m in loginpage");
   const user = bindActionCreators(userActions, dispatch);
   return {
     onLogin: (data) => {

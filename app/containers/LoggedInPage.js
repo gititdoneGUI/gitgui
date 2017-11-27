@@ -3,6 +3,7 @@ import LoggedIn from '../components/LoggedIn';
 import { bindActionCreators } from 'redux';
 import userActions from '../actions/user';
 import { push } from 'react-router-redux';
+import Header from '../components/Header';
 
 
 const mapStateToProps = (state) => {

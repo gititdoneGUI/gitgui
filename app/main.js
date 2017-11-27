@@ -2,11 +2,14 @@ import path from 'path';
 import url from 'url';
 import axios from 'axios';
 import {app, crashReporter, BrowserWindow, Menu} from 'electron';
+import {gitRoot} from './gitutil';
 
 const isDevelopment = (process.env.NODE_ENV === 'development');
 
 let mainWindow = null;
 let forceQuit = false;
+
+const requestedPath = process.env.GIT_REPO || process.cwd();
 
 const installExtensions = async () => {
   const installer = require('electron-devtools-installer');
@@ -49,19 +52,24 @@ app.on('ready', async () => {
     height: 800,
     minWidth: 640,
     minHeight: 480,
-    show: false
+    show: true
   });
 
+  const root = await gitRoot(requestedPath);
+  console.log('Root git repo specified at command line:', root)
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
     protocol: 'file:',
+    query: {root},
     slashes: true
   }));
 
+  // mainWindow.show()
+
   // show window once on first load
-  mainWindow.webContents.once('did-finish-load', () => {
-    mainWindow.show();
-  });
+  // mainWindow.webContents.once('did-finish-load', () => {
+  //   mainWindow.show();
+  // });
 
   mainWindow.webContents.on('did-finish-load', () => {
     // Handle window logic properly on macOS:
