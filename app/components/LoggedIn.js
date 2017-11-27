@@ -70,14 +70,14 @@ class LoggedIn extends Component {
                 <p><b>OR</b></p>
                 {/* FORM TO CHOOSE A FILE FROM COMPUTER */}
                 <button className="btn btn-large btn-default" type="submit" onClick={openDir(this.handleSubmit)}>
-                <span className="icon icon-plus icon-text"></span>
+                  <span className="icon icon-list-add icon-text"></span>
                 Choose a directory.
                 </button>
                 <hr />
                 {/* GITHUB ACTION BUTTONS */}
                 <GitButtons />
                 <div>
-                {ele &&
+                  {ele &&
                   <ul>
                     Info:
                     <li> commit sha: {ele.id}</li>
