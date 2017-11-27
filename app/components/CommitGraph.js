@@ -11,7 +11,7 @@ const options = {
     hierarchical: {
       enabled: true,
       levelSeparation: 150,
-      nodeSpacing: 100,
+      nodeSpacing: 200,
       treeSpacing: 200,
       blockShifting: true,
       edgeMinimization: true,
@@ -21,17 +21,21 @@ const options = {
     }
   },
   height: '1000px',
-  width: '100%',
+  width: '700px',
   edges: {
-    color: '#000000'
+    color: '#000000',
+    width: 5,
+    selectionWidth: function (width) {return width*2;}
   },
   nodes: {
     shape: 'dot'
-  }
-  // autoResize: true,
-  // height: '100%',
-  // width: '100%'
+  },
+  physics: {
+    enabled: false
+  },
+  autoResize: false
 };
+
 
 const mapState = ({ repo, status, commit, userPath }) => ({ repo, status, commit, userPath });
 const mapDispatch = (dispatch) => {
@@ -73,13 +77,11 @@ class CommitGraph extends React.Component {
     watcher
       .on('add', path => log(`File ${path} has been added`))
       .on('change', path => {log(`File ${path} has been changed`);this.props.statusCheck();});
-      // .on('unlink', path => log(`File ${path} has been removed`));
   }
 
   events = {
     select: function(event) {
-      var { nodes, edges } = event;
-      this.setState({ nodes: nodes, edges: edges });
+      this.props.handleNodeClick(event);
     }
   };
 
@@ -89,27 +91,9 @@ class CommitGraph extends React.Component {
     this.props.commitTest(this.state.commitMessage, this.props.userPath);
   }
 
-  // handleChange(event){
-  //   this.setState({commitMessage: event.target.value});
-  // }
-
   render() {
-    const ele = this.state.nodes[0]
-      ? this.props.repo.nodes.filter(node => node.id == this.state.nodes[0])[0]
-      : null;
-
-
     return (
       <div className="pane">
-        {
-          ele &&
-            <ul>
-              <li>Info:</li>
-              <li> commit sha: { ele.id}</li>
-              <li> commit message: {ele.label}</li>
-              <li> time of commit: {ele.title.toString()}</li>
-            </ul>
-        }
         <Graph
           graph={this.props.repo}
           options={options}
