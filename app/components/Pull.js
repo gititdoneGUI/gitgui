@@ -30,8 +30,6 @@ class Pull extends Component {
         Pull
         </button>
       </form>
-
-    
     );
   }
 }
