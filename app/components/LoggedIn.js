@@ -9,6 +9,13 @@ import CommitGraph from './CommitGraph';
 import Header from './Header';
 import path from 'path';
 
+const {dialog} = require('electron').remote;
+
+const openDir = cb => evt => {dialog.showOpenDialog({properties: ['openDirectory']}, cb);
+};
+
+
+
 class LoggedIn extends Component {
   constructor() {
     super();
@@ -22,10 +29,11 @@ class LoggedIn extends Component {
   }
 
   handleSubmit(evt) {
-    evt.preventDefault();
-    this.props.getUserPath(evt.target.dirname.value);
-    this.props.getRepo(evt.target.dirname.value);
-    this.props.statusCheck(evt.target.dirname.value);
+    console.log('THIS IS THE EVENT', evt[0]);
+    const userFilePath = evt[0];
+    this.props.getUserPath(userFilePath);
+    this.props.getRepo(userFilePath);
+    this.props.statusCheck(userFilePath);
   }
 
   render() {
@@ -50,24 +58,7 @@ class LoggedIn extends Component {
                 <br/>
                 <br />
                 {/* FORM TO CHOOSE A FILE FROM COMPUTER */}
-
-                <form onSubmit={this.handleSubmit}>
-                  <div className="form-group">
-                    <label>Choose a directory.</label>
-                    <div className = "select-files-group">
-                      <input
-                        type="file"
-                        name='files'
-                        ref={_ => _ && _.setAttribute('webkitdirectory', true)}
-                        className="form-control"
-                      />
-                      <div className="form-actions">
-                        <button className="btn btn-mini" type="submit">+</button>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-
+                <button className="btn btn-mini" type="submit" onClick={openDir(this.handleSubmit)}>Choose a directory.</button>
                 {/* GITHUB ACTION BUTTONS */}
                 <GitButtons />
               </div>
@@ -81,6 +72,9 @@ class LoggedIn extends Component {
   }
 }
 
+
+
+// setTimeout(openDir(console.log), 200)
 
 const mapState = state => {
   return {
