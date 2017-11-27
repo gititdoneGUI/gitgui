@@ -4,18 +4,38 @@ import { fetchHistory } from '../reducers/repo';
 import React from 'react';
 // import { commitTest } from '../reducers/commit';
 import { statusCheck } from '../reducers/status';
+import chokidar from 'chokidar';
 
 const options = {
   layout: {
-    hierarchical: true
+    hierarchical: {
+      enabled: true,
+      levelSeparation: 150,
+      nodeSpacing: 200,
+      treeSpacing: 200,
+      blockShifting: true,
+      edgeMinimization: true,
+      parentCentralization: true,
+      direction: 'DU',        // UD, DU, LR, RL
+      sortMethod: 'directed'   // hubsize, directed
+    }
   },
+  height: '1000px',
+  width: '700px',
   edges: {
-    color: '#000000'
+    color: '#000000',
+    width: 5,
+    selectionWidth: function (width) {return width*2;}
   },
-  // autoResize: true,
-  // height: '100%',
-  // width: '100%'
+  nodes: {
+    shape: 'dot'
+  },
+  physics: {
+    enabled: false
+  },
+  autoResize: false
 };
+
 
 const mapState = ({ repo, status, commit, userPath }) => ({ repo, status, commit, userPath });
 const mapDispatch = (dispatch) => {
@@ -44,51 +64,43 @@ class CommitGraph extends React.Component {
   }
 
   componentDidMount() {
-    console.log('COMPONENT DID MOUNT', this.props.userPath);
-    this.props.fetchHistory(this.props.userPath);
-    this.props.statusCheck(this.props.userPath);
+    this.props.fetchHistory();
+    console.log(this.props.userPath);
+    const watcher = chokidar.watch('.git/FETCH_HEAD', {
+      // ignored: /(^|[\/\\])\../,
+      persistent: true
+    });
+
+    // Something to use when events are received.
+    const log = console.log.bind(console);
+    // Add event listeners.
+    watcher
+      .on('add', path => log(`File ${path} has been added`))
+      .on('change', path => {log(`File ${path} has been changed`);this.props.statusCheck();});
   }
 
   events = {
     select: function(event) {
-      var { nodes, edges } = event;
-      this.setState({ nodes: nodes, edges: edges });
+      this.props.handleNodeClick(event);
     }
   };
 
-  // handleClick(event) {
-  //   event.preventDefault();
-  //   console.log(this.state.commitMessage);
-  //   this.props.commitTest(this.state.commitMessage, this.props.userPath);
-  // }
-
-  // handleChange(event){
-  //   this.setState({commitMessage: event.target.value});
-  // }
+  handleClick(event) {
+    event.preventDefault();
+    console.log(this.state.commitMessage, this.props.userPath);
+    this.props.commitTest(this.state.commitMessage, this.props.userPath);
+  }
 
   render() {
-    const ele = this.state.nodes[0]
-      ? this.props.repo.nodes.filter(node => node.id == this.state.nodes[0])[0]
-      : null;
-
     return (
       <div className="pane">
-        {
-          ele &&
-            <ul>
-              <li>Info:</li>
-              <li> commit sha: { ele.id}</li>
-              <li> commit message: {ele.label}</li>
-              <li> time of commit: {ele.title.toString()}</li>
-            </ul>
-        }
         <Graph
           graph={this.props.repo}
           options={options}
           events={this.events}
           style={{height: '100%'}}
         />
-        </div>
+      </div>
     );
   }
 }

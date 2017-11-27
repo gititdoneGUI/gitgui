@@ -9,6 +9,12 @@ export const addCommit = commit => ({type: ADD_COMMIT, commit});
 const addEdge = edge => ({type: ADD_EDGE, edge});
 const eraseHistory = () => ({type: ERASE_HISTORY});
 
+const sliceMessage = string => {
+  return string.length <= 25
+    ? string
+    : string.slice(0, 22) + '...';
+};
+
 export const fetchHistory = rootDir => (dispatch) => {
   rootDir = rootDir ? rootDir : path.resolve(path.join(__dirname, '..', '..'));
   nodegit.Repository.open(rootDir)
@@ -21,8 +27,10 @@ export const fetchHistory = rootDir => (dispatch) => {
       history.on('commit', commit => {
         let obj = {};
         obj.id = commit.sha();
-        obj.label= commit.message();
+        obj.label = sliceMessage(commit.message());
+        obj.message = commit.message();
         obj.title = commit.date();
+        obj.author = commit.author().toString();
         dispatch(addCommit(obj));
         var numParents = commit.parentcount();
         for (let i = 0; i < numParents; i++ ) {

@@ -14,18 +14,26 @@ const {dialog} = require('electron').remote;
 const openDir = cb => evt => {dialog.showOpenDialog({properties: ['openDirectory']}, cb);
 };
 
-
-
 class LoggedIn extends Component {
   constructor() {
     super();
+    this.state = {
+      nodes: [],
+      edges: []
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleNodeClick = this.handleNodeClick.bind(this);
   }
 
   componentDidMount() {
     this.props.allRepos(this.props.user.username);
     this.props.getUserPath(path.resolve(path.join(__dirname, '..', '..')));
     // change back to using root
+  }
+
+  handleNodeClick(event){
+    const { nodes, edges } = event;
+    this.setState({ nodes: nodes, edges: edges });
   }
 
   handleSubmit(evt) {
@@ -37,6 +45,10 @@ class LoggedIn extends Component {
   }
 
   render() {
+    const ele = this.state.nodes[0]
+      ? this.props.repo.nodes.filter(node => node.id == this.state.nodes[0])[0]
+      : null;
+
     return (
       <div className="window">
 
@@ -64,9 +76,19 @@ class LoggedIn extends Component {
                 <hr />
                 {/* GITHUB ACTION BUTTONS */}
                 <GitButtons />
+                <div>
+                {ele &&
+                  <ul>
+                    Info:
+                    <li> commit sha: {ele.id}</li>
+                    <li> commit message: {ele.message}</li>
+                    <li> commit author: {ele.author}</li>
+                    <li> time of commit: {ele.title.toString()}</li>
+                  </ul>}
+                </div>
               </div>
             </div>
-            <CommitGraph />
+            <CommitGraph handleNodeClick={this.handleNodeClick} />
           </div>
         </div>
       </div>
