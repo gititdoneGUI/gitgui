@@ -51,7 +51,7 @@ class CommitGraph extends React.Component {
             <ul>
               <li> sha: { ele.id}</li>
               <li> message: {ele.label}</li>
-               <li> DateTime: {ele.title.toString()}</li>
+              <li> DateTime: {ele.title.toString()}</li>
             </ul>
             }
           </div>
