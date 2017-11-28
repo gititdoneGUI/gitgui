@@ -15,14 +15,19 @@ export const commit = (commitMessage, userPath) => (dispatch) => {
   git.open(userPath)
     .then(function(repo){
     // git commit -am"a new commit"
+      console.log('THIS IS THE REPO', repo)
       return git.commit(repo, {
         'message': commitMessage
       })
         .then(function(oid){
-          console.log(oid.tostrS());
+          console.log('IM GETTING HERE', oid.tostrS());
+
+          console.log('THIS IS THE OID', oid.tostrS());
           dispatch(makeCommit(oid.tostrS()));
-          dispatch(emptyStatus());
+          console.log('COMMIT MADE');
+          console.log('EMPTY STATUS HAPPENED?');
           dispatch(fetchHistory(userPath));
+          dispatch(emptyStatus());
         });
     });
 };

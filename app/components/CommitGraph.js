@@ -55,7 +55,7 @@ class CommitGraph extends React.Component {
 
   componentDidMount() {
     // this.props.fetchHistory();
-    this.props.statusCheck();
+    // this.props.statusCheck();
     console.log(this.props.userPath);
     this.watcher = chokidar.watch(this.props.userPath, {
       // ignored: /(^|[\/\\])\../,

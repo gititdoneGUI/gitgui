@@ -19,7 +19,7 @@ const sliceMessage = string => {
 
 export const fetchHistory = rootDir => (dispatch) => {
   // const root = await gitRoot(process.cwd());
-  rootDir ? rootDir : null;
+  if(!rootDir) return;
   console.log('THIS IS THE ROOT DIR', rootDir);
   nodegit.Repository.open(rootDir)
     .then(function(repo){

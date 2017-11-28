@@ -70,5 +70,10 @@ input.form-control{
   padding-top: 400px;
   margin:auto;
   color: rgb(163, 163, 163);
+}
 
+.repo-status{
+  list-style-type: none;
+  padding-left: 0px;
+  margin-left: 0px;
 }

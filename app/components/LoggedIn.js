@@ -28,7 +28,7 @@ class LoggedIn extends Component {
 
   componentDidMount() {
     // const root = gitRoot(process.cwd());
-    this.props.allRepos(this.props.user.username);
+    // this.props.allRepos(this.props.user.username);
     // this.props.getUserPath(root);
     // change back to using root
   }
@@ -39,7 +39,6 @@ class LoggedIn extends Component {
   }
 
   handleSubmit(evt) {
-    console.log('THIS IS THE EVENT', evt[0]);
     const userFilePath = evt[0];
     this.props.getUserPath(userFilePath);
     this.props.fetchHistory(userFilePath);
@@ -60,8 +59,8 @@ class LoggedIn extends Component {
 
               {/* WELCOME MSG AND FORM FOR GITHUB REPO*/}
               <div className="home-page-forms">
+                {this.props.user.username.length ? <p id="logged-in-as">Logged in as <b>{this.props.user.username}</b></p> : null}
 
-                <p id="logged-in-as">Logged in as <b>{this.props.user.username}</b></p>
                 {/*}
                 <select className="form-control">
                   <option>Pick a github repo...</option>
@@ -71,6 +70,7 @@ class LoggedIn extends Component {
                 </select>
                 <p><b>OR</b></p>
             */}
+
                 {/* FORM TO CHOOSE A FILE FROM COMPUTER */}
                 <button className="btn btn-large btn-default" type="submit" onClick={openDir(this.handleSubmit)}>
                   <span className="icon icon-list-add icon-text"></span>
@@ -78,6 +78,14 @@ class LoggedIn extends Component {
                 </button>
                 <hr />
                 {/* GITHUB ACTION BUTTONS */}
+                <div className="repo-info">
+                <h3>Repo: {this.props.userPath.slice( this.props.userPath.lastIndexOf('/')+1)}</h3>
+                <h4>File Status:</h4>
+                 <ul className="repo-status">
+                  {this.props.status.map((e,i) => <li key={i}>{e}</li>)}
+                  </ul>
+                </div>
+                <hr />
                 <GitButtons />
                 <hr />
                 <div>
@@ -123,7 +131,8 @@ class LoggedIn extends Component {
 const mapState = state => {
   return {
     repos: state.repos,
-    user: state.user
+    user: state.user,
+    userPath: state.userPath
   };
 };
 
@@ -136,8 +145,7 @@ const mapDispatch = dispatch => {
       dispatch(fetchHistory(name));
     },
     getUserPath: path => {
-      if(typeof path === 'string') dispatch(getPath(path));
-      else path.then(path => dispatch(getPath(path)));
+      dispatch(getPath(path));
     },
     statusCheck: userPath => {
       dispatch(statusCheck(userPath));

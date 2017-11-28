@@ -13,10 +13,12 @@ class Commit extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-
   handleClick(event) {
     event.preventDefault();
-    console.log(this.state.commitMessage);
+    console.log(this.props.commit);
+    console.log('WE CALL A STATUS CHECK ON:', this.props.userPath);
+    this.props.statusCheck(this.props.userPath);
+    console.log('THE COMMIT ARGS PASSED ARE', this.props.userPath)
     this.props.commit(this.state.commitMessage, this.props.userPath);
   }
 
