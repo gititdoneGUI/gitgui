@@ -60,3 +60,15 @@ input.form-control{
 #logged-in-as{
   margin-top:0px;
 }
+
+#default-graph-msg-container{
+  width: 100%;
+  text-align:center;
+}
+
+#default-graph-msg{
+  padding-top: 400px;
+  margin:auto;
+  color: rgb(163, 163, 163);
+
+}

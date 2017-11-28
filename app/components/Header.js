@@ -42,6 +42,7 @@ const mapDispatchToProps = (dispatch) => {
         username: '',
         loggedIn: false
       });
+      dispatch({ type: 'store/NUKE' });
       dispatch(push('/'));
     }
   };

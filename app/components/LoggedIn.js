@@ -102,9 +102,11 @@ class LoggedIn extends Component {
               </div>
             </div>
             {this.props.userPath ? <CommitGraph handleNodeClick={this.handleNodeClick} /> :
-              (<div>
-              <h1>Choose a directory to display.</h1>
-              </div>)
+              (
+              <div id='default-graph-msg-container'>
+              <h1 id='default-graph-msg'>Choose a directory to display.</h1>
+              </div>
+              )
             }
           </div>
         </div>
