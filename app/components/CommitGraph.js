@@ -2,9 +2,9 @@ import Graph from 'react-graph-vis';
 import { connect } from 'react-redux';
 import { fetchHistory } from '../reducers/repo';
 import React from 'react';
-// import { commitTest } from '../reducers/commit';
 import { statusCheck } from '../reducers/status';
 import chokidar from 'chokidar';
+import { toIndexedSeq } from 'immutable';
 
 const options = {
   layout: {
@@ -33,7 +33,7 @@ const options = {
   physics: {
     enabled: false
   },
-  autoResize: false
+  autoResize: true
 };
 
 
@@ -92,10 +92,11 @@ class CommitGraph extends React.Component {
   }
 
   render() {
+    console.log(this.props.repo.nodes);
     return (
       <div className="pane">
         <Graph
-          graph={this.props.repo}
+          graph={{edges: this.props.repo.edges, nodes: Array.from(this.props.repo.nodes.values())}}
           options={options}
           events={this.events}
         />
