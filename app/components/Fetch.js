@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetch } from '../reducers/fetch';
+import { fetch , fetchALL} from '../reducers/fetch';
 
 class Fetch extends Component {
 
   constructor(props) {
     super(props);
     this.state={
-      clicked: false
+      clicked: false,
     };
     this.handleFetchClick = this.handleFetchClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -15,7 +15,14 @@ class Fetch extends Component {
 
   handleFetchClick(event) {
     event.preventDefault();
-    fetch(this.props.userPath, event.target.fetch.value);
+    if(event.target.fetchall.value)
+    {
+      fetchALL(this.props.userPath);
+    }
+    else if (event.target.or.value == 'Origin' ||  event.target.or.value == 'origin' )
+      fetch(this.props.userPath, event.target.fetch.value);
+    else
+      fetch(event.target.or.value, event.target.fetch.value);
     this.setState({clicked: false});
   }
 
@@ -31,20 +38,37 @@ class Fetch extends Component {
           <span className="icon icon-down-circled icon-text"></span>
         Fetch
         </button>}
+
         { this.state.clicked &&
-        <form onSubmit={this.handleFetchClick}>
-          <div className="form-group">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Branch to fetch from..."
-              name="fetch"
-            />
-            <button type="submit" className="btn btn-mini btn-primary">
-              <span className="icon icon-down-circled icon-text"></span>
+      
+        <form  className="form-group" onSubmit={this.handleFetchClick}>
+          <label> Origin/Remote : </label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="haxor99"
+            name="or"
+          />
+
+          <label>Branch to fetch from : </label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="haxor99"
+            name="fetch"
+          />
+          
+          Fetch ALL  <input
+            type="checkbox"
+            className="form-control"
+            placeholder="haxor99"
+            name="fetchall"
+          /> 
+
+          <button type="submit" className="btn btn-large btn-primary">
+            <span className="icon icon-down-circled icon-text"></span>
             Submit Fetch
-            </button>
-          </div>
+          </button>
         </form>
         }
       </div>
@@ -59,4 +83,3 @@ const mapState = ({userPath }) => ({
 
 
 export default connect(mapState, null)(Fetch);
-
