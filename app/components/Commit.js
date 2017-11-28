@@ -18,7 +18,7 @@ class Commit extends Component {
     console.log(this.props.commit);
     console.log('WE CALL A STATUS CHECK ON:', this.props.userPath);
     this.props.statusCheck(this.props.userPath);
-    console.log('THE COMMIT ARGS PASSED ARE', this.props.userPath)
+    console.log('THE COMMIT ARGS PASSED ARE', this.props.userPath);
     this.props.commit(this.state.commitMessage, this.props.userPath);
   }
 

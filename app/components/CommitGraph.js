@@ -55,10 +55,8 @@ class CommitGraph extends React.Component {
 
   componentDidMount() {
     // this.props.fetchHistory();
-    // this.props.statusCheck();
-    console.log(this.props.userPath);
+    this.props.statusCheck(this.props.userPath);
     this.watcher = chokidar.watch(this.props.userPath, {
-      // ignored: /(^|[\/\\])\../,
       persistent: true
     });
 
@@ -76,7 +74,7 @@ class CommitGraph extends React.Component {
   check = () => {
     this.pendingCheck = this.pendingCheck || setTimeout(() => {
       this.pendingCheck = null;
-      this.props.statusCheck();
+      this.props.statusCheck(this.props.userPath);
     }, this.timeout);
   }
 

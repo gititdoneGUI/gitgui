@@ -1,8 +1,8 @@
 import path from 'path';
 import url from 'url';
 import axios from 'axios';
-import {app, crashReporter, BrowserWindow, Menu, dialog} from 'electron';
-import {gitRoot} from './gitutil';
+import {app, crashReporter, BrowserWindow, Menu} from 'electron';
+// import {gitRoot} from './gitutil';
 
 const isDevelopment = (process.env.NODE_ENV === 'development');
 

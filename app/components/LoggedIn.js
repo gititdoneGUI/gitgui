@@ -4,7 +4,6 @@ import { fetchRepos } from '../actions/repos';
 import { fetchHistory } from '../reducers/repo';
 import { getPath } from '../actions/userPath';
 import { statusCheck } from '../reducers/status';
-import {gitRoot} from '../gitutil';
 import GitButtons from './GitButtons';
 import CommitGraph from './CommitGraph';
 import Header from './Header';
@@ -24,13 +23,6 @@ class LoggedIn extends Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleNodeClick = this.handleNodeClick.bind(this);
-  }
-
-  componentDidMount() {
-    // const root = gitRoot(process.cwd());
-    // this.props.allRepos(this.props.user.username);
-    // this.props.getUserPath(root);
-    // change back to using root
   }
 
   handleNodeClick(event){
