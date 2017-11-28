@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 //fsdfsdfds
 
 export default class Login extends Component {
-
   constructor(){
     super();
   }
@@ -24,7 +23,7 @@ export default class Login extends Component {
 
   handleGuestLogin = () => {
     this.props.onLogin({
-      username: 'Guest',
+      username: '',
       loggedIn: true
     });
   }
@@ -47,7 +46,8 @@ export default class Login extends Component {
         <h3>OR</h3>
         <br />
         <button className="btn btn-default" onClick={this.handleGuestLogin}>
-          Continue as guest
+          Skip
+          <span className="icon icon-right-thin icon-text"></span>
         </button>
 
       </div>

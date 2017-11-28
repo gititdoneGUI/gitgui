@@ -60,3 +60,9 @@ input.form-control{
 #logged-in-as{
   margin-top:0px;
 }
+
+.repo-status{
+  list-style-type: none;
+  padding-left: 0px;
+  margin-left: 0px;
+}
