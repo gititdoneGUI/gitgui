@@ -32,18 +32,19 @@ class Fetch extends Component {
         Fetch
         </button>}
         { this.state.clicked &&
-        <form  className="form-group" onSubmit={this.handleFetchClick}>
-          <label>Branch to fetch from : </label>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="haxor99"
-            name="fetch"
-          />
-          <button type="submit" className="btn btn-large btn-primary">
-            <span className="icon icon-down-circled icon-text"></span>
+        <form onSubmit={this.handleFetchClick}>
+          <div className="form-group">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Branch to fetch from..."
+              name="fetch"
+            />
+            <button type="submit" className="btn btn-mini btn-primary">
+              <span className="icon icon-down-circled icon-text"></span>
             Submit Fetch
-          </button>
+            </button>
+          </div>
         </form>
         }
       </div>

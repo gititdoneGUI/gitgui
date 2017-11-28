@@ -4,10 +4,12 @@ import React, { Component } from 'react';
 export default class Branch extends Component {
   render() {
     return (
-      <button className="btn btn-large btn-primary">
-        <span className="icon icon-flow-branch icon-text"></span>
+      <div>
+        <button className="btn btn-large btn-primary">
+          <span className="icon icon-flow-branch icon-text"></span>
         Branch
-      </button>
+        </button>
+      </div>
     );
   }
 }
