@@ -49,22 +49,23 @@ class Clone extends Component {
         <div>
           <button className="btn btn-large btn-default" type="submit" onClick={openDir(this.handleSubmit)}>
             <span className="icon icon-list-add icon-text"></span>
-            Choose a directory to Clone Into
+            Choose a directory to clone into
           </button>
 
-          <form  className="form-group"  onSubmit={this.handleCloneClick}>
-       
-            <label>Clone from (Remote Repo): </label>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="haxor99"
-              name="clonefrom"
-            />
-            <button type="submit" className="btn btn-large btn-primary">
-              <span className="icon icon-down-circled icon-text"></span>
+          <form onSubmit={this.handleCloneClick}>
+            <div className="form-group">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Repo to clone from..."
+                name="clonefrom"
+              />
+              <button type="submit" className="btn btn-mini btn-primary">
+                <span className="icon icon-down-circled icon-text"></span>
               Submit Clone
-            </button>
+              </button>
+            </div>
+
           </form>
         </div>
         }

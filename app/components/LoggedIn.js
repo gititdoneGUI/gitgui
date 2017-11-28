@@ -51,7 +51,6 @@ class LoggedIn extends Component {
 
     return (
       <div className="window">
-
         <Header />
         <div className="window-content">
           <div className="pane-group">
@@ -60,7 +59,8 @@ class LoggedIn extends Component {
               {/* WELCOME MSG AND FORM FOR GITHUB REPO*/}
               <div className="home-page-forms">
 
-                <p>Logged in as <b>{this.props.user.username}</b></p>
+                <p id="logged-in-as">Logged in as <b>{this.props.user.username}</b></p>
+                {/*}
                 <select className="form-control">
                   <option>Pick a github repo...</option>
                   {this.props.repos &&
@@ -68,23 +68,34 @@ class LoggedIn extends Component {
               )}
                 </select>
                 <p><b>OR</b></p>
+            */}
                 {/* FORM TO CHOOSE A FILE FROM COMPUTER */}
                 <button className="btn btn-large btn-default" type="submit" onClick={openDir(this.handleSubmit)}>
                   <span className="icon icon-list-add icon-text"></span>
-                Choose a directory.
+                Choose a directory
                 </button>
                 <hr />
                 {/* GITHUB ACTION BUTTONS */}
                 <GitButtons />
+                <hr />
                 <div>
                   {ele &&
-                  <ul>
-                    Info:
-                    <li> commit sha: {ele.id}</li>
-                    <li> commit message: {ele.message}</li>
-                    <li> commit author: {ele.author}</li>
-                    <li> time of commit: {ele.title.toString()}</li>
-                  </ul>}
+                      <ul className = "commit-info">
+                        <label>Commit Info:</label>
+
+                        <li className="sha"> <span className="icon icon-github"></span>
+                          {'  ' + ele.id}</li>
+                        <li> <span className="icon icon-pencil"></span>
+                          {'  ' + '"' + ele.message + '"'}</li>
+                        <li> <span className="icon icon-user"></span>
+                          {'  ' + ele.author.slice(0, ele.author.indexOf('<'))}</li>
+                        <li><span className="icon icon-mail"></span>
+                          {'  '+ ele.author.slice(ele.author.indexOf('<')+1, ele.author.indexOf('>'))}
+                        </li>
+                        <li> <span className="icon icon-clock"></span>
+                          {'  ' + ele.title.toString().slice(0,(ele.title.toString().indexOf('G')-4))}</li>
+                      </ul>
+                  }
                 </div>
               </div>
             </div>
