@@ -31,6 +31,11 @@ export default function configureStore(initialState, routerHistory) {
     commit
   };
 
+  const nukeable = reducer => (state, action) =>
+    action.type === 'store/NUKE'
+      ? reducer(undefined, '@@INIT')
+      : reducer(state, action)
+
   const middlewares = [ thunk, router ];
 
   const composeEnhancers = (() => {
@@ -42,7 +47,7 @@ export default function configureStore(initialState, routerHistory) {
   })();
 
   const enhancer = composeEnhancers(applyMiddleware(...middlewares));
-  const rootReducer = combineReducers(reducers);
+  const rootReducer = nukeable(combineReducers(reducers));
 
   //PERSIST THE STORE TO LOCAL STORAGE
 

@@ -66,7 +66,7 @@ class CommitGraph extends React.Component {
   componentDidMount() {
     this.props.fetchHistory();
     console.log(this.props.userPath);
-    const watcher = chokidar.watch('.git/FETCH_HEAD', {
+    this.watcher = chokidar.watch(this.props.userPath, {
       // ignored: /(^|[\/\\])\../,
       persistent: true
     });
@@ -74,9 +74,23 @@ class CommitGraph extends React.Component {
     // Something to use when events are received.
     const log = console.log.bind(console);
     // Add event listeners.
-    watcher
-      .on('add', path => log(`File ${path} has been added`))
-      .on('change', path => {log(`File ${path} has been changed`);this.props.statusCheck();});
+    this.watcher
+      .on('add', this.check)
+      .on('change', this.check)
+      .on('ready', () => this.timeout = 500);
+  }
+
+  timeout = 10000
+
+  check = () => {
+    this.pendingCheck = this.pendingCheck || setTimeout(() => {
+      this.pendingCheck = null;
+      this.props.statusCheck();
+    }, this.timeout);
+  }
+
+  componentWillUnmount(){
+    this.watcher.close();
   }
 
   events = {
