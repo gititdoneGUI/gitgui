@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetch } from '../reducers/fetch';
+import { fetch , fetchALL} from '../reducers/fetch';
 
 class Fetch extends Component {
 
   constructor(props) {
     super(props);
     this.state={
-      clicked: false
+      clicked: false,
     };
     this.handleFetchClick = this.handleFetchClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -15,7 +15,11 @@ class Fetch extends Component {
 
   handleFetchClick(event) {
     event.preventDefault();
-    if (event.target.or.value == 'Origin' ||  event.target.or.value == 'origin' )
+    if(event.target.fetchall.value)
+    {
+      fetchALL(this.props.userPath);
+    }
+    else if (event.target.or.value == 'Origin' ||  event.target.or.value == 'origin' )
       fetch(this.props.userPath, event.target.fetch.value);
     else
       fetch(event.target.or.value, event.target.fetch.value);
@@ -36,6 +40,7 @@ class Fetch extends Component {
         </button>}
 
         { this.state.clicked &&
+      
         <form  className="form-group" onSubmit={this.handleFetchClick}>
           <label> Origin/Remote : </label>
           <input
@@ -52,6 +57,14 @@ class Fetch extends Component {
             placeholder="haxor99"
             name="fetch"
           />
+          
+          Fetch ALL  <input
+            type="checkbox"
+            className="form-control"
+            placeholder="haxor99"
+            name="fetchall"
+          /> 
+
           <button type="submit" className="btn btn-large btn-primary">
             <span className="icon icon-down-circled icon-text"></span>
             Submit Fetch

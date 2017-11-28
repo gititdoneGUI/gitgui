@@ -1,4 +1,6 @@
 const {dialog} = require('electron').remote;
+var nodegit = require('nodegit');
+var path = require('path');
 
 export const fetch = (path, branch) =>{
     
@@ -14,3 +16,15 @@ function openDialogBox(err) {
   dialog.showErrorBox(title, content);
       
 }
+
+
+export const fetchALL = (path) =>{
+  
+  nodegit.Repository.open(path)
+    .then(function(repo) {
+      return repo.fetchAll();
+    }).then(function() {
+      console.log('It worked!');
+    })
+    .catch((err) => openDialogBox(err) );
+};
