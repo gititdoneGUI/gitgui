@@ -48,7 +48,7 @@ class AddBranch extends Component {
         Add Branch
         </button>}
         { this.state.clicked &&
-        <form  className="form-group" onSubmit={this.handleDeleteClick}>
+        <form  className="form-group" onSubmit={this.handleAddClick}>
           <label>Name of New Branch: </label>
           <input
             type="text"
@@ -73,7 +73,7 @@ const mapDispatch = (dispatch) => {
     checkoutLocalBranch: (path, branchName) =>
       dispatch(checkoutLocalBranch(path, branchName)),
     getAllLocalBranches: (path) =>
-      dispatch(getAllLocalBranches(path)),
+      dispatch(getAllLocalBranches(path))
 
   };
 };

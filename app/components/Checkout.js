@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { checkout, checkoutBranch } from '../reducers/branches';
 import { getAllLocalBranches } from '../reducers/localBranch';
+import { getAllRemoteBranches } from '../reducers/remoteBranch';
 
 
 class Checkout extends Component {
@@ -30,7 +31,13 @@ class Checkout extends Component {
     console.log('newProps', newProps);
     if (this.props.userPath !== newProps.userPath) {
       this.props.getAllLocalBranches(newProps.userPath);
-      this.setState({clicked: false});
+      this.props.getAllRemoteBranches(newProps.userPath);      
+      this.setState({
+        checkoutClicked: false,
+        checkoutLocalClicked: false,
+        checkoutRemoteClicked: false
+
+      });      
     }
   }
 
@@ -40,6 +47,25 @@ class Checkout extends Component {
   //   this.props.getAllLocalBranches(this.props.userPath);    
   //   this.setState({clicked: false});
   // }
+
+  handleLocalCheckout(event) {
+    event.preventDefault();
+    this.props.checkoutLocalBranch(this.props.userPath, this.state.value);
+    this.props.getAllLocalBranches(this.props.userPath);    
+    this.setState({
+      checkoutClicked: false,
+      checkoutLocalClicked: false,
+      checkoutRemoteClicked: false
+
+    });   
+  }
+
+  handleRemoteCheckout(event) {
+    event.preventDefault();
+    // this.props.deleteLocalBranch(this.props.userPath, this.state.value);
+    this.props.getAllRemoteBranches(this.props.userPath);    
+    this.setState({clicked: false});
+  }
 
   handleChange(event) {
     this.setState({value: event.target.value});    
@@ -70,7 +96,6 @@ class Checkout extends Component {
         Checkout Branch
         </button>}
         { this.state.checkoutClicked &&
-        // <form  className="form-group" onSubmit={this.handleDeleteClick}>
         <div>
           <button className="btn btn-large btn-primary" onClick={this.handleLocalClick}>
             <span className="icon icon-down-circled icon-text"></span>
@@ -82,11 +107,10 @@ class Checkout extends Component {
             Checkout Remote Branch
           </button>
         </div>
-        // </form>
         }
 
         { this.state.checkoutClicked && this.state.checkoutLocalClicked &&
-          <form  className="form-group" onSubmit={this.handleCheckout}>
+          <form  className="form-group" onSubmit={this.handleLocalCheckout}>
             <label>Branch to Checkout: </label>
             <select value = {this.state.value} onChange={this.handleChange}>
               <option></option>
@@ -103,8 +127,8 @@ class Checkout extends Component {
           </form>
         }
 
-{ this.state.checkoutClicked && this.state.checkoutRemoteClicked &&
-          <form  className="form-group" onSubmit={this.handleCheckout}>
+        { this.state.checkoutClicked && this.state.checkoutRemoteClicked &&
+          <form  className="form-group" onSubmit={this.handleRemoteCheckout}>
             <label>Branch to Checkout: </label>
             <select value = {this.state.value} onChange={this.handleChange}>
               <option></option>
@@ -114,16 +138,19 @@ class Checkout extends Component {
                 )
               }
             </select>
+            <label> Name of New Local Branch: </label>
+            <input
+              type="text"
+              className="form-control"
+              name="fromRemote"
+            />
+            
             <button type="submit" className="btn btn-large btn-primary">
               <span className="icon icon-down-circled icon-text"></span>
             Checkout
             </button>
           </form>
         }
-
-
-
-
       </div>
     );
 
@@ -139,6 +166,8 @@ const mapDispatch = (dispatch) => {
       dispatch(checkoutBranch(path, branchName, startPoint)),
     getAllLocalBranches: (path) =>
       dispatch(getAllLocalBranches(path)),
+    getAllRemoteBranches: (path) => 
+      dispatch(getAllRemoteBranches(path))
 
   };
 };
