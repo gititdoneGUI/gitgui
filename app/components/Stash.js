@@ -17,13 +17,12 @@ class Stash extends Component {
 
   render() {
     return (
-
-      
-      <button className="btn btn-large btn-primary" onClick={this.handleStashClick}>
-        <span className="icon icon-down-circled icon-text"></span>
+      <div>
+        <button className="btn btn-large btn-primary" onClick={this.handleStashClick}>
+          <span className="icon icon-down-circled icon-text"></span>
           Stash
-      </button>
-     
+        </button>
+      </div>
     );
   }
 }

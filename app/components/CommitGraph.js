@@ -20,8 +20,8 @@ const options = {
       sortMethod: 'directed'   // hubsize, directed
     }
   },
-  height: '1000px',
-  width: '1000px',
+  height: '100%',
+  width: '100%',
   edges: {
     color: '#000000',
     width: 5,
