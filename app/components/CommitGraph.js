@@ -70,6 +70,11 @@ class CommitGraph extends React.Component {
       .on('change', path => {log(`File ${path} has been changed`);this.props.statusCheck();});
   }
 
+  // shouldComponentUpdate(nextProps, nextState){
+  //   console.log(nextProps.userPath);
+  //   return this.props.userPath !== nextProps.userPath;
+  // }
+
   events = {
     select: function(event) {
       this.props.handleNodeClick(event);
