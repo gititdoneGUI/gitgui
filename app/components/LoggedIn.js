@@ -27,9 +27,9 @@ class LoggedIn extends Component {
   }
 
   componentDidMount() {
-    const root = gitRoot(process.cwd());
+    // const root = gitRoot(process.cwd());
     this.props.allRepos(this.props.user.username);
-    this.props.getUserPath(root);
+    // this.props.getUserPath(root);
     // change back to using root
   }
 
@@ -42,7 +42,7 @@ class LoggedIn extends Component {
     console.log('THIS IS THE EVENT', evt[0]);
     const userFilePath = evt[0];
     this.props.getUserPath(userFilePath);
-    this.props.getRepo(userFilePath);
+    this.props.fetchHistory(userFilePath);
     this.props.statusCheck(userFilePath);
   }
 
@@ -90,7 +90,11 @@ class LoggedIn extends Component {
                 </div>
               </div>
             </div>
-            <CommitGraph handleNodeClick={this.handleNodeClick} />
+            {this.props.userPath ? <CommitGraph handleNodeClick={this.handleNodeClick} /> :
+              (<div>
+              <h1>Choose a directory to display.</h1>
+              </div>)
+            }
           </div>
         </div>
       </div>
@@ -115,7 +119,7 @@ const mapDispatch = dispatch => {
     allRepos: username => {
       dispatch(fetchRepos(username));
     },
-    getRepo: name => {
+    fetchHistory: name => {
       dispatch(fetchHistory(name));
     },
     getUserPath: path => {

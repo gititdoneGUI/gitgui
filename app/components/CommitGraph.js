@@ -40,8 +40,8 @@ const options = {
 const mapState = ({ repo, status, commit, userPath }) => ({ repo, status, commit, userPath });
 const mapDispatch = (dispatch) => {
   return {
-    fetchHistory: () =>
-      dispatch(fetchHistory()),
+    // fetchHistory: () =>
+    //   dispatch(fetchHistory()),
     statusCheck: (rootDir) =>
       dispatch(statusCheck(rootDir))
   };
@@ -54,7 +54,7 @@ class CommitGraph extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchHistory();
+    // this.props.fetchHistory();
     this.props.statusCheck();
     console.log(this.props.userPath);
     const watcher = chokidar.watch('.git/FETCH_HEAD', {
