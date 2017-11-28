@@ -20,8 +20,8 @@ const options = {
       sortMethod: 'directed'   // hubsize, directed
     }
   },
-  height: '1000px',
-  width: '1000px',
+  height: '100%',
+  width: '100%',
   edges: {
     color: '#000000',
     width: 5,
@@ -33,7 +33,7 @@ const options = {
   physics: {
     enabled: false
   },
-  autoResize: false
+  autoResize: true
 };
 
 
@@ -69,6 +69,11 @@ class CommitGraph extends React.Component {
       .on('add', path => log(`File ${path} has been added`))
       .on('change', path => {log(`File ${path} has been changed`);this.props.statusCheck();});
   }
+
+  // shouldComponentUpdate(nextProps, nextState){
+  //   console.log(nextProps.userPath);
+  //   return this.props.userPath !== nextProps.userPath;
+  // }
 
   events = {
     select: function(event) {

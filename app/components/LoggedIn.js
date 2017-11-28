@@ -121,8 +121,6 @@ const mapDispatch = dispatch => {
     getUserPath: path => {
       if(typeof path === 'string') dispatch(getPath(path));
       else path.then(path => dispatch(getPath(path)));
-      // await dispatch(getPath(path));
-      // console.log(path)
     },
     statusCheck: userPath => {
       dispatch(statusCheck(userPath));
