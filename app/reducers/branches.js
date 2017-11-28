@@ -30,6 +30,7 @@ function openDialogBox(err) {
 export const checkoutBranch = (path, branchName, startPoint) => (dispatch) => {
   require('simple-git')(`${path}`).checkoutBranch(branchName, startPoint);
   dispatch(addBranch(branchName)); 
+  dispatch(getBranch(branchName));
 };
 
 export const checkoutLocalBranch = (path, branchName) => (dispatch) => {
@@ -46,8 +47,9 @@ export const deleteLocalBranch = (path, branchName) => (dispatch) => {
     .catch(err => openDialogBox(err));
 };
 
-export const checkout = (path, checkoutWhat) => {
+export const checkout = (path, checkoutWhat) => (dispatch) => {
   require('simple-git')(`${path}`).checkout(checkoutWhat);
+  dispatch(getBranch(checkoutWhat));
 };
 
 

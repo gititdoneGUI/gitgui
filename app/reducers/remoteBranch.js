@@ -11,7 +11,7 @@ export const getRemoteBranches = branches => ({ type: GET_REMOTE_BRANCHES, branc
 
 
 
-export const remoteBranch = (path) => (dispatch)=>{
+export const getAllRemoteBranches = (path) => (dispatch)=>{
   
   return  require('simple-git/promise')(`${path}`).branch()
     .then((obj)=> {
