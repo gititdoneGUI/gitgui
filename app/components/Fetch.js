@@ -34,6 +34,7 @@ class Fetch extends Component {
           <span className="icon icon-down-circled icon-text"></span>
         Fetch
         </button>}
+
         { this.state.clicked &&
         <form  className="form-group" onSubmit={this.handleFetchClick}>
           <label> Origin/Remote : </label>

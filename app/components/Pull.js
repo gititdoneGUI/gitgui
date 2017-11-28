@@ -32,18 +32,19 @@ class Pull extends Component {
         Pull
         </button>}
         { this.state.clicked &&
-        <form onSubmit={this.handlePullClick} className="form-group">
-          <label>Branch to pull from : </label>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="haxor99"
-            name="branch"
-          />
-          <button type="submit" className="btn btn-large btn-primary">
-            <span className="icon icon-down-circled icon-text"></span>
+        <form onSubmit={this.handlePullClick}>
+          <div className="form-group">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Branch to pull from..."
+              name="branch"
+            />
+            <button type="submit" className="btn btn-mini btn-primary">
+              <span className="icon icon-down-circled icon-text"></span>
         Submit Pull
-          </button>
+            </button>
+          </div>
         </form>
         }
       </div>

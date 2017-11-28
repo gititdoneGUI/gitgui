@@ -30,11 +30,13 @@ class Commit extends Component {
         {
           (this.props.status.length !== 0) ?
             (<form onSubmit={this.handleClick}>
-              <input value={this.state.commitMessage} onChange={this.handleChange} ></input>
-              <button className="btn btn-large btn-primary">
-                <span className="icon icon-list-add icon-text"></span>
-              Commit
-              </button>
+              <div className='form-group'>
+                <input className='form-control' value={this.state.commitMessage} onChange={this.handleChange} placeholder="Commit message..."></input>
+                <button type='submit' className="btn btn-mini btn-primary">
+                  <span className="icon icon-list-add icon-text"></span>
+              Submit Commit
+                </button>
+              </div>
             </form>)
             :
             (<button className="btn btn-large btn-default" disabled={true}>

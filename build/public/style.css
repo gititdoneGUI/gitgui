@@ -37,3 +37,26 @@ input.form-control{
 .git-methods > * {
   margin: 7px 7px 7px 0px;
 }
+
+.commit-info{
+    list-style-type: none;
+    padding-left: 0px;
+    margin-left: 0px;
+}
+
+.sha{
+  width: 100px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.sha:hover {
+  overflow: visible;
+  white-space: normal;
+  width: auto;
+}
+
+#logged-in-as{
+  margin-top:0px;
+}
