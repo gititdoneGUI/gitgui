@@ -33,7 +33,7 @@ const options = {
   physics: {
     enabled: false
   },
-  autoResize: false
+  autoResize: true
 };
 
 
