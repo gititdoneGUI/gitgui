@@ -38,8 +38,12 @@ export const checkoutLocalBranch = (path, branchName) => (dispatch) => {
 };
 
 export const deleteLocalBranch = (path, branchName) => (dispatch) => {
-  require('simple-git')(`${path}`).deleteLocalBranch(branchName);
-  dispatch(deleteBranch(branchName));
+  require('simple-git/promise')(`${path}`).deleteLocalBranch(branchName)
+    .then((obj) => {
+      console.log(obj);
+      dispatch(deleteBranch(obj));
+    })
+    .catch(err => openDialogBox(err));
 };
 
 export const checkout = (path, checkoutWhat) => {
