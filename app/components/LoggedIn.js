@@ -37,7 +37,7 @@ class LoggedIn extends Component {
     this.props.getUserPath(userFilePath);
     this.props.fetchHistory(userFilePath);
     this.props.statusCheck(userFilePath);
-    currentBranch(userFilePath);
+    this.props.currentBranch(userFilePath);
   }
 
   render() {
@@ -150,7 +150,11 @@ const mapDispatch = dispatch => {
     },
     statusCheck: userPath => {
       dispatch(statusCheck(userPath));
+    },
+    currentBranch: userPath => {
+      dispatch(currentBranch(userPath));
     }
+
   };
 };
 
