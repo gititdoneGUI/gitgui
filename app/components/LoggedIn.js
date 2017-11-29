@@ -96,6 +96,7 @@ class LoggedIn extends Component {
                         <label>Commit Info:</label>
                         <li className="sha">
                           <span className="icon icon-github"></span>
+                          {'  ' + ele.id}
                         </li>
                         <li> <span className="icon icon-pencil"></span>
                           {'  ' + '"' + ele.message + '"'}</li>
@@ -105,7 +106,7 @@ class LoggedIn extends Component {
                           {'  '+ ele.author.slice(ele.author.indexOf('<')+1, ele.author.indexOf('>'))}
                         </li>
                         <li> <span className="icon icon-clock"></span>
-                          {'  ' + ele.title.toString().slice(0,(ele.title.toString().indexOf('G')-4))}</li>
+                          {'  ' + ele.title.toString()}</li>
                       </ul>
                   }
                 </div>

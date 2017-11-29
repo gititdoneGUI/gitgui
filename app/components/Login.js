@@ -38,7 +38,7 @@ export default class Login extends Component {
             <br/>
             <input ref={(ref) => { this._inputRef = ref; }} type="text" className="form-control" placeholder="steve_jobs_77"/>
             <button className="btn btn-default" onClick={this.handleLogin}>
-            <span className="icon icon-login"></span>
+              <span className="icon icon-login"></span>
             </button>
           </div>
         </form>
