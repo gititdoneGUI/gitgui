@@ -3,8 +3,8 @@ var nodegit = require('nodegit');
 var path = require('path');
 
 export const fetch = (path, branch) =>{
-    
-  require('simple-git/promise')(`${path}`).fetch('origin', `${branch}`)
+  let components = branch.split('/');
+  require('simple-git/promise')(`${path}`).fetch(components[0], components[1])
     .then(()=> console.log('Fetching Successfully Completed '))
     .catch((err) => openDialogBox(err) ); 
 };
@@ -19,7 +19,6 @@ function openDialogBox(err) {
 
 
 export const fetchALL = (path) =>{
-  
   nodegit.Repository.open(path)
     .then(function(repo) {
       return repo.fetchAll();

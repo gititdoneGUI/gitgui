@@ -5,6 +5,7 @@ import { fetchHistory } from '../reducers/repo';
 import { getPath } from '../actions/userPath';
 import { statusCheck } from '../reducers/status';
 import GitButtons from './GitButtons';
+import BranchRemoteLists from './BranchRemoteLists';
 import CommitGraph from './CommitGraph';
 import Header from './Header';
 import path from 'path';
@@ -86,6 +87,7 @@ class LoggedIn extends Component {
                 </div>
                 <hr />
                 <GitButtons />
+                <BranchRemoteLists/>
                 <hr />
                 <div>
                   {ele &&
