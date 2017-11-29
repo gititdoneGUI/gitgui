@@ -8,7 +8,6 @@ import { currentBranch } from '../reducers/currentBranch';
 import GitButtons from './GitButtons';
 import CommitGraph from './CommitGraph';
 import Header from './Header';
-import path from 'path';
 
 const {dialog} = require('electron').remote;
 
@@ -35,9 +34,9 @@ class LoggedIn extends Component {
   handleSubmit(evt) {
     const userFilePath = evt[0];
     this.props.getUserPath(userFilePath);
+    this.props.currentBranch(userFilePath);
     this.props.fetchHistory(userFilePath);
     this.props.statusCheck(userFilePath);
-    this.props.currentBranch(userFilePath);
   }
 
   render() {

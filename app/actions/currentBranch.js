@@ -1,11 +1,8 @@
 
-
 //ACTION TYPES
-const GET_CURRENT_BRANCH = 'GET_CURRENT_BRANCH';
-
+const SET_CURRENT_BRANCH = 'SET_CURRENT_BRANCH';
 
 //ACTION CREATORS
-export const getCurrentBranch = branch => ({ type: GET_CURRENT_BRANCH, branch });
+export const setCurrentBranch = branch => ({ type: SET_CURRENT_BRANCH, branch });
 
 
- 
