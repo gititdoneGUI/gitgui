@@ -60,8 +60,6 @@ class CommitGraph extends React.Component {
       persistent: true
     });
 
-    // Something to use when events are received.
-    const log = console.log.bind(console);
     // Add event listeners.
     this.watcher
       .on('add', this.check)

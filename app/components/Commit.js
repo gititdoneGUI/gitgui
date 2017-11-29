@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { commit } from '../reducers/commit';
 import { statusCheck } from '../reducers/status';
+// const docommit = require('electron').remote.require('./docommit');
+
+// console.log('docommit=', docommit)
 
 class Commit extends Component {
   constructor() {
@@ -15,12 +18,16 @@ class Commit extends Component {
 
   handleClick(event) {
     event.preventDefault();
-    console.log(this.props.commit);
-    console.log('WE CALL A STATUS CHECK ON:', this.props.userPath);
-    this.props.statusCheck(this.props.userPath);
-    console.log('THE COMMIT ARGS PASSED ARE', this.props.userPath);
-    this.props.commit(this.state.commitMessage, this.props.userPath);
-  }
+    // console.log(this.props.commit);
+    // console.log('WE CALL A STATUS CHECK ON:', this.props.userPath);
+    // // this.props.statusCheck(this.props.userPath);
+    // console.log('THE COMMIT ARGS PASSED ARE', this.props.userPath);
+    // this.props.commit(this.state.commitMessage, this.props.userPath);
+    require('simple-git')(this.props.userPath)
+      .add('README.md')
+      .commit('blah blah blah')
+      .exec(() => console.log('done'))
+   }
 
   handleChange(event) {
     this.setState({ commitMessage: event.target.value });

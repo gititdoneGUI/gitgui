@@ -18,11 +18,11 @@ export const commit = (commitMessage, userPath) => (dispatch) => {
       return git.commit(repo, {
         'message': commitMessage
       })
-        .then(function(oid){
-          dispatch(makeCommit(oid.tostrS()));
-          dispatch(fetchHistory(userPath));
-          dispatch(emptyStatus());
-        });
+        // .then(function(oid){
+        //   dispatch(makeCommit(oid.tostrS()));
+        //   dispatch(fetchHistory(userPath));
+        //   dispatch(emptyStatus());
+        // });
     });
 };
 
