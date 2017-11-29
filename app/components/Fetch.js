@@ -35,7 +35,7 @@ class Fetch extends Component {
     return (
       <div>
         { !this.state.clicked && <button className="btn btn-large btn-primary" onClick={this.handleSubmit}>
-          <span className="icon icon-down-circled icon-text"></span>
+          <span className="icon icon-right icon-text"></span>
         Fetch
         </button>}
 
@@ -68,7 +68,7 @@ class Fetch extends Component {
           </div>
           <div>
           <button type="submit" className="btn btn-mini btn-primary">
-            <span className="icon icon-down-circled icon-text"></span>
+            <span className="icon icon-right icon-text"></span>
             Submit Fetch
           </button>
           </div>

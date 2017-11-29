@@ -27,7 +27,7 @@ class Push extends Component {
     return (
       <div>
         { !this.state.clicked && <button className="btn btn-large btn-primary" onClick={this.handleSubmit}>
-          <span className="icon icon-down-circled icon-text"></span>
+          <span className="icon icon-up icon-text"></span>
            Push
         </button>}
         { this.state.clicked &&
@@ -40,7 +40,7 @@ class Push extends Component {
               name="branch"
             />
             <button type="submit" className="btn btn-mini btn-primary">
-              <span className="icon icon-down-circled icon-text"></span>
+              <span className="icon icon-up icon-text"></span>
             Submit Push
             </button>
           </div>

@@ -19,7 +19,7 @@ class Stash extends Component {
     return (
       <div>
         <button className="btn btn-large btn-primary" onClick={this.handleStashClick}>
-          <span className="icon icon-down-circled icon-text"></span>
+          <span className="icon icon-pause icon-text"></span>
           Stash
         </button>
       </div>
