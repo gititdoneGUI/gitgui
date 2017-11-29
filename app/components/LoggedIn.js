@@ -19,7 +19,8 @@ class LoggedIn extends Component {
     super();
     this.state = {
       nodes: [],
-      edges: []
+      edges: [],
+      dropdown: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleNodeClick = this.handleNodeClick.bind(this);
@@ -77,11 +78,17 @@ class LoggedIn extends Component {
                 <hr />
                 {/* GITHUB ACTION BUTTONS */}
                 <div className="repo-info">
-                <h3>Repo: {this.props.userPath.slice( this.props.userPath.lastIndexOf('/')+1)}</h3>
-                <h4>File Status:</h4>
-                 <ul className="repo-status">
-                  {this.props.status.map((e,i) => <li key={i}>{e}</li>)}
-                  </ul>
+                  <h5>Repo: {this.props.userPath.slice( this.props.userPath.lastIndexOf('/')+1)}</h5>
+                  <button id="files-changed-button" onClick={() => this.setState((prevState) => {
+                    return {...prevState, dropdown: !prevState.dropdown};
+                  })}>
+                    <h5>Files changed: {this.props.status.length} ⌵</h5>
+                  </button>
+                  {
+                    this.state.dropdown ? (<ul className="repo-status">
+                      {this.props.status.map((e, i) => <li key={i}>{e}</li>)}
+                    </ul>) : ''
+                  }
                 </div>
                 <hr />
                 <GitButtons />
