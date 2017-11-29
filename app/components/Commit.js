@@ -9,14 +9,12 @@ class Commit extends Component {
     this.state = {
       commitMessage: ''
     };
-    this.handleClick = this.handleClick.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
-
-  handleClick(event) {
+  handleSubmit(event) {
     event.preventDefault();
-    console.log(this.state.commitMessage);
     this.props.commit(this.state.commitMessage, this.props.userPath);
   }
 
@@ -29,7 +27,7 @@ class Commit extends Component {
       <div>
         {
           (this.props.status.length !== 0) ?
-            (<form onSubmit={this.handleClick}>
+            (<form onSubmit={this.handleSubmit}>
               <div className='form-group'>
                 <input className='form-control' value={this.state.commitMessage} onChange={this.handleChange} placeholder="Commit message..."></input>
                 <button type='submit' className="btn btn-mini btn-primary">

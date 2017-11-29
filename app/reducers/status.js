@@ -9,7 +9,7 @@ export const addFileStatus = fileStatus => ({type: ADD_FILE_STATUS, fileStatus})
 export const emptyStatus = () => ({type: EMPTY_STATUS});
 
 export const statusCheck = (rootDir) => (dispatch) => {
-  rootDir = rootDir ? rootDir : path.resolve(path.join(__dirname, '..', '..'));
+  if(!rootDir) return;
   nodegit.Repository.open(rootDir)
     .then(function(repo) {
       dispatch(emptyStatus());

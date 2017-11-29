@@ -26,12 +26,6 @@ class LoggedIn extends Component {
     this.handleNodeClick = this.handleNodeClick.bind(this);
   }
 
-  componentDidMount() {
-    this.props.allRepos(this.props.user.username);
-    // this.props.getUserPath(path.resolve(path.join(__dirname, '..', '..')));
-    // change back to using root
-  }
-
   handleNodeClick(event){
     const { nodes, edges } = event;
     this.setState({ nodes: nodes, edges: edges });
@@ -40,7 +34,7 @@ class LoggedIn extends Component {
   handleSubmit(evt) {
     const userFilePath = evt[0];
     this.props.getUserPath(userFilePath);
-    this.props.getRepo(userFilePath);
+    this.props.fetchHistory(userFilePath);
     this.props.statusCheck(userFilePath);
   }
 
@@ -114,7 +108,13 @@ class LoggedIn extends Component {
                 </div>
               </div>
             </div>
-            <CommitGraph handleNodeClick={this.handleNodeClick} />
+            {this.props.userPath ? <CommitGraph handleNodeClick={this.handleNodeClick} /> :
+              (
+              <div id='default-graph-msg-container'>
+              <h1 id='default-graph-msg'>Choose a directory to display.</h1>
+              </div>
+              )
+            }
           </div>
         </div>
       </div>
@@ -140,10 +140,10 @@ const mapDispatch = dispatch => {
     allRepos: username => {
       dispatch(fetchRepos(username));
     },
-    getRepo: name => {
+    fetchHistory: name => {
       dispatch(fetchHistory(name));
     },
-    getUserPath: path =>{
+    getUserPath: path => {
       dispatch(getPath(path));
     },
     statusCheck: userPath => {

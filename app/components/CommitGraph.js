@@ -44,35 +44,22 @@ const mapDispatch = (dispatch) => {
       dispatch(fetchHistory()),
     statusCheck: (rootDir) =>
       dispatch(statusCheck(rootDir))
-  //   commitTest: (commitMessage, userPath) =>
-  //     dispatch(commitTest(commitMessage, userPath))
-  // };
   };
 };
 
 class CommitGraph extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      nodes: [],
-      edges: [],
-      commitMessage: ''
-    };
     this.events.select = this.events.select.bind(this);
-    // this.handleClick = this.handleClick.bind(this);
-    // this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    this.props.fetchHistory();
-    console.log(this.props.userPath);
+    // this.props.fetchHistory();
+    this.props.statusCheck(this.props.userPath);
     this.watcher = chokidar.watch(this.props.userPath, {
-      // ignored: /(^|[\/\\])\../,
       persistent: true
     });
 
-    // Something to use when events are received.
-    const log = console.log.bind(console);
     // Add event listeners.
     this.watcher
       .on('add', this.check)
@@ -85,13 +72,18 @@ class CommitGraph extends React.Component {
   check = () => {
     this.pendingCheck = this.pendingCheck || setTimeout(() => {
       this.pendingCheck = null;
-      this.props.statusCheck();
+      this.props.statusCheck(this.props.userPath);
     }, this.timeout);
   }
 
   componentWillUnmount(){
     this.watcher.close();
   }
+
+  // shouldComponentUpdate(nextProps, nextState){
+  //   console.log(nextProps.userPath);
+  //   return this.props.userPath !== nextProps.userPath;
+  // }
 
   events = {
     select: function(event) {

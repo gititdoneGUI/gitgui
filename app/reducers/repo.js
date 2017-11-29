@@ -1,6 +1,5 @@
 const nodegit = require('nodegit');
 const path = require('path');
-
 const ADD_COMMIT = 'ADD_COMMIT';
 const ERASE_HISTORY = 'ERASE_HISTORY';
 const ADD_EDGE = 'ADD_EDGE';
@@ -16,7 +15,7 @@ const sliceMessage = string => {
 };
 
 export const fetchHistory = rootDir => (dispatch) => {
-  rootDir = rootDir ? rootDir : path.resolve(path.join(__dirname, '..', '..'));
+  if(!rootDir) return;
   nodegit.Repository.open(rootDir)
     .then(function(repo){
       return repo.getMasterCommit();
@@ -35,7 +34,6 @@ export const fetchHistory = rootDir => (dispatch) => {
         var numParents = commit.parentcount();
         for (let i = 0; i < numParents; i++ ) {
           commit.parent(i).then(function(parent) {
-            // console.log(parent.sha());
             dispatch(addEdge(
               {from: parent.sha(), to: commit.sha()}
             ));
