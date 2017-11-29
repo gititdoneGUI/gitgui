@@ -12,18 +12,10 @@ export const makeCommit = commit => ({type: MAKE_COMMIT, commit});
 
 
 export const commit = (commitMessage, userPath) => (dispatch) => {
-  git.open(userPath)
-    .then(function(repo){
-    // git commit -am"a new commit"
-      return git.commit(repo, {
-        'message': commitMessage
-      })
-        // .then(function(oid){
-        //   dispatch(makeCommit(oid.tostrS()));
-        //   dispatch(fetchHistory(userPath));
-        //   dispatch(emptyStatus());
-        // });
-    });
+  require('simple-git')(userPath)
+    .add('./*')
+    .commit(commitMessage)
+    .exec(() => dispatch(fetchHistory(userPath)));
 };
 
 export default function reducer (state = [], action){

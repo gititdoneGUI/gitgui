@@ -40,8 +40,8 @@ const options = {
 const mapState = ({ repo, status, commit, userPath }) => ({ repo, status, commit, userPath });
 const mapDispatch = (dispatch) => {
   return {
-    // fetchHistory: () =>
-    //   dispatch(fetchHistory()),
+    fetchHistory: () =>
+      dispatch(fetchHistory()),
     statusCheck: (rootDir) =>
       dispatch(statusCheck(rootDir))
   };
