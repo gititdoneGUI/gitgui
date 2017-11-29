@@ -24,7 +24,6 @@ class AddBranch extends Component {
 
   }
 
-
   handleAddClick(event) {
     event.preventDefault();
     this.props.checkoutLocalBranch(this.props.userPath, event.target.branch.value);
@@ -36,7 +35,6 @@ class AddBranch extends Component {
     event.preventDefault();
     this.setState({clicked: true});
   }
-
 
   render() {
     return (
