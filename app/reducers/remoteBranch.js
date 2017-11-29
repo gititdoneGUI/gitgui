@@ -1,15 +1,28 @@
-import { getRemoteBranches } from '../actions/remoteBranch';
 
 const {dialog} = require('electron').remote;
 
-export const remoteBranch = (path) => (dispatch)=>{
+
+//ACTION TYPES
+const GET_REMOTE_BRANCHES = 'GET_REMOTE_BRANCHES';
+
+
+//ACTION CREATORS
+export const getRemoteBranches = branches => ({ type: GET_REMOTE_BRANCHES, branches });
+
+
+
+export const getAllRemoteBranches = (path) => (dispatch)=>{
   
   return  require('simple-git/promise')(`${path}`).branch()
     .then((obj)=> {
       const remotes= obj['all'].filter(ele=> ele.slice(0,7) == 'remotes' );
-      
-      dispatch(getRemoteBranches(remotes));
-      console.log(' List of Remote branches Successfully Completed ', remotes);}
+      const pruned = remotes.map(ele => {
+        return ele.slice(8);
+      });
+      // console.log('remotes', remotes);
+      // console.log('pruned', pruned);
+      dispatch(getRemoteBranches(pruned));
+      console.log(' List of Remote branches Successfully Completed ', pruned);}
     )
     .catch((err) => openDialogBox(err) ); 
 };
@@ -17,8 +30,7 @@ export const remoteBranch = (path) => (dispatch)=>{
 function openDialogBox(err) {
   const title = 'Error';
   const content = `${err}`;
-  dialog.showErrorBox(title, content);
-    
+  dialog.showErrorBox(title, content);  
 }
 
 
