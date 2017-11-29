@@ -66,3 +66,7 @@ input.form-control{
   padding-left: 0px;
   margin-left: 0px;
 }
+
+#local-branch-button{
+  margin-bottom: 7px;
+}
