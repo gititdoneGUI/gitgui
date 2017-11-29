@@ -12,6 +12,8 @@ import commit from './reducers/commit';
 import repo from './reducers/repo';
 import userPath from './reducers/userPath';
 import {userLogin} from './reducers/user';
+// import branches from './reducers/branches';
+// import branch from './reducers/branches';
 import localBranch from './reducers/localBranch';
 import remoteBranch from './reducers/remoteBranch';
 import currentBranch from './reducers/currentBranch';

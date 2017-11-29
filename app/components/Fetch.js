@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetch , fetchALL} from '../reducers/fetch';
+import { getAllRemoteBranches } from '../reducers/remoteBranch';
+
 
 class Fetch extends Component {
 
@@ -8,27 +10,49 @@ class Fetch extends Component {
     super(props);
     this.state={
       clicked: false,
+      checked: false,
+      value: ''
     };
     this.handleFetchClick = this.handleFetchClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.toggleCheck = this.toggleCheck.bind(this);
   }
 
   handleFetchClick(event) {
     event.preventDefault();
-    if(event.target.fetchall.value)
+    console.log(this.props.userPath);    
+    console.log(this.state.value);
+    console.log(this.state.checked);
+  
+    if(this.state.checked)
     {
       fetchALL(this.props.userPath);
     }
-    else if (event.target.or.value == 'Origin' ||  event.target.or.value == 'origin' )
-      fetch(this.props.userPath, event.target.fetch.value);
-    else
-      fetch(event.target.or.value, event.target.fetch.value);
+    else {
+      console.log('in else');
+      fetch(this.props.userPath, this.state.value);
+    }
     this.setState({clicked: false});
   }
 
   handleSubmit(event) {
     event.preventDefault();
     this.setState({clicked: true});
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});    
+  }
+
+  toggleCheck(event) {
+    event.preventDefault();    
+    if (this.state.checked) {
+      this.setState({checked: false});
+    }
+    else {
+      this.setState({checked: true});
+    }
   }
 
   render() {
@@ -43,35 +67,35 @@ class Fetch extends Component {
 
         <form onSubmit={this.handleFetchClick}>
           <div id="fetch-form" className="form-group">
-          <input
-            type="text"
-            className="form-control"
-              placeholder="Origin/Remote"
-            name="or"
-          />
-          <input
-            type="text"
-            className="form-control"
-              placeholder="Branch to fetch from"
-            name="fetch"
-          />
-          <div className="fetch-all-container">
-          <input
-            type="checkbox"
-            className="form-control"
-            name="fetchall"
-            id="fetch-all"
-          />
-          <label htmlFor="fetch-all">
+            <label>Remote Branch to Fetch: </label>
+
+            <select value = {this.state.value} onChange={this.handleChange}>
+              <option></option>
+              {
+                this.props.remoteBranch.map((branch) => 
+                  <option key={branch} value={branch}>{branch}</option>
+                )
+              }
+            </select>
+            <div className="fetch-all-container">
+              <input
+                type="checkbox"
+                className="form-control"
+                name="fetchall"
+                id="fetch-all"
+                checked={this.state.checked}
+                onChange={this.toggleCheck}
+              />
+              <label htmlFor="fetch-all">
           Fetch All
-          </label>
-          </div>
-          <div>
-          <button type="submit" className="btn btn-mini btn-primary">
-            <span className="icon icon-down-circled icon-text"></span>
-            Submit Fetch
-          </button>
-          </div>
+              </label>
+            </div>
+            <div>
+              <button type="submit" className="btn btn-mini btn-primary">
+                <span className="icon icon-down-circled icon-text"></span>
+             Fetch
+              </button>
+            </div>
           </div>
         </form>
         }
@@ -80,10 +104,12 @@ class Fetch extends Component {
   }
 }
 
+const mapState = ({userPath, localBranch, remoteBranch}) => ({ userPath, localBranch, remoteBranch});
+const mapDispatch = (dispatch) => {
+  return {
+    getAllRemoteBranches: (path) => 
+      dispatch(getAllRemoteBranches(path))
+  };
+};
 
-const mapState = ({userPath }) => ({
-  userPath
-});
-
-
-export default connect(mapState, null)(Fetch);
+export default connect(mapState, mapDispatch)(Fetch);
