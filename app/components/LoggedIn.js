@@ -20,16 +20,11 @@ class LoggedIn extends Component {
     super();
     this.state = {
       nodes: [],
-      edges: []
+      edges: [],
+      dropdown: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleNodeClick = this.handleNodeClick.bind(this);
-  }
-
-  componentDidMount() {
-    this.props.allRepos(this.props.user.username);
-    this.props.getUserPath(path.resolve(path.join(__dirname, '..', '..')));
-    // change back to using root
   }
 
   handleNodeClick(event){
@@ -38,10 +33,9 @@ class LoggedIn extends Component {
   }
 
   handleSubmit(evt) {
-    console.log('THIS IS THE EVENT', evt[0]);
     const userFilePath = evt[0];
     this.props.getUserPath(userFilePath);
-    this.props.getRepo(userFilePath);
+    this.props.fetchHistory(userFilePath);
     this.props.statusCheck(userFilePath);
   }
 
@@ -52,7 +46,6 @@ class LoggedIn extends Component {
 
     return (
       <div className="window">
-
         <Header />
         <div className="window-content">
           <div className="pane-group">
@@ -60,8 +53,9 @@ class LoggedIn extends Component {
 
               {/* WELCOME MSG AND FORM FOR GITHUB REPO*/}
               <div className="home-page-forms">
+                {this.props.user.username.length ? <p id="logged-in-as">Logged in as <b>{this.props.user.username}</b></p> : null}
 
-                <p>Logged in as <b>{this.props.user.username}</b></p>
+                {/*}
                 <select className="form-control">
                   <option>Pick a github repo...</option>
                   {this.props.repos &&
@@ -69,28 +63,60 @@ class LoggedIn extends Component {
               )}
                 </select>
                 <p><b>OR</b></p>
+            */}
+
                 {/* FORM TO CHOOSE A FILE FROM COMPUTER */}
                 <button className="btn btn-large btn-default" type="submit" onClick={openDir(this.handleSubmit)}>
                   <span className="icon icon-list-add icon-text"></span>
-                Choose a directory.
+                Choose a directory
                 </button>
                 <hr />
                 {/* GITHUB ACTION BUTTONS */}
+                <div className="repo-info">
+                  <h5>Repo: {this.props.userPath.slice( this.props.userPath.lastIndexOf('/')+1)}</h5>
+                  <button id="files-changed-button" onClick={() => this.setState((prevState) => {
+                    return {...prevState, dropdown: !prevState.dropdown};
+                  })}>
+                    <h5>Files changed: {this.props.status.length} ⌵</h5>
+                  </button>
+                  {
+                    this.state.dropdown ? (<ul className="repo-status">
+                      {this.props.status.map((e, i) => <li key={i}>{e}</li>)}
+                    </ul>) : ''
+                  }
+                </div>
+                <hr />
                 <GitButtons />
                 <BranchRemoteLists/>
+                <hr />
                 <div>
                   {ele &&
-                  <ul>
-                    Info:
-                    <li> commit sha: {ele.id}</li>
-                    <li> commit message: {ele.message}</li>
-                    <li> commit author: {ele.author}</li>
-                    <li> time of commit: {ele.title.toString()}</li>
-                  </ul>}
+                      <ul className = "commit-info">
+                        <label>Commit Info:</label>
+
+                        <li className="sha"> <span className="icon icon-github"></span>
+                          {'  ' + ele.id}</li>
+                        <li> <span className="icon icon-pencil"></span>
+                          {'  ' + '"' + ele.message + '"'}</li>
+                        <li> <span className="icon icon-user"></span>
+                          {'  ' + ele.author.slice(0, ele.author.indexOf('<'))}</li>
+                        <li><span className="icon icon-mail"></span>
+                          {'  '+ ele.author.slice(ele.author.indexOf('<')+1, ele.author.indexOf('>'))}
+                        </li>
+                        <li> <span className="icon icon-clock"></span>
+                          {'  ' + ele.title.toString().slice(0,(ele.title.toString().indexOf('G')-4))}</li>
+                      </ul>
+                  }
                 </div>
               </div>
             </div>
-            <CommitGraph handleNodeClick={this.handleNodeClick} />
+            {this.props.userPath ? <CommitGraph handleNodeClick={this.handleNodeClick} /> :
+              (
+              <div id='default-graph-msg-container'>
+              <h1 id='default-graph-msg'>Choose a directory to display.</h1>
+              </div>
+              )
+            }
           </div>
         </div>
       </div>
@@ -106,7 +132,8 @@ class LoggedIn extends Component {
 const mapState = state => {
   return {
     repos: state.repos,
-    user: state.user
+    user: state.user,
+    userPath: state.userPath
   };
 };
 
@@ -115,10 +142,10 @@ const mapDispatch = dispatch => {
     allRepos: username => {
       dispatch(fetchRepos(username));
     },
-    getRepo: name => {
+    fetchHistory: name => {
       dispatch(fetchHistory(name));
     },
-    getUserPath: path =>{
+    getUserPath: path => {
       dispatch(getPath(path));
     },
     statusCheck: userPath => {

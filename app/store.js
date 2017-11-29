@@ -17,7 +17,6 @@ import {userLogin} from './reducers/user';
 import localBranch from './reducers/localBranch';
 import remoteBranch from './reducers/remoteBranch';
 
-
 export default function configureStore(initialState, routerHistory) {
   const router = routerMiddleware(routerHistory);
 
@@ -34,12 +33,22 @@ export default function configureStore(initialState, routerHistory) {
     repo,
     status,
     commit,
+<<<<<<< HEAD
     // branch,
     // branches,
     localBranch,
     remoteBranch
     
+=======
+    localBranch,
+    remoteBranch
+>>>>>>> 0e44f5026db5658a568f2e61904baf1640bb1ebd
   };
+
+  const nukeable = reducer => (state, action) =>
+    action.type === 'store/NUKE'
+      ? reducer(undefined, '@@INIT')
+      : reducer(state, action)
 
   const middlewares = [ thunk, router ];
 
@@ -52,7 +61,7 @@ export default function configureStore(initialState, routerHistory) {
   })();
 
   const enhancer = composeEnhancers(applyMiddleware(...middlewares));
-  const rootReducer = combineReducers(reducers);
+  const rootReducer = nukeable(combineReducers(reducers));
 
   //PERSIST THE STORE TO LOCAL STORAGE
 

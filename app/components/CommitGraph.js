@@ -20,8 +20,8 @@ const options = {
       sortMethod: 'directed'   // hubsize, directed
     }
   },
-  height: '1000px',
-  width: '1000px',
+  height: '100%',
+  width: '100%',
   edges: {
     color: '#000000',
     width: 5,
@@ -33,7 +33,7 @@ const options = {
   physics: {
     enabled: false
   },
-  autoResize: false
+  autoResize: true
 };
 
 
@@ -44,40 +44,46 @@ const mapDispatch = (dispatch) => {
       dispatch(fetchHistory()),
     statusCheck: (rootDir) =>
       dispatch(statusCheck(rootDir))
-  //   commitTest: (commitMessage, userPath) =>
-  //     dispatch(commitTest(commitMessage, userPath))
-  // };
   };
 };
 
 class CommitGraph extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      nodes: [],
-      edges: [],
-      commitMessage: ''
-    };
     this.events.select = this.events.select.bind(this);
-    // this.handleClick = this.handleClick.bind(this);
-    // this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    this.props.fetchHistory();
-    console.log(this.props.userPath);
-    const watcher = chokidar.watch('.git/FETCH_HEAD', {
-      // ignored: /(^|[\/\\])\../,
+    // this.props.fetchHistory();
+    this.props.statusCheck(this.props.userPath);
+    this.watcher = chokidar.watch(this.props.userPath, {
       persistent: true
     });
 
-    // Something to use when events are received.
-    const log = console.log.bind(console);
     // Add event listeners.
-    watcher
-      .on('add', path => log(`File ${path} has been added`))
-      .on('change', path => {log(`File ${path} has been changed`);this.props.statusCheck();});
+    this.watcher
+      .on('add', this.check)
+      .on('change', this.check)
+      .on('ready', () => this.timeout = 500);
   }
+
+  timeout = 10000
+
+  check = () => {
+    this.pendingCheck = this.pendingCheck || setTimeout(() => {
+      this.pendingCheck = null;
+      this.props.statusCheck(this.props.userPath);
+    }, this.timeout);
+  }
+
+  componentWillUnmount(){
+    this.watcher.close();
+  }
+
+  // shouldComponentUpdate(nextProps, nextState){
+  //   console.log(nextProps.userPath);
+  //   return this.props.userPath !== nextProps.userPath;
+  // }
 
   events = {
     select: function(event) {

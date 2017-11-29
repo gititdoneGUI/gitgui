@@ -35,11 +35,8 @@ export default class GitButtons extends Component{
     return(
       <div className="git-methods">
         <Commit />
-        <br />
         <Pull />
-        <br />
         <Push />
-        <br />
         <Fetch />
         <br />
         <Checkout />
@@ -49,10 +46,9 @@ export default class GitButtons extends Component{
         <DeleteBranch />
         <br />
         <Merge />
-        <br />
         <Stash />
-        <br />
         <Clone />
+        <Branch />
       </div>
     );
   }
