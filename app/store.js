@@ -37,13 +37,8 @@ export default function configureStore(initialState, routerHistory) {
     // branch,
     // branches,
     localBranch,
-<<<<<<< HEAD
     remoteBranch,
     stashmessage
-=======
-    remoteBranch
-    
->>>>>>> 27be17203e5f9f5d9ffd5a945ae9ccc48296f6f6
   };
 
   const nukeable = reducer => (state, action) =>
