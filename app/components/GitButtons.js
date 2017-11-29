@@ -38,13 +38,9 @@ export default class GitButtons extends Component{
         <Pull />
         <Push />
         <Fetch />
-        <br />
         <Checkout />
-        <br />
         <AddBranch />
-        <br />
         <DeleteBranch />
-        <br />
         <Merge />
         <Stash />
         <Clone />
