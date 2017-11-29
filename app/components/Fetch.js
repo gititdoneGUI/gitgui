@@ -19,6 +19,15 @@ class Fetch extends Component {
     this.toggleCheck = this.toggleCheck.bind(this);
   }
 
+  componentWillReceiveProps(newProps) {
+    if (this.props.userPath !== newProps.userPath) {
+      this.props.getAllRemoteBranches(newProps.userPath);      
+      this.setState({
+        clicked: false,
+      });      
+    }
+  }
+
   handleFetchClick(event) {
     event.preventDefault();
     console.log(this.props.userPath);    
