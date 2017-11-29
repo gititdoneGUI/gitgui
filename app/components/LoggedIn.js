@@ -35,16 +35,20 @@ class LoggedIn extends Component {
   handleSubmit(evt) {
     const userFilePath = evt[0];
     this.props.getUserPath(userFilePath);
-    this.props.currentBranch(userFilePath);
-    this.props.fetchHistory(userFilePath);
+    this.props.getCurrentBranch(userFilePath);
     this.props.statusCheck(userFilePath);
+  }
+
+  componentWillReceiveProps(nextProps){
+    if (nextProps.currentBranch !== this.props.currentBranch){
+      this.props.fetchHistory(this.props.userPath, nextProps.currentBranch);
+    }
   }
 
   render() {
     const ele = this.state.nodes[0]
       ? this.props.repo.nodes.filter(node => node.id == this.state.nodes[0])[0]
       : null;
-
     return (
       <div className="window">
         <Header />
@@ -113,9 +117,9 @@ class LoggedIn extends Component {
             </div>
             {this.props.userPath ? <CommitGraph handleNodeClick={this.handleNodeClick} /> :
               (
-              <div id='default-graph-msg-container'>
-              <h1 id='default-graph-msg'>Choose a directory to display.</h1>
-              </div>
+                <div id='default-graph-msg-container'>
+                  <h1 id='default-graph-msg'>Choose a directory to display.</h1>
+                </div>
               )
             }
           </div>
@@ -134,7 +138,8 @@ const mapState = state => {
   return {
     repos: state.repos,
     user: state.user,
-    userPath: state.userPath
+    userPath: state.userPath,
+    currentBranch: state.currentBranch
   };
 };
 
@@ -143,8 +148,9 @@ const mapDispatch = dispatch => {
     allRepos: username => {
       dispatch(fetchRepos(username));
     },
-    fetchHistory: name => {
-      dispatch(fetchHistory(name));
+    fetchHistory: (name, branch) => {
+      console.log(name, branch);
+      dispatch(fetchHistory(name, branch));
     },
     getUserPath: path => {
       dispatch(getPath(path));
@@ -152,7 +158,7 @@ const mapDispatch = dispatch => {
     statusCheck: userPath => {
       dispatch(statusCheck(userPath));
     },
-    currentBranch: userPath => {
+    getCurrentBranch: userPath => {
       dispatch(currentBranch(userPath));
     }
 

@@ -42,7 +42,7 @@ export default function configureStore(initialState, routerHistory) {
   const nukeable = reducer => (state, action) =>
     action.type === 'store/NUKE'
       ? reducer(undefined, '@@INIT')
-      : reducer(state, action)
+      : reducer(state, action);
 
   const middlewares = [ thunk, router ];
 

@@ -1,15 +1,15 @@
 import { setCurrentBranch } from '../actions/currentBranch';
 var nodegit = require('nodegit');
 
-export const currentBranch = (path) => (dispatch)=>{
-  nodegit.Repository.open(path)
+export const currentBranch = (path) => (dispatch) => {
+  return nodegit.Repository.open(path)
     .then(function(repo) {
       return repo.getCurrentBranch();} )
     .then(function(reference) {
       const ref=reference.toString();
       const currentBranch= ref.slice(ref.lastIndexOf('/')+1);
-      console.log(currentBranch);
-      dispatch(setCurrentBranch(currentBranch));
+      return dispatch(setCurrentBranch(currentBranch));
+      // return currentBranch;
     });
 };
 
