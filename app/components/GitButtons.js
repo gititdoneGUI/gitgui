@@ -48,7 +48,7 @@ export default class GitButtons extends Component{
         <Merge />
         <Stash />
         <Clone />
-        <Branch />
+        {/* <Branch /> */}
       </div>
     );
   }

@@ -33,16 +33,11 @@ export default function configureStore(initialState, routerHistory) {
     repo,
     status,
     commit,
-<<<<<<< HEAD
     // branch,
     // branches,
     localBranch,
     remoteBranch
     
-=======
-    localBranch,
-    remoteBranch
->>>>>>> 0e44f5026db5658a568f2e61904baf1640bb1ebd
   };
 
   const nukeable = reducer => (state, action) =>
