@@ -13,7 +13,7 @@ class Merge extends Component {
     this.state={
       mergeClicked: false,
       mergeLocalClicked: false,
-      mergeRemoteClicked: false,            
+      mergeRemoteClicked: false,
       from: '',
       to: '',
       remote: ''
@@ -22,44 +22,44 @@ class Merge extends Component {
     this.handleLocalClick = this.handleLocalClick.bind(this);
     this.handleRemoteClick = this.handleRemoteClick.bind(this);
 
-  
+
     this.handleLocalMerge = this.handleLocalMerge.bind(this);
-    this.handleRemoteMerge = this.handleRemoteMerge.bind(this);    
-    
+    this.handleRemoteMerge = this.handleRemoteMerge.bind(this);
+
     this.handleChange= this.handleChange.bind(this);
     this.handleChangeFrom= this.handleChangeFrom.bind(this);
     this.handleChangeTo = this.handleChangeTo.bind(this);
-    
+
   }
 
 
   componentWillReceiveProps(newProps) {
     if (this.props.userPath !== newProps.userPath) {
       this.props.getAllLocalBranches(newProps.userPath);
-      this.props.getAllRemoteBranches(newProps.userPath);      
+      this.props.getAllRemoteBranches(newProps.userPath);
       this.setState({
         mergeClicked: false,
         mergeLocalClicked: false,
         mergeRemoteClicked: false
 
-      });      
+      });
     }
   }
 
   handleLocalMerge(event) {
     event.preventDefault();
     mergeFromTo(this.props.userPath, this.state.from, this.state.to);
-    this.props.getAllLocalBranches(this.props.userPath);    
+    this.props.getAllLocalBranches(this.props.userPath);
     this.setState({
       mergeClicked: false,
       mergeLocalClicked: false,
-    });   
+    });
   }
 
   handleRemoteMerge(event) {
     event.preventDefault();
     pull(this.props.userPath, this.state.remote);
-    this.props.getAllRemoteBranches(this.props.userPath);    
+    this.props.getAllRemoteBranches(this.props.userPath);
     this.setState({
       mergeClicked: false,
       mergeRemoteClicked: false,
@@ -70,11 +70,11 @@ class Merge extends Component {
   }
 
   handleChangeFrom(event) {
-    this.setState({from: event.target.value}); 
+    this.setState({from: event.target.value});
   }
 
   handleChangeTo(event) {
-    this.setState({to: event.target.value});    
+    this.setState({to: event.target.value});
   }
 
   handleMergeClick(event) {
@@ -92,7 +92,7 @@ class Merge extends Component {
 
   handleRemoteClick(event) {
     event.preventDefault();
-    this.props.getAllRemoteBranches(this.props.userPath);    
+    this.props.getAllRemoteBranches(this.props.userPath);
     this.setState({
       mergeLocalClicked: false,
       mergeRemoteClicked: true
@@ -101,18 +101,18 @@ class Merge extends Component {
   render() {
     return (
       <div>
-        { !this.state.mergeClicked && <button className="btn btn-large btn-primary" onClick={this.handleMergeClick}>
+        { !this.state.mergeClicked && <button className="btn btn-mini btn-primary" onClick={this.handleMergeClick}>
           <span className="icon icon-switch icon-text"></span>
         Merge
         </button>}
         { this.state.mergeClicked &&
         <div>
-          <button className="btn btn-large btn-primary" onClick={this.handleLocalClick}>
+          <button className="btn btn-mini btn-primary" onClick={this.handleLocalClick}>
             <span className="icon icon-switch icon-text"></span>
             Merge Local Branches
           </button>
 
-          <button className="btn btn-large btn-primary" onClick={this.handleRemoteClick}>
+          <button className="btn btn-mini btn-primary" onClick={this.handleRemoteClick}>
             <span className="icon icon-switch icon-text"></span>
             Merge From Remote Branch
           </button>
@@ -125,7 +125,7 @@ class Merge extends Component {
             <select value = {this.state.from} onChange={this.handleChangeFrom}>
               <option></option>
               {
-                this.props.localBranch.map((branch) => 
+                this.props.localBranch.map((branch) =>
                   <option key={branch} value={branch}>{branch}</option>
                 )
               }
@@ -134,12 +134,12 @@ class Merge extends Component {
             <select value = {this.state.to} onChange={this.handleChangeTo}>
               <option></option>
               {
-                this.props.localBranch.map((branch) => 
+                this.props.localBranch.map((branch) =>
                   <option key={branch} value={branch}>{branch}</option>
                 )
               }
             </select>
-            <button type="submit" className="btn btn-large btn-primary">
+            <button type="submit" className="btn btn-mini btn-primary">
               <span className="icon icon-switch icon-text"></span>
             Merge
             </button>
@@ -152,13 +152,13 @@ class Merge extends Component {
             <select value = {this.state.remote} onChange={this.handleChange}>
               <option></option>
               {
-                this.props.remoteBranch.map((branch) => 
+                this.props.remoteBranch.map((branch) =>
                   <option key={branch} value={branch}>{branch}</option>
                 )
               }
             </select>
-            
-            <button type="submit" className="btn btn-large btn-primary">
+
+            <button type="submit" className="btn btn-mini btn-primary">
               <span className="icon icon-switch icon-text"></span>
             Merge
             </button>
@@ -179,7 +179,7 @@ const mapDispatch = (dispatch) => {
   return {
     getAllLocalBranches: (path) =>
       dispatch(getAllLocalBranches(path)),
-    getAllRemoteBranches: (path) => 
+    getAllRemoteBranches: (path) =>
       dispatch(getAllRemoteBranches(path))
 
   };

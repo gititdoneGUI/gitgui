@@ -21,10 +21,10 @@ class Fetch extends Component {
 
   handleFetchClick(event) {
     event.preventDefault();
-    console.log(this.props.userPath);    
+    console.log(this.props.userPath);
     console.log(this.state.value);
     console.log(this.state.checked);
-  
+
     if(this.state.checked)
     {
       fetchALL(this.props.userPath);
@@ -42,11 +42,11 @@ class Fetch extends Component {
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});    
+    this.setState({value: event.target.value});
   }
 
   toggleCheck(event) {
-    event.preventDefault();    
+    event.preventDefault();
     if (this.state.checked) {
       this.setState({checked: false});
     }
@@ -58,8 +58,8 @@ class Fetch extends Component {
   render() {
     return (
       <div>
-        { !this.state.clicked && <button className="btn btn-large btn-primary" onClick={this.handleSubmit}>
-          <span className="icon icon-down-circled icon-text"></span>
+        { !this.state.clicked && <button className="btn btn-mini btn-primary" onClick={this.handleSubmit}>
+          <span className="icon icon-right icon-text"></span>
         Fetch
         </button>}
 
@@ -72,7 +72,7 @@ class Fetch extends Component {
             <select value = {this.state.value} onChange={this.handleChange}>
               <option></option>
               {
-                this.props.remoteBranch.map((branch) => 
+                this.props.remoteBranch.map((branch) =>
                   <option key={branch} value={branch}>{branch}</option>
                 )
               }
@@ -107,7 +107,7 @@ class Fetch extends Component {
 const mapState = ({userPath, localBranch, remoteBranch}) => ({ userPath, localBranch, remoteBranch});
 const mapDispatch = (dispatch) => {
   return {
-    getAllRemoteBranches: (path) => 
+    getAllRemoteBranches: (path) =>
       dispatch(getAllRemoteBranches(path))
   };
 };

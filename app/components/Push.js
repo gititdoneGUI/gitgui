@@ -28,13 +28,13 @@ class Push extends Component {
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});    
+    this.setState({value: event.target.value});
   }
 
   render() {
     return (
       <div>
-        { !this.state.clicked && <button className="btn btn-large btn-primary" onClick={this.handleSubmit}>
+        { !this.state.clicked && <button className="btn btn-mini btn-primary" onClick={this.handleSubmit}>
           <span className="icon icon-down-circled icon-text"></span>
         Push
         </button>}
@@ -45,7 +45,7 @@ class Push extends Component {
           <select value = {this.state.value} onChange={this.handleChange}>
             <option></option>
             {
-              this.props.remoteBranch.map((branch) => 
+              this.props.remoteBranch.map((branch) =>
                 <option key={branch} value={branch}>{branch}</option>
               )
             }
@@ -65,7 +65,7 @@ class Push extends Component {
 const mapState = ({userPath, localBranch, remoteBranch}) => ({ userPath, localBranch, remoteBranch});
 const mapDispatch = (dispatch) => {
   return {
-    getAllRemoteBranches: (path) => 
+    getAllRemoteBranches: (path) =>
       dispatch(getAllRemoteBranches(path))
   };
 };

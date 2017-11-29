@@ -21,7 +21,8 @@ class LoggedIn extends Component {
     this.state = {
       nodes: [],
       edges: [],
-      dropdown: false
+      dropdown: false,
+      copySuccess: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleNodeClick = this.handleNodeClick.bind(this);
@@ -93,9 +94,9 @@ class LoggedIn extends Component {
                   {ele &&
                       <ul className = "commit-info">
                         <label>Commit Info:</label>
-
-                        <li className="sha"> <span className="icon icon-github"></span>
-                          {'  ' + ele.id}</li>
+                        <li className="sha">
+                          <span className="icon icon-github"></span>
+                        </li>
                         <li> <span className="icon icon-pencil"></span>
                           {'  ' + '"' + ele.message + '"'}</li>
                         <li> <span className="icon icon-user"></span>
@@ -112,9 +113,9 @@ class LoggedIn extends Component {
             </div>
             {this.props.userPath ? <CommitGraph handleNodeClick={this.handleNodeClick} /> :
               (
-              <div id='default-graph-msg-container'>
-              <h1 id='default-graph-msg'>Choose a directory to display.</h1>
-              </div>
+                <div id='default-graph-msg-container'>
+                  <h1 id='default-graph-msg'>Choose a directory to display.</h1>
+                </div>
               )
             }
           </div>

@@ -29,12 +29,12 @@ class DeleteBranch extends Component {
   handleDeleteClick(event) {
     event.preventDefault();
     this.props.deleteLocalBranch(this.props.userPath, this.state.value);
-    this.props.getAllLocalBranches(this.props.userPath);    
+    this.props.getAllLocalBranches(this.props.userPath);
     this.setState({clicked: false});
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});    
+    this.setState({value: event.target.value});
   }
 
   handleSubmit(event) {
@@ -46,25 +46,26 @@ class DeleteBranch extends Component {
   render() {
     return (
       <div>
-        { !this.state.clicked && <button className="btn btn-large btn-primary" onClick={this.handleSubmit}>
+        { !this.state.clicked && <button className="btn btn-mini btn-primary" onClick={this.handleSubmit}>
           <span className="icon icon-down-circled icon-text"></span>
         Delete Branch
         </button>}
         { this.state.clicked &&
-        <form  className="form-group" onSubmit={this.handleDeleteClick}>
-          <label>Branch to delete: </label>
+        <form  onSubmit={this.handleDeleteClick}>
+          <div  className="form-group">
           <select value = {this.state.value} onChange={this.handleChange}>
-            <option></option>
+            <option>Branch to delete...</option>
             {
-              this.props.localBranch.map((branch) => 
+              this.props.localBranch.map((branch) =>
                 <option key={branch} value={branch}>{branch}</option>
               )
             }
           </select>
-          <button type="submit" className="btn btn-large btn-primary">
+          <button type="submit" className="btn btn-mini btn-primary">
             <span className="icon icon-down-circled icon-text"></span>
             Delete
           </button>
+          </div>
         </form>
         }
       </div>
