@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Commit from './Commit';
-import NewBranch from './NewBranch';
+import AddBranch from './AddBranch';
 import DeleteBranch from './DeleteBranch';
 import Clone from './Clone';
 import Fetch from './Fetch';
@@ -44,7 +44,7 @@ export default class GitButtons extends Component{
         <br />
         <Checkout />
         <br />
-        <NewBranch />
+        <AddBranch />
         <br />
         <DeleteBranch />
         <br />

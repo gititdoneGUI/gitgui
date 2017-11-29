@@ -11,9 +11,8 @@ class AddBranch extends Component {
     this.state={
       clicked: false,
     };
-    this.handleDeleteClick = this.handleDeleteClick.bind(this);
+    this.handleAddClick = this.handleAddClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange= this.handleChange.bind(this);
   }
 
 
@@ -24,6 +23,7 @@ class AddBranch extends Component {
       this.props.getAllLocalBranches(newProps.userPath);
       this.setState({clicked: false});
     }
+
   }
 
 

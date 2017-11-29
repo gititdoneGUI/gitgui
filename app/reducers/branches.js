@@ -24,18 +24,20 @@ function openDialogBox(err) {
   const title = 'Error';
   const content = `${err}`;
   dialog.showErrorBox(title, content);
-    
 }
 
 export const checkoutBranch = (path, branchName, startPoint) => (dispatch) => {
-  require('simple-git')(`${path}`).checkoutBranch(branchName, startPoint);
-  dispatch(addBranch(branchName)); 
-  dispatch(getBranch(branchName));
+  require('simple-git/promise')(`${path}`).checkoutBranch(branchName, startPoint)
+    .then((obj) => {
+      dispatch(addBranch(obj));
+      // dispatch(getBranch(branchName));
+    }).catch(err => openDialogBox(err));
 };
 
 export const checkoutLocalBranch = (path, branchName) => (dispatch) => {
-  require('simple-git')(`${path}`).checkoutBranch(branchName);
+  require('simple-git')(`${path}`).checkoutLocalBranch(branchName);
   dispatch(addBranch(branchName)); 
+  // dispatch(getBranch(branchName));
 };
 
 export const deleteLocalBranch = (path, branchName) => (dispatch) => {

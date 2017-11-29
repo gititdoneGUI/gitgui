@@ -14,17 +14,14 @@ export const getAllLocalBranches = (path) => (dispatch)=>{
 function openDialogBox(err) {
   const title = 'Error';
   const content = `${err}`;
-  dialog.showErrorBox(title, content);
-    
+  dialog.showErrorBox(title, content);  
 }
-
 
 //REDUCER
 export default function(state = [], action) {
   switch (action.type) {
   case 'GET_LOCAL_BRANCHES':
     return action.branches;
-
   default:
     return state;
   }

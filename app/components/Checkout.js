@@ -20,8 +20,9 @@ class Checkout extends Component {
     this.handleRemoteClick = this.handleRemoteClick.bind(this);
 
   
-    this.handleCheckout = this.handleCheckout.bind(this);    
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleLocalCheckout = this.handleLocalCheckout.bind(this);
+    this.handleRemoteCheckout = this.handleRemoteCheckout.bind(this);    
+    
     this.handleChange= this.handleChange.bind(this);
   }
 
@@ -41,30 +42,25 @@ class Checkout extends Component {
     }
   }
 
-  // handleCheckout(event) {
-  //   event.preventDefault();
-  //   // this.props.deleteLocalBranch(this.props.userPath, this.state.value);
-  //   this.props.getAllLocalBranches(this.props.userPath);    
-  //   this.setState({clicked: false});
-  // }
-
   handleLocalCheckout(event) {
     event.preventDefault();
-    this.props.checkoutLocalBranch(this.props.userPath, this.state.value);
+    this.props.checkout(this.props.userPath, this.state.value);
     this.props.getAllLocalBranches(this.props.userPath);    
     this.setState({
       checkoutClicked: false,
       checkoutLocalClicked: false,
-      checkoutRemoteClicked: false
-
     });   
   }
 
   handleRemoteCheckout(event) {
     event.preventDefault();
-    // this.props.deleteLocalBranch(this.props.userPath, this.state.value);
+    this.props.checkoutBranch(this.props.userPath, event.target.fromRemote.value, this.state.value);
     this.props.getAllRemoteBranches(this.props.userPath);    
-    this.setState({clicked: false});
+    this.setState({
+      checkoutClicked: false,
+      checkoutRemoteClicked: false,
+
+    });
   }
 
   handleChange(event) {
@@ -78,22 +74,26 @@ class Checkout extends Component {
 
   handleLocalClick(event) {
     event.preventDefault();
-    this.setState({checkoutLocalClicked: true});
+    this.setState({
+      checkoutLocalClicked: true,
+      checkoutRemoteClicked: false
+    });
   }
 
   handleRemoteClick(event) {
     event.preventDefault();
-    this.setState({checkoutRemoteClicked: true});
-  }
-
-
+    this.props.getAllRemoteBranches(this.props.userPath);    
+    this.setState({
+      checkoutLocalClicked: false,
+      checkoutRemoteClicked: true
+    });  }
 
   render() {
     return (
       <div>
         { !this.state.checkoutClicked && <button className="btn btn-large btn-primary" onClick={this.handleCheckoutClick}>
           <span className="icon icon-down-circled icon-text"></span>
-        Checkout Branch
+        Checkout
         </button>}
         { this.state.checkoutClicked &&
         <div>
