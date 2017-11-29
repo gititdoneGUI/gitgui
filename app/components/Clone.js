@@ -46,13 +46,13 @@ class Clone extends Component {
         { this.state.clicked &&
         <div>
 
-
-          <form onSubmit={this.handleCloneClick}>
-            <div className="form-group">
-              <button className="btn btn-mini btn-default" type="submit" id="clone-into-btn" onClick={openDir(this.handleSubmit)}>
+<button className="btn btn-mini btn-default" type="submit" id="clone-into-btn" onClick={openDir(this.handleSubmit)}>
                 <span className="icon icon-list-add icon-text"></span>
                 Choose repo to clone into
             </button>
+          <form onSubmit={this.handleCloneClick}>
+            <div className="form-group">
+
               <input
                 type="text"
                 className="form-control"
