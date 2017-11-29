@@ -20,7 +20,6 @@ class Clone extends Component {
   }
 
   handleSubmit(evt) {
-    console.log('THIS IS THE EVENT', evt[0]);
     const userFilePath = evt[0];
     this.setState({userFilePath});
   }
@@ -38,9 +37,8 @@ class Clone extends Component {
 
   render() {
     return (
-
       <div>
-        { !this.state.clicked && <button className="btn btn-large btn-primary" onClick={this.handleUserRes}>
+        { !this.state.clicked && <button className="btn btn-mini btn-primary" onClick={this.handleUserRes}>
           <span className="icon icon-users icon-text"></span>
         Clone
         </button>}
@@ -51,7 +49,7 @@ class Clone extends Component {
 
           <form onSubmit={this.handleCloneClick}>
             <div className="form-group">
-              <button className="btn btn-large btn-default" type="submit" id="clone-into-btn" onClick={openDir(this.handleSubmit)}>
+              <button className="btn btn-mini btn-default" type="submit" id="clone-into-btn" onClick={openDir(this.handleSubmit)}>
                 <span className="icon icon-list-add icon-text"></span>
                 Choose repo to clone into
             </button>

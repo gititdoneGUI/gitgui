@@ -1,5 +1,11 @@
 .login-div{
-  padding: 20px;
+  padding: 275px 300px 150px 300px;
+  width: 100%;
+  text-align:center;
+}
+
+.login-div .form-group{
+  width: 100%;
 }
 
 .login-div .form-control{
@@ -120,4 +126,13 @@ button.btn.btn-mini.btn-primary{
 #clone-into-btn{
   margin-bottom: 5px;
 }
+
+select{
+  width: 100%;
+}
+
+/* .pane-med.sidebar{
+  overflow: scroll;
+  width: auto;
+} */
 
