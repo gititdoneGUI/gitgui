@@ -29,18 +29,14 @@ class Branch extends Component {
   render() {
     return (
       <div>
-      <div>
-        <button className="btn btn-large btn-primary"  onClick={this.handleBranchClick}>
+        <button id="local-branch-button" className="btn btn-large btn-primary"  onClick={this.handleBranchClick}>
           <span className="icon icon-flow-branch icon-text"></span>
         Local Branches
         </button>
-        </div>
-        <div>
         <button className="btn btn-large btn-primary"  onClick={this.handleremoteBranchClick}>
           <span className="icon icon-flow-branch icon-text"></span>
         Remote Branches
         </button>
-        </div>
       </div>
     );
   }

@@ -36,10 +36,10 @@ export default class GitButtons extends Component{
         <Pull />
         <Push />
         <Fetch />
-        <Branch />
         <Merge />
         <Stash />
         <Clone />
+        <Branch />
       </div>
     );
   }

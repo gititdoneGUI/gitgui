@@ -40,35 +40,39 @@ class Fetch extends Component {
         </button>}
 
         { this.state.clicked &&
-      
-        <form  className="form-group" onSubmit={this.handleFetchClick}>
-          <label> Origin/Remote : </label>
+
+        <form onSubmit={this.handleFetchClick}>
+          <div id="fetch-form" className="form-group">
           <input
             type="text"
             className="form-control"
-            placeholder="haxor99"
+              placeholder="Origin/Remote"
             name="or"
           />
-
-          <label>Branch to fetch from : </label>
           <input
             type="text"
             className="form-control"
-            placeholder="haxor99"
+              placeholder="Branch to fetch from"
             name="fetch"
           />
-          
-          Fetch ALL  <input
+          <div className="fetch-all-container">
+          <input
             type="checkbox"
             className="form-control"
-            placeholder="haxor99"
             name="fetchall"
-          /> 
-
-          <button type="submit" className="btn btn-large btn-primary">
+            id="fetch-all"
+          />
+          <label htmlFor="fetch-all">
+          Fetch All
+          </label>
+          </div>
+          <div>
+          <button type="submit" className="btn btn-mini btn-primary">
             <span className="icon icon-down-circled icon-text"></span>
             Submit Fetch
           </button>
+          </div>
+          </div>
         </form>
         }
       </div>

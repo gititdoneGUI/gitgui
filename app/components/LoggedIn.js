@@ -19,7 +19,8 @@ class LoggedIn extends Component {
     super();
     this.state = {
       nodes: [],
-      edges: []
+      edges: [],
+      dropdown: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleNodeClick = this.handleNodeClick.bind(this);
@@ -37,7 +38,6 @@ class LoggedIn extends Component {
   }
 
   handleSubmit(evt) {
-    console.log('THIS IS THE EVENT', evt[0]);
     const userFilePath = evt[0];
     this.props.getUserPath(userFilePath);
     this.props.getRepo(userFilePath);
@@ -58,8 +58,8 @@ class LoggedIn extends Component {
 
               {/* WELCOME MSG AND FORM FOR GITHUB REPO*/}
               <div className="home-page-forms">
+                {this.props.user.username.length ? <p id="logged-in-as">Logged in as <b>{this.props.user.username}</b></p> : null}
 
-                <p id="logged-in-as">Logged in as <b>{this.props.user.username}</b></p>
                 {/*}
                 <select className="form-control">
                   <option>Pick a github repo...</option>
@@ -69,6 +69,7 @@ class LoggedIn extends Component {
                 </select>
                 <p><b>OR</b></p>
             */}
+
                 {/* FORM TO CHOOSE A FILE FROM COMPUTER */}
                 <button className="btn btn-large btn-default" type="submit" onClick={openDir(this.handleSubmit)}>
                   <span className="icon icon-list-add icon-text"></span>
@@ -76,6 +77,20 @@ class LoggedIn extends Component {
                 </button>
                 <hr />
                 {/* GITHUB ACTION BUTTONS */}
+                <div className="repo-info">
+                  <h5>Repo: {this.props.userPath.slice( this.props.userPath.lastIndexOf('/')+1)}</h5>
+                  <button id="files-changed-button" onClick={() => this.setState((prevState) => {
+                    return {...prevState, dropdown: !prevState.dropdown};
+                  })}>
+                    <h5>Files changed: {this.props.status.length} ⌵</h5>
+                  </button>
+                  {
+                    this.state.dropdown ? (<ul className="repo-status">
+                      {this.props.status.map((e, i) => <li key={i}>{e}</li>)}
+                    </ul>) : ''
+                  }
+                </div>
+                <hr />
                 <GitButtons />
                 <hr />
                 <div>
@@ -115,7 +130,8 @@ class LoggedIn extends Component {
 const mapState = state => {
   return {
     repos: state.repos,
-    user: state.user
+    user: state.user,
+    userPath: state.userPath
   };
 };
 
