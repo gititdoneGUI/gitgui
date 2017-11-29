@@ -19,8 +19,6 @@ class DeleteBranch extends Component {
 
 
   componentWillReceiveProps(newProps) {
-    console.log('props', this.props);
-    console.log('newProps', newProps);
     if (this.props.userPath !== newProps.userPath) {
       this.props.getAllLocalBranches(newProps.userPath);
       this.setState({clicked: false});

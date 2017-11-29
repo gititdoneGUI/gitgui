@@ -1,7 +1,18 @@
-export const merge = (path, options) => {
-  require('simple-git')(`${path}`).merge(options);
-};
+const {dialog} = require('electron').remote;
+
+// export const merge = (path, options) => {
+//   require('simple-git')(`${path}`).merge(options);
+// };
 
 export const mergeFromTo = (path, from, to) => {
-  require('simple-git')(`${path}`).mergeFromTo(from, to);    
+  require('simple-git/promise')(`${path}`).mergeFromTo(from, to)
+    .then(() => console.log('merge complete'))
+    .catch((err) => openDialogBox(err));
+  
 };
+function openDialogBox(err) {
+  const title = 'Error';
+  const content = `${err}`;
+  dialog.showErrorBox(title, content);
+    
+}

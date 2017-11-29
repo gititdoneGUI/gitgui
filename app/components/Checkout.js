@@ -28,8 +28,6 @@ class Checkout extends Component {
 
 
   componentWillReceiveProps(newProps) {
-    console.log('props', this.props);
-    console.log('newProps', newProps);
     if (this.props.userPath !== newProps.userPath) {
       this.props.getAllLocalBranches(newProps.userPath);
       this.props.getAllRemoteBranches(newProps.userPath);      
@@ -172,18 +170,6 @@ const mapDispatch = (dispatch) => {
   };
 };
 export default connect(mapState, mapDispatch)(Checkout);
-
-
-// export default class Checkout extends Component {
-//   render() {
-//     return (
-//       <button className="btn btn-large btn-primary">
-//         <span className="icon icon-switch icon-text"></span>
-//         Checkout
-//       </button>
-//     );
-//   }
-// }
 
 
 
