@@ -31,20 +31,17 @@ export default class Login extends Component {
   render() {
     return (
       <div className="login-div">
-        <h2>Login</h2>
+        <h2>Git It Done</h2>
         <form>
           <div className="form-group">
             <label>Enter your github username.</label>
             <br/>
-            <input ref={(ref) => { this._inputRef = ref; }} type="text" className="form-control" placeholder="haxor99"/>
-
+            <input ref={(ref) => { this._inputRef = ref; }} type="text" className="form-control" placeholder="steve_jobs_77"/>
             <button className="btn btn-default" onClick={this.handleLogin}>
-            <span className="icon icon-login"></span>
+              <span className="icon icon-login"></span>
             </button>
           </div>
         </form>
-        <h3>OR</h3>
-        <br />
         <button className="btn btn-default" onClick={this.handleGuestLogin}>
           Skip
           <span className="icon icon-right-thin icon-text"></span>

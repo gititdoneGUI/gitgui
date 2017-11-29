@@ -8,12 +8,11 @@ class BranchRemoteLists extends Component{
     return (
       <div>
         <div>
-          <form>
-            <h4>Local Branches</h4>
-            <select>
-              <option></option>
+          <form id="branches-dropdown">
+            <label>Local Branches</label>
+            <select >
               {
-                this.props.localBranch.map((branch) => 
+                this.props.localBranch.map((branch) =>
                   <option key={branch} value={branch}>{branch}</option>
                 )
               }
@@ -21,13 +20,11 @@ class BranchRemoteLists extends Component{
           </form>
         </div>
         <div>
-
-          <h4>Remote Branches</h4>
-          <form>
+          <label>Remote Branches</label>
+          <form id="branches-dropdown">
             <select>
-              <option></option>
               {
-                this.props.remoteBranch.map((branch) => 
+                this.props.remoteBranch.map((branch) =>
                   <option key={branch} value={branch}>{branch}</option>
                 )
               }
@@ -43,7 +40,7 @@ const mapDispatch = (dispatch) => {
   return {
     getAllLocalBranches: (path) =>
       dispatch(getAllLocalBranches(path)),
-    getAllRemoteBranches: (path) => 
+    getAllRemoteBranches: (path) =>
       dispatch(getAllRemoteBranches(path))
 
   };
