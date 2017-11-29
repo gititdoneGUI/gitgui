@@ -16,6 +16,15 @@ class Push extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentWillReceiveProps(newProps) {
+    if (this.props.userPath !== newProps.userPath) {
+      this.props.getAllRemoteBranches(newProps.userPath);      
+      this.setState({
+        clicked: false,
+      });      
+    }
+  }
+
   handlePushClick(event) {
     event.preventDefault();
     push(this.props.userPath, this.state.value);
