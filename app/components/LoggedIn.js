@@ -4,6 +4,7 @@ import { fetchRepos } from '../actions/repos';
 import { fetchHistory } from '../reducers/repo';
 import { getPath } from '../actions/userPath';
 import { statusCheck } from '../reducers/status';
+import { currentBranch } from '../reducers/currentBranch';
 import GitButtons from './GitButtons';
 import CommitGraph from './CommitGraph';
 import Header from './Header';
@@ -36,6 +37,7 @@ class LoggedIn extends Component {
     this.props.getUserPath(userFilePath);
     this.props.fetchHistory(userFilePath);
     this.props.statusCheck(userFilePath);
+    currentBranch(userFilePath);
   }
 
   render() {
