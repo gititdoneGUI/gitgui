@@ -62,6 +62,20 @@ describe('reducers', () => {
     
   });
 
+  describe('Add Commit', () => {    
+    
+    it('add a commit ADD_COMMIT', () => {
+      const action = { 
+        type: 'ADD_COMMIT',
+        commit: {}
+
+      };
+      const test = Object.assign([], action.commit);
+      expect(userPathReducer([], action)).to.deep.equal(test);
+    });
+    
+  });
+
   describe('Getbranches', () => {    
     
     it('get all branches GET_ALL_BRANCHES', () => {
@@ -75,7 +89,60 @@ describe('reducers', () => {
     });
     
   });
+
+  describe('Addbranch', () => {    
+    
+    it('add a branch ADD_BRANCH', () => {
+      const action = { 
+        type: 'ADD_BRANCH',
+        branch: {}
+      };
+      const test = Object.assign([], action.branch);
+      expect(userPathReducer([], action)).to.deep.equal(test);
+    });
+    
+  });
   
+  describe('Deletebranch', () => {    
+    
+    it('Delete a branch DELETE_BRANCH', () => {
+      const action = { 
+        type: 'DELETE_BRANCH',
+        branch: {}
+      };
+      const test = Object.assign([], action.branch);
+      expect(userPathReducer([], action)).to.deep.equal(test);
+    });
+    
+  });
+
+  describe('Getbranch', () => {    
+    
+    it('Get a branch GET_BRANCH', () => {
+      const action = { 
+        type: 'GET_BRANCH',
+        branch: {}
+      };
+      const test = Object.assign([], action.branch);
+      expect(userPathReducer([], action)).to.deep.equal(test);
+    });
+    
+  });
+
+  describe('Graph', () => {    
+    
+    it('Add a edge ADD_EDGE', () => {
+      const action = { 
+        type: 'ADD_EDGE',
+        edge: {}
+      };
+      const test = Object.assign([], action.edge);
+      expect(userPathReducer([], action)).to.deep.equal(test);
+    });
+    
+  });
 
 });
+
+
 

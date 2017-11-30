@@ -65,7 +65,17 @@ describe('actions', () => {
       }];
     });
 
+    it('should add a commit', () => {
+      const store = mockStore({});
+      const expectedActions = [{
+        type: 'ADD_COMMIT',
+        commit: {}
+      }];
+    });
+    
   });
+
+  
 
   describe('branches', () => {
     
@@ -74,6 +84,46 @@ describe('actions', () => {
       const expectedActions = [{
         type: 'GET_ALL_BRANCHES',
         branches: []
+      }];
+    });
+
+  });
+
+  describe('branch', () => {
+    
+    it('should add a branch', () => {
+      const store = mockStore({});
+      const expectedActions = [{
+        type: 'ADD_BRANCH',
+        branch: {}
+      }];
+    });
+
+    it('should delete a branch', () => {
+      const store = mockStore({});
+      const expectedActions = [{
+        type: 'DELETE_BRANCH',
+        branch: {}
+      }];
+    });
+
+    it('should get a branch', () => {
+      const store = mockStore({});
+      const expectedActions = [{
+        type: 'GET_BRANCH',
+        branch: {}
+      }];
+    });
+
+  });
+
+  describe('Graph', () => {
+    
+    it('should add a edge', () => {
+      const store = mockStore({});
+      const expectedActions = [{
+        type: 'ADD_EDGE',
+        edge: {}
       }];
     });
 
