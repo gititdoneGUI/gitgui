@@ -1,4 +1,6 @@
 const {dialog} = require('electron').remote;
+// import {fetchHistory} from './repo';
+
 
 export const merge = (path, options) => {
   require('simple-git')(`${path}`).merge(options);

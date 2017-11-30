@@ -1,10 +1,9 @@
 import Graph from 'react-graph-vis';
 import { connect } from 'react-redux';
-import { fetchHistory } from '../reducers/repo';
 import React from 'react';
-// import { commitTest } from '../reducers/commit';
 import { statusCheck } from '../reducers/status';
 import chokidar from 'chokidar';
+
 
 const options = {
   layout: {
@@ -28,7 +27,7 @@ const options = {
     selectionWidth: function (width) {return width*2;}
   },
   nodes: {
-    shape: 'dot'
+    shape: 'dot',
   },
   physics: {
     enabled: false
@@ -36,8 +35,7 @@ const options = {
   autoResize: true
 };
 
-
-const mapState = ({ repo, status, commit, userPath }) => ({ repo, status, commit, userPath });
+const mapState = ({ repo, status, commit, userPath, currentBranch, localBranch, remoteBranch}) => ({ repo, status, commit, userPath, currentBranch, localBranch, remoteBranch });
 const mapDispatch = (dispatch) => {
   return {
     statusCheck: (rootDir) =>
@@ -77,11 +75,6 @@ class CommitGraph extends React.Component {
     this.watcher.close();
   }
 
-  // shouldComponentUpdate(nextProps, nextState){
-  //   console.log(nextProps.userPath);
-  //   return this.props.userPath !== nextProps.userPath;
-  // }
-
   events = {
     select: function(event) {
       this.props.handleNodeClick(event);
@@ -90,16 +83,21 @@ class CommitGraph extends React.Component {
 
   handleClick(event) {
     event.preventDefault();
-    console.log(this.state.commitMessage, this.props.userPath);
     this.props.commitTest(this.state.commitMessage, this.props.userPath);
   }
 
   render() {
+    const colors = [ '#80b3ff', '#85e085', '#ff80b3', '#aa80ff', '#ff8c1a', '#ffdb4d']; 
+    
+    const renderoptions = Object.assign({}, options, {nodes: {
+      shape: 'dot',
+      color: colors[this.props.localBranch.indexOf(this.props.currentBranch) % colors.length]
+    }});
     return (
       <div className="pane">
         <Graph
           graph={this.props.repo}
-          options={options}
+          options={renderoptions}
           events={this.events}
         />
       </div>

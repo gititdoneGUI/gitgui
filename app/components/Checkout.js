@@ -92,18 +92,15 @@ class Checkout extends Component {
         </button>}
         { this.state.checkoutClicked &&
         <div>
-          {
-            !this.state.checkoutRemoteClicked ? (<button className="btn btn-mini btn-primary" onClick={this.handleLocalClick}>
-              <span className="icon icon-down-circled icon-text"></span>
+          <button className="btn btn-mini btn-primary" onClick={this.handleLocalClick}>
+            <span className="icon icon-down-circled icon-text"></span>
               Checkout Local Branch
-            </button>) : null
-          }
-          {
-            !this.state.checkoutLocalClicked ? (<button className="btn btn-mini btn-primary" onClick={this.handleRemoteClick}>
-              <span className="icon icon-down-circled icon-text"></span>
+          </button>
+          
+          <button className="btn btn-mini btn-primary" onClick={this.handleRemoteClick}>
+            <span className="icon icon-down-circled icon-text"></span>
               Checkout Remote Branch
-            </button>) : null
-          }
+          </button>
 
 
         </div>
