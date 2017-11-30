@@ -16,11 +16,8 @@ import {userLogin} from './reducers/user';
 // import branch from './reducers/branches';
 import localBranch from './reducers/localBranch';
 import remoteBranch from './reducers/remoteBranch';
-<<<<<<< HEAD
 import stashmessage from './reducers/stash';
-=======
 import currentBranch from './reducers/currentBranch';
->>>>>>> d0641dba9820563468d8089d55a496178007ca72
 
 export default function configureStore(initialState, routerHistory) {
   const router = routerMiddleware(routerHistory);
@@ -40,11 +37,8 @@ export default function configureStore(initialState, routerHistory) {
     commit,
     localBranch,
     remoteBranch,
-<<<<<<< HEAD
-    stashmessage
-=======
+    stashmessage,
     currentBranch
->>>>>>> d0641dba9820563468d8089d55a496178007ca72
   };
 
   const nukeable = reducer => (state, action) =>
