@@ -92,18 +92,18 @@ class Checkout extends Component {
         </button>}
         { this.state.checkoutClicked &&
         <div>
-        {
+          {
             !this.state.checkoutRemoteClicked ? (<button className="btn btn-mini btn-primary" onClick={this.handleLocalClick}>
               <span className="icon icon-down-circled icon-text"></span>
               Checkout Local Branch
-          </button>) : null
-        }
-        {
+            </button>) : null
+          }
+          {
             !this.state.checkoutLocalClicked ? (<button className="btn btn-mini btn-primary" onClick={this.handleRemoteClick}>
               <span className="icon icon-down-circled icon-text"></span>
               Checkout Remote Branch
-          </button>) : null
-        }
+            </button>) : null
+          }
 
 
         </div>
@@ -112,7 +112,7 @@ class Checkout extends Component {
         { this.state.checkoutClicked && this.state.checkoutLocalClicked &&
           <form  className="form-group" onSubmit={this.handleLocalCheckout}>
             <select value = {this.state.value} onChange={this.handleChange}>
-            <option>Branch to checkout ...</option>
+              <option>Branch to checkout ...</option>
               {
                 this.props.localBranch.map((branch) =>
                   <option key={branch} value={branch}>{branch}</option>
@@ -129,7 +129,7 @@ class Checkout extends Component {
         { this.state.checkoutClicked && this.state.checkoutRemoteClicked &&
           <form  className="form-group" onSubmit={this.handleRemoteCheckout}>
             <select value = {this.state.value} onChange={this.handleChange}>
-            <option>Branch to Checkout...</option>
+              <option>Branch to Checkout...</option>
               {
                 this.props.remoteBranch.map((branch) =>
                   <option key={branch} value={branch}>{branch}</option>
@@ -140,7 +140,7 @@ class Checkout extends Component {
               type="text"
               className="form-control"
               name="fromRemote"
-            placeholder= "Give this branch a local name..."
+              placeholder= "Give this branch a local name..."
             />
 
             <button type="submit" className="btn btn-mini btn-primary">

@@ -52,7 +52,7 @@ export const deleteLocalBranch = (path, branchName) => (dispatch) => {
 };
 
 export const checkout = (path, checkoutWhat) => (dispatch) => {
-  require('simple-git')(`${path}`).checkout(checkoutWhat)
+  require('simple-git/promise')(`${path}`).checkout(checkoutWhat)
     .then((obj) => {
       dispatch(getBranch(obj));
     })

@@ -8,6 +8,7 @@ import { currentBranch } from '../reducers/currentBranch';
 import GitButtons from './GitButtons';
 import BranchRemoteLists from './BranchRemoteLists';
 import CommitGraph from './CommitGraph';
+import StashList from './StashList';
 import Header from './Header';
 
 const {dialog} = require('electron').remote;
@@ -85,6 +86,8 @@ class LoggedIn extends Component {
 
                   <BranchRemoteLists />
                 </div>
+                <hr />
+                <StashList/>
                 <hr />
                 <GitButtons />
                 <hr />

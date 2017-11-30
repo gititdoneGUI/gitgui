@@ -16,6 +16,7 @@ import {userLogin} from './reducers/user';
 // import branch from './reducers/branches';
 import localBranch from './reducers/localBranch';
 import remoteBranch from './reducers/remoteBranch';
+import stashmessage from './reducers/stash';
 import currentBranch from './reducers/currentBranch';
 
 export default function configureStore(initialState, routerHistory) {
@@ -36,6 +37,7 @@ export default function configureStore(initialState, routerHistory) {
     commit,
     localBranch,
     remoteBranch,
+    stashmessage,
     currentBranch
   };
 
