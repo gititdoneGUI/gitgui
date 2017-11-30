@@ -80,6 +80,7 @@ class LoggedIn extends Component {
                 {/* GITHUB ACTION BUTTONS */}
                 <div className="repo-info">
                   <h5>Repo: {this.props.userPath.slice( this.props.userPath.lastIndexOf('/')+1)}</h5>
+                  <h5>Current Branch: {this.props.currentBranch}</h5>
                   <button id="files-changed-button" onClick={() => this.setState((prevState) => {
                     return {...prevState, dropdown: !prevState.dropdown};
                   })}>
@@ -131,14 +132,7 @@ class LoggedIn extends Component {
   }
 }
 
-const mapState = state => {
-  return {
-    repos: state.repos,
-    user: state.user,
-    userPath: state.userPath,
-    currentBranch: state.currentBranch
-  };
-};
+const mapState = ({repos, user, userPath, currentBranch}) => ({repos, user, userPath, currentBranch})
 
 const mapDispatch = dispatch => {
   return {
