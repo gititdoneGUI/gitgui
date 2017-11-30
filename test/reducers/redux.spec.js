@@ -48,5 +48,34 @@ describe('reducers', () => {
     
   });
 
+  describe('Make Commit', () => {    
+    
+    it('make a commit MAKE_COMMIT', () => {
+      const action = { 
+        type: 'MAKE_COMMIT',
+        commit: []
+
+      };
+      const test = Object.assign([], action.commit);
+      expect(userPathReducer([], action)).to.deep.equal(test);
+    });
+    
+  });
+
+  describe('Getbranches', () => {    
+    
+    it('get all branches GET_ALL_BRANCHES', () => {
+      const action = { 
+        type: 'GET_ALL_BRANCHES',
+        branches: []
+
+      };
+      const test = Object.assign([], action.branches);
+      expect(userPathReducer([], action)).to.deep.equal(test);
+    });
+    
+  });
+  
+
 });
 

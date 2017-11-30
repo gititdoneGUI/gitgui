@@ -44,11 +44,36 @@ describe('actions', () => {
 
   describe('status', () => {
     
-    it('should get status', () => {
+    it('should add status', () => {
       const store = mockStore({});
       const expectedActions = [{
         type: 'ADD_FILE_STATUS',
         fileStatus: []
+      }];
+    });
+
+  });
+
+
+  describe('commit', () => {
+    
+    it('should make status', () => {
+      const store = mockStore({});
+      const expectedActions = [{
+        type: 'MAKE_COMMIT',
+        commit: []
+      }];
+    });
+
+  });
+
+  describe('branches', () => {
+    
+    it('should get all branches', () => {
+      const store = mockStore({});
+      const expectedActions = [{
+        type: 'GET_ALL_BRANCHES',
+        branches: []
       }];
     });
 
