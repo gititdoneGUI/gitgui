@@ -1,6 +1,8 @@
 const {dialog} = require('electron').remote;
 import {addStashMessage} from '../actions/stashMessage';
-export const stash = (path) => (dispatch)=>{
+export const stash = (path, message) => (dispatch)=>{
+
+  message = message || null;
 
   require('simple-git/promise')(`${path}`).stash()
     .then(()=> console.log('Stash Successfully Completed '))
@@ -9,7 +11,7 @@ export const stash = (path) => (dispatch)=>{
 
   require('simple-git/promise')(`${path}`).stashList()
     .then((list)=> {
-      dispatch(addStashMessage(list.latest.message));
+      (message) ? dispatch(addStashMessage(message)) : dispatch(addStashMessage(list.latest.message));
       console.log('StashList', list.latest.message);})
     .catch((err) => openDialogBox(err) );
   

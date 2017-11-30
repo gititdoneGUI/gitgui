@@ -2,9 +2,11 @@ const {dialog} = require('electron').remote;
 
 const ADD_BRANCH = 'ADD_BRANCH';
 const DELETE_BRANCH = 'DELETE_BRANCH';
-const GET_BRANCH = 'GET_BRANCH'; 
-const GET_ALL_BRANCHES = 'GET_ALL_BRANCHES'; 
+const GET_BRANCH = 'GET_BRANCH';
+const GET_ALL_BRANCHES = 'GET_ALL_BRANCHES';
 
+import { setCurrentBranch } from '../actions/currentBranch';
+import { fetchHistory } from './repo';
 
 export const addBranch = branch =>  ({type: ADD_BRANCH, branch});
 export const deleteBranch = branch =>  ({type: DELETE_BRANCH, branch});
@@ -12,12 +14,12 @@ export const getBranch = branch => ({type: GET_BRANCH, branch});
 export const getAllBranches  = branches => ({type: GET_ALL_BRANCHES, branches});
 
 export const fetchAllBranches = (path) => (dispatch)=>{
-  
+
   return  require('simple-git/promise')(`${path}`).branch()
-    .then((obj)=> {      
+    .then((obj)=> {
       dispatch(getAllBranches(obj['all']));
     })
-    .catch((err) => openDialogBox(err) ); 
+    .catch((err) => openDialogBox(err) );
 };
 
 function openDialogBox(err) {
@@ -50,7 +52,7 @@ export const deleteLocalBranch = (path, branchName) => (dispatch) => {
 };
 
 export const checkout = (path, checkoutWhat) => (dispatch) => {
-  require('simple-git')(`${path}`).checkout(checkoutWhat)
+  require('simple-git/promise')(`${path}`).checkout(checkoutWhat)
     .then((obj) => {
       dispatch(getBranch(obj));
     })
@@ -62,7 +64,7 @@ export default function reducer (state = [], action){
   switch (action.type){
   case ADD_BRANCH:
     return [...state, action.branch];
-  case DELETE_BRANCH: 
+  case DELETE_BRANCH:
     return [...state].filter(item => item !== action.branch);
   case GET_BRANCH:
     return action.branch;

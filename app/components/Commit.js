@@ -7,15 +7,25 @@ class Commit extends Component {
   constructor() {
     super();
     this.state = {
-      commitMessage: ''
+      commitMessage: '', 
+      clicked: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    
   }
+
+  handleClick(event) {
+    event.preventDefault();
+    this.setState({clicked: true});
+  }
+
 
   handleSubmit(event) {
     event.preventDefault();
     this.props.commit(this.state.commitMessage, this.props.userPath);
+    this.setState({clicked: false});    
   }
 
   handleChange(event) {
@@ -27,20 +37,27 @@ class Commit extends Component {
       <div>
         {
           (this.props.status.length !== 0) ?
-            (<form onSubmit={this.handleSubmit}>
-              <div className='form-group'>
-                <input className='form-control' value={this.state.commitMessage} onChange={this.handleChange} placeholder="Commit message..."></input>
-                <button type='submit' className="btn btn-mini btn-primary">
-                  <span className="icon icon-list-add icon-text"></span>
-              Submit Commit
-                </button>
-              </div>
-            </form>)
-            :
+            (<button type='submit' className="btn btn-mini btn-primary" onClick={this.handleClick}>
+              <span className="icon icon-list-add icon-text"></span>
+               Commit
+            </button>):
             (<button className="btn btn-large btn-default" disabled={true}>
               <span className="icon icon-list-add icon-text"></span>
             Nothing to Commit
             </button>)
+        }
+
+        {
+          this.state.clicked && 
+          <form onSubmit={this.handleSubmit}>
+            <div className='form-group'>
+              <input className='form-control' value={this.state.commitMessage} onChange={this.handleChange} placeholder="Commit message..."></input>
+              <button type='submit' className="btn btn-mini btn-primary">
+                <span className="icon icon-list-add icon-text"></span>
+          Commit
+              </button>
+            </div>
+          </form>
         }
       </div>
     );

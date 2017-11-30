@@ -22,14 +22,13 @@ class Stash extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.stash(this.props.userPath);  
+    this.props.stash(this.props.userPath, this.state.stashMessage);
+    this.setState({clicked: false});
   }
 
   handleChange(event) {
     this.setState({ stashMessage: event.target.value });
   }
-
-
 
   render() {
     return (
@@ -71,8 +70,8 @@ const mapState = ({userPath,status }) => ({
 
 const mapDispatch = dispatch => {
   return {
-    stash: path => {
-      dispatch(stash(path));
+    stash: (path, message) => {
+      dispatch(stash(path, message));
     }
   };
 };
