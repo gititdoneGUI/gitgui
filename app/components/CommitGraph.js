@@ -4,6 +4,7 @@ import React from 'react';
 import { statusCheck } from '../reducers/status';
 import chokidar from 'chokidar';
 
+
 const options = {
   layout: {
     hierarchical: {
@@ -26,38 +27,7 @@ const options = {
     selectionWidth: function (width) {return width*2;}
   },
   nodes: {
-    shape: 'dot'
-  },
-  physics: {
-    enabled: false
-  },
-  autoResize: true
-};
-
-const optionsBranches = {
-  layout: {
-    hierarchical: {
-      enabled: true,
-      levelSeparation: 150,
-      nodeSpacing: 200,
-      treeSpacing: 200,
-      blockShifting: true,
-      edgeMinimization: true,
-      parentCentralization: true,
-      direction: 'DU',
-      sortMethod: 'directed'
-    }
-  },
-  height: '100%',
-  width: '100%',
-  edges: {
-    color: '#000000',
-    width: 5,
-    selectionWidth: function (width) {return width*2;}
-  },
-  nodes: {
     shape: 'dot',
-    color: 'red'
   },
   physics: {
     enabled: false
@@ -65,7 +35,7 @@ const optionsBranches = {
   autoResize: true
 };
 
-const mapState = ({ repo, status, commit, userPath, currentBranch }) => ({ repo, status, commit, userPath, currentBranch });
+const mapState = ({ repo, status, commit, userPath, currentBranch, localBranch, remoteBranch}) => ({ repo, status, commit, userPath, currentBranch, localBranch, remoteBranch });
 const mapDispatch = (dispatch) => {
   return {
     statusCheck: (rootDir) =>
@@ -117,7 +87,12 @@ class CommitGraph extends React.Component {
   }
 
   render() {
-    const renderoptions = (this.props.currentBranch == 'master') ? options : optionsBranches;
+    const colors = [ '#80b3ff', '#85e085', '#ff80b3', '#aa80ff', '#ff8c1a', '#ffdb4d']; 
+    
+    const renderoptions = Object.assign({}, options, {nodes: {
+      shape: 'dot',
+      color: colors[this.props.localBranch.indexOf(this.props.currentBranch) % colors.length]
+    }});
     return (
       <div className="pane">
         <Graph
