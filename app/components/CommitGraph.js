@@ -1,8 +1,6 @@
 import Graph from 'react-graph-vis';
 import { connect } from 'react-redux';
-import { fetchHistory } from '../reducers/repo';
 import React from 'react';
-// import { commitTest } from '../reducers/commit';
 import { statusCheck } from '../reducers/status';
 import chokidar from 'chokidar';
 
@@ -36,8 +34,38 @@ const options = {
   autoResize: true
 };
 
+const optionsBranches = {
+  layout: {
+    hierarchical: {
+      enabled: true,
+      levelSeparation: 150,
+      nodeSpacing: 200,
+      treeSpacing: 200,
+      blockShifting: true,
+      edgeMinimization: true,
+      parentCentralization: true,
+      direction: 'DU',
+      sortMethod: 'directed'
+    }
+  },
+  height: '100%',
+  width: '100%',
+  edges: {
+    color: '#000000',
+    width: 5,
+    selectionWidth: function (width) {return width*2;}
+  },
+  nodes: {
+    shape: 'dot',
+    color: 'red'
+  },
+  physics: {
+    enabled: false
+  },
+  autoResize: true
+};
 
-const mapState = ({ repo, status, commit, userPath }) => ({ repo, status, commit, userPath });
+const mapState = ({ repo, status, commit, userPath, currentBranch }) => ({ repo, status, commit, userPath, currentBranch });
 const mapDispatch = (dispatch) => {
   return {
     statusCheck: (rootDir) =>
@@ -77,11 +105,6 @@ class CommitGraph extends React.Component {
     this.watcher.close();
   }
 
-  // shouldComponentUpdate(nextProps, nextState){
-  //   console.log(nextProps.userPath);
-  //   return this.props.userPath !== nextProps.userPath;
-  // }
-
   events = {
     select: function(event) {
       this.props.handleNodeClick(event);
@@ -90,16 +113,16 @@ class CommitGraph extends React.Component {
 
   handleClick(event) {
     event.preventDefault();
-    console.log(this.state.commitMessage, this.props.userPath);
     this.props.commitTest(this.state.commitMessage, this.props.userPath);
   }
 
   render() {
+    const renderoptions = (this.props.currentBranch == 'master') ? options : optionsBranches;
     return (
       <div className="pane">
         <Graph
           graph={this.props.repo}
-          options={options}
+          options={renderoptions}
           events={this.events}
         />
       </div>
