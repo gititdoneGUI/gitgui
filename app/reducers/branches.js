@@ -14,7 +14,6 @@ export const getBranch = branch => ({type: GET_BRANCH, branch});
 export const getAllBranches  = branches => ({type: GET_ALL_BRANCHES, branches});
 
 export const fetchAllBranches = (path) => (dispatch)=>{
-
   return  require('simple-git/promise')(`${path}`).branch()
     .then((obj)=> {
       dispatch(getAllBranches(obj['all']));
@@ -45,16 +44,16 @@ export const checkoutLocalBranch = (path, branchName) => (dispatch) => {
 export const deleteLocalBranch = (path, branchName) => (dispatch) => {
   require('simple-git/promise')(`${path}`).deleteLocalBranch(branchName)
     .then((obj) => {
-      console.log(obj);
       dispatch(deleteBranch(obj));
     })
     .catch(err => openDialogBox(err));
 };
 
 export const checkout = (path, checkoutWhat) => (dispatch) => {
-  require('simple-git')(`${path}`).checkout(checkoutWhat)
-    .then((obj) => {
-      dispatch(getBranch(obj));
+  require('simple-git/promise')(`${path}`).checkout(checkoutWhat)
+    .then(() => {
+      dispatch(setCurrentBranch(checkoutWhat));
+      dispatch(fetchHistory(path, checkoutWhat));
     })
     .catch(err => openDialogBox(err));
 };
@@ -66,8 +65,6 @@ export default function reducer (state = [], action){
     return [...state, action.branch];
   case DELETE_BRANCH:
     return [...state].filter(item => item !== action.branch);
-  case GET_BRANCH:
-    return action.branch;
   case GET_ALL_BRANCHES:
     return action.branches;
   default:
