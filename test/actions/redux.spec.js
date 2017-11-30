@@ -42,6 +42,18 @@ describe('actions', () => {
 
   });
 
+  describe('status', () => {
+    
+    it('should get status', () => {
+      const store = mockStore({});
+      const expectedActions = [{
+        type: 'ADD_FILE_STATUS',
+        fileStatus: []
+      }];
+    });
+
+  });
+
 });
 
 

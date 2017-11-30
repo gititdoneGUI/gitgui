@@ -34,4 +34,19 @@ describe('reducers', () => {
     
   });
 
+  describe('File Status', () => {    
+    
+    it('Add file status ADD_FILE_STATUS', () => {
+      const action = { 
+        type: 'ADD_FILE_STATUS',
+        fileStatus: []
+
+      };
+      const test = Object.assign([], action.fileStatus);
+      expect(userPathReducer([], action)).to.deep.equal(test);
+    });
+    
+  });
+
 });
+
