@@ -8,3 +8,4 @@ const GET_LOCAL_BRANCHES = 'GET_LOCAL_BRANCHES';
 export const getLocalBranches = branches => ({ type: GET_LOCAL_BRANCHES, branches });
 
 
+ 

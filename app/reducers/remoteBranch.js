@@ -12,7 +12,7 @@ export const getRemoteBranches = branches => ({ type: GET_REMOTE_BRANCHES, branc
 
 
 export const getAllRemoteBranches = (path) => (dispatch)=>{
-  
+
   return  require('simple-git/promise')(`${path}`).branch()
     .then((obj)=> {
       const remotes= obj['all'].filter(ele=> ele.slice(0,7) == 'remotes' );
@@ -24,13 +24,13 @@ export const getAllRemoteBranches = (path) => (dispatch)=>{
       dispatch(getRemoteBranches(pruned));
       console.log(' List of Remote branches Successfully Completed ', pruned);}
     )
-    .catch((err) => openDialogBox(err) ); 
+    .catch((err) => openDialogBox(err) );
 };
 
 function openDialogBox(err) {
   const title = 'Error';
   const content = `${err}`;
-  dialog.showErrorBox(title, content);  
+  dialog.showErrorBox(title, content);
 }
 
 
@@ -39,7 +39,6 @@ export default function(state = [], action) {
   switch (action.type) {
   case 'GET_REMOTE_BRANCHES':
     return action.branches;
-
   default:
     return state;
   }

@@ -1,8 +1,8 @@
 const {dialog} = require('electron').remote;
 
 export const stash = (path) =>{
-  require('simple-git/promise')(`${path}`).stash()
-    .then(()=> console.log('Stash Successfully Completed '))
+  require('simple-git/promise')(`${path}`).stashList()
+    .then((list)=> console.log('Stash Successfully Completed ', list))
     .catch((err) => openDialogBox(err) );
   
 };
