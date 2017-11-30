@@ -32,14 +32,20 @@ export const checkoutBranch = (path, branchName, startPoint) => (dispatch) => {
   require('simple-git/promise')(`${path}`).checkoutBranch(branchName, startPoint)
     .then((obj) => {
       dispatch(addBranch(obj));
-      // dispatch(getBranch(branchName));
     }).catch(err => openDialogBox(err));
 };
 
 export const checkoutLocalBranch = (path, branchName) => (dispatch) => {
+<<<<<<< HEAD
+  require('simple-git/promise')(`${path}`).checkoutLocalBranch(branchName)
+    .then((obj) => {
+      dispatch(addBranch(obj)); 
+    }).catch(err => openDialogBox(err));
+=======
   require('simple-git')(`${path}`).checkoutLocalBranch(branchName);
   dispatch(addBranch(branchName));
   // dispatch(getBranch(branchName));
+>>>>>>> 9d03ca2e31b37c93de3eb3f456f31267d5879c2a
 };
 
 export const deleteLocalBranch = (path, branchName) => (dispatch) => {
@@ -52,10 +58,18 @@ export const deleteLocalBranch = (path, branchName) => (dispatch) => {
 };
 
 export const checkout = (path, checkoutWhat) => (dispatch) => {
+<<<<<<< HEAD
+  require('simple-git')(`${path}`).checkout(checkoutWhat)
+    .then((obj) => {
+      dispatch(getBranch(obj));
+    })
+    .catch(err => openDialogBox(err));
+=======
   require('simple-git')(`${path}`).checkout(checkoutWhat);
   // dispatch(getBranch(checkoutWhat));
   dispatch(setCurrentBranch(checkoutWhat));
   dispatch(fetchHistory(path, checkoutWhat));
+>>>>>>> 9d03ca2e31b37c93de3eb3f456f31267d5879c2a
 };
 
 
