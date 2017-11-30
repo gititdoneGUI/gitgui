@@ -4,11 +4,11 @@ import { fetchRepos } from '../actions/repos';
 import { fetchHistory } from '../reducers/repo';
 import { getPath } from '../actions/userPath';
 import { statusCheck } from '../reducers/status';
+import { currentBranch } from '../reducers/currentBranch';
 import GitButtons from './GitButtons';
 import BranchRemoteLists from './BranchRemoteLists';
 import CommitGraph from './CommitGraph';
 import Header from './Header';
-import path from 'path';
 
 const {dialog} = require('electron').remote;
 
@@ -36,15 +36,20 @@ class LoggedIn extends Component {
   handleSubmit(evt) {
     const userFilePath = evt[0];
     this.props.getUserPath(userFilePath);
-    this.props.fetchHistory(userFilePath);
+    this.props.getCurrentBranch(userFilePath);
     this.props.statusCheck(userFilePath);
+  }
+
+  componentWillReceiveProps(nextProps){
+    if (nextProps.currentBranch !== this.props.currentBranch){
+      this.props.fetchHistory(this.props.userPath, nextProps.currentBranch);
+    }
   }
 
   render() {
     const ele = this.state.nodes[0]
       ? this.props.repo.nodes.filter(node => node.id == this.state.nodes[0])[0]
       : null;
-
     return (
       <div className="window">
         <Header />
@@ -75,6 +80,7 @@ class LoggedIn extends Component {
                 {/* GITHUB ACTION BUTTONS */}
                 <div className="repo-info">
                   <h5>Repo: {this.props.userPath.slice( this.props.userPath.lastIndexOf('/')+1)}</h5>
+                  <h5>Current Branch: {this.props.currentBranch}</h5>
                   <button id="files-changed-button" onClick={() => this.setState((prevState) => {
                     return {...prevState, dropdown: !prevState.dropdown};
                   })}>
@@ -122,37 +128,31 @@ class LoggedIn extends Component {
           </div>
         </div>
       </div>
-
     );
   }
 }
 
-
-
-// setTimeout(openDir(console.log), 200)
-
-const mapState = state => {
-  return {
-    repos: state.repos,
-    user: state.user,
-    userPath: state.userPath
-  };
-};
+const mapState = ({repos, user, userPath, currentBranch}) => ({repos, user, userPath, currentBranch})
 
 const mapDispatch = dispatch => {
   return {
     allRepos: username => {
       dispatch(fetchRepos(username));
     },
-    fetchHistory: name => {
-      dispatch(fetchHistory(name));
+    fetchHistory: (name, branch) => {
+      console.log(name, branch);
+      dispatch(fetchHistory(name, branch));
     },
     getUserPath: path => {
       dispatch(getPath(path));
     },
     statusCheck: userPath => {
       dispatch(statusCheck(userPath));
+    },
+    getCurrentBranch: userPath => {
+      dispatch(currentBranch(userPath));
     }
+
   };
 };
 
