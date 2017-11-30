@@ -37,6 +37,7 @@ export const checkoutBranch = (path, branchName, startPoint) => (dispatch) => {
 export const checkoutLocalBranch = (path, branchName) => (dispatch) => {
   require('simple-git/promise')(`${path}`).checkoutLocalBranch(branchName)
     .then((obj) => {
+      console.log('hiiii');
       dispatch(addBranch(obj));
     }).catch(err => openDialogBox(err));
 };

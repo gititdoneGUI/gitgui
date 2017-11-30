@@ -51,6 +51,7 @@ class Checkout extends Component {
     event.preventDefault();
     this.props.checkoutBranch(this.props.userPath, event.target.fromRemote.value, this.state.value);
     this.props.getAllRemoteBranches(this.props.userPath);
+    this.props.getAllLocalBranches(this.props.userPath);
     this.setState({
       checkoutClicked: false,
       checkoutRemoteClicked: false,
