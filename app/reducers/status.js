@@ -32,7 +32,6 @@ export const statusCheck = (rootDir) => (dispatch) => {
 };
 
 export default function reducer (state = [], action){
-  // console.log('reached reducer', action.type);
   switch (action.type){
   case ADD_FILE_STATUS:
     return [...state, action.fileStatus];

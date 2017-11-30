@@ -30,14 +30,14 @@ export const checkoutBranch = (path, branchName, startPoint) => (dispatch) => {
   require('simple-git/promise')(`${path}`).checkoutBranch(branchName, startPoint)
     .then((obj) => {
       dispatch(addBranch(obj));
-      // dispatch(getBranch(branchName));
     }).catch(err => openDialogBox(err));
 };
 
 export const checkoutLocalBranch = (path, branchName) => (dispatch) => {
-  require('simple-git')(`${path}`).checkoutLocalBranch(branchName);
-  dispatch(addBranch(branchName)); 
-  // dispatch(getBranch(branchName));
+  require('simple-git/promise')(`${path}`).checkoutLocalBranch(branchName)
+    .then((obj) => {
+      dispatch(addBranch(obj)); 
+    }).catch(err => openDialogBox(err));
 };
 
 export const deleteLocalBranch = (path, branchName) => (dispatch) => {
@@ -50,8 +50,11 @@ export const deleteLocalBranch = (path, branchName) => (dispatch) => {
 };
 
 export const checkout = (path, checkoutWhat) => (dispatch) => {
-  require('simple-git')(`${path}`).checkout(checkoutWhat);
-  dispatch(getBranch(checkoutWhat));
+  require('simple-git')(`${path}`).checkout(checkoutWhat)
+    .then((obj) => {
+      dispatch(getBranch(obj));
+    })
+    .catch(err => openDialogBox(err));
 };
 
 
