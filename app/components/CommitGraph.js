@@ -16,8 +16,8 @@ const options = {
       blockShifting: true,
       edgeMinimization: true,
       parentCentralization: true,
-      direction: 'DU',        // UD, DU, LR, RL
-      sortMethod: 'directed'   // hubsize, directed
+      direction: 'DU',
+      sortMethod: 'directed'
     }
   },
   height: '100%',
@@ -40,8 +40,6 @@ const options = {
 const mapState = ({ repo, status, commit, userPath }) => ({ repo, status, commit, userPath });
 const mapDispatch = (dispatch) => {
   return {
-    fetchHistory: () =>
-      dispatch(fetchHistory()),
     statusCheck: (rootDir) =>
       dispatch(statusCheck(rootDir))
   };
@@ -54,7 +52,6 @@ class CommitGraph extends React.Component {
   }
 
   componentDidMount() {
-    // this.props.fetchHistory();
     this.props.statusCheck(this.props.userPath);
     this.watcher = chokidar.watch(this.props.userPath, {
       persistent: true

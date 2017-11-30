@@ -18,11 +18,8 @@ class Checkout extends Component {
     this.handleCheckoutClick = this.handleCheckoutClick.bind(this);
     this.handleLocalClick = this.handleLocalClick.bind(this);
     this.handleRemoteClick = this.handleRemoteClick.bind(this);
-
-
     this.handleLocalCheckout = this.handleLocalCheckout.bind(this);
     this.handleRemoteCheckout = this.handleRemoteCheckout.bind(this);
-
     this.handleChange= this.handleChange.bind(this);
   }
 
@@ -91,27 +88,31 @@ class Checkout extends Component {
       <div>
         { !this.state.checkoutClicked && <button className="btn btn-mini btn-primary" onClick={this.handleCheckoutClick}>
           <span className="icon icon-down-circled icon-text"></span>
-        Checkout
+        Checkout Branch
         </button>}
         { this.state.checkoutClicked &&
         <div>
-          <button className="btn btn-mini btn-primary" onClick={this.handleLocalClick}>
-            <span className="icon icon-down-circled icon-text"></span>
-            Checkout Local Branch
-          </button>
+          {
+            !this.state.checkoutRemoteClicked ? (<button className="btn btn-mini btn-primary" onClick={this.handleLocalClick}>
+              <span className="icon icon-down-circled icon-text"></span>
+              Checkout Local Branch
+            </button>) : null
+          }
+          {
+            !this.state.checkoutLocalClicked ? (<button className="btn btn-mini btn-primary" onClick={this.handleRemoteClick}>
+              <span className="icon icon-down-circled icon-text"></span>
+              Checkout Remote Branch
+            </button>) : null
+          }
 
-          <button className="btn btn-mini btn-primary" onClick={this.handleRemoteClick}>
-            <span className="icon icon-down-circled icon-text"></span>
-            Checkout Remote Branch
-          </button>
+
         </div>
         }
 
         { this.state.checkoutClicked && this.state.checkoutLocalClicked &&
           <form  className="form-group" onSubmit={this.handleLocalCheckout}>
-            <label>Branch to Checkout: </label>
             <select value = {this.state.value} onChange={this.handleChange}>
-              <option></option>
+              <option>Branch to checkout ...</option>
               {
                 this.props.localBranch.map((branch) =>
                   <option key={branch} value={branch}>{branch}</option>
@@ -127,20 +128,19 @@ class Checkout extends Component {
 
         { this.state.checkoutClicked && this.state.checkoutRemoteClicked &&
           <form  className="form-group" onSubmit={this.handleRemoteCheckout}>
-            <label>Branch to Checkout: </label>
             <select value = {this.state.value} onChange={this.handleChange}>
-              <option></option>
+              <option>Branch to Checkout...</option>
               {
                 this.props.remoteBranch.map((branch) =>
                   <option key={branch} value={branch}>{branch}</option>
                 )
               }
             </select>
-            <label> Name of New Local Branch: </label>
             <input
               type="text"
               className="form-control"
               name="fromRemote"
+              placeholder= "Give this branch a local name..."
             />
 
             <button type="submit" className="btn btn-mini btn-primary">
