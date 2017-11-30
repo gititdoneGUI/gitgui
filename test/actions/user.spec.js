@@ -28,4 +28,21 @@ describe('actions', () => {
     });
 
   });
+
+  describe('userPath', () => {
+    
+    it('should get userPath', () => {
+      const store = mockStore({});
+      const expectedActions = [{
+        type: 'GET_PATH',
+        path: '/Users/sreepriyav/Desktop/seniors/test/trial'
+  
+      }];  
+    });
+
+  });
+
 });
+
+
+  

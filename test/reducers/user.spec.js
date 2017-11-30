@@ -1,5 +1,6 @@
 import { expect } from 'chai';
-import reducer from '../../app/reducers/user';
+import userReducer from '../../app/reducers/user';
+import userPathReducer from '../../app/reducers/userPath';
 
 describe('reducers', () => {
 
@@ -14,7 +15,21 @@ describe('reducers', () => {
         }
       };
       const test = Object.assign({}, action.payload);
-      expect(reducer({}, action)).to.deep.equal(test);
+      expect(userReducer({}, action)).to.deep.equal(test);
+    });
+    
+  });
+
+  describe('userPath', () => {    
+    
+    it('should handle GET_PATH', () => {
+      const action = { 
+        type: 'GET_PATH',
+        path: '/Users/sreepriyav/Desktop/seniors/test/trial'
+
+      };
+      const test =  action.path;
+      expect(userPathReducer('', action)).to.deep.equal(test);
     });
     
   });
