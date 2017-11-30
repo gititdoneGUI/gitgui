@@ -7,6 +7,7 @@ import { statusCheck } from '../reducers/status';
 import GitButtons from './GitButtons';
 import BranchRemoteLists from './BranchRemoteLists';
 import CommitGraph from './CommitGraph';
+import StashList from './StashList';
 import Header from './Header';
 import path from 'path';
 
@@ -89,6 +90,7 @@ class LoggedIn extends Component {
                 <hr />
                 <GitButtons />
                 <BranchRemoteLists/>
+                <StashList/>
                 <hr />
                 <div>
                   {ele &&

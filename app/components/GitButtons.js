@@ -44,7 +44,6 @@ export default class GitButtons extends Component{
         <Checkout />
         <AddBranch />
         <DeleteBranch />
-        {/* <Branch /> */}
       </div>
     );
   }
