@@ -22,7 +22,6 @@ class LoggedIn extends Component {
       nodes: [],
       edges: [],
       dropdown: false,
-      copySuccess: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleNodeClick = this.handleNodeClick.bind(this);
@@ -60,17 +59,6 @@ class LoggedIn extends Component {
               {/* WELCOME MSG AND FORM FOR GITHUB REPO*/}
               <div className="home-page-forms">
                 {this.props.user.username.length ? <p id="logged-in-as">Logged in as <b>{this.props.user.username}</b></p> : null}
-
-                {/*}
-                <select className="form-control">
-                  <option>Pick a github repo...</option>
-                  {this.props.repos &&
-              this.props.repos.map((repo, i) => <option key={i}>{repo.name}</option>
-              )}
-                </select>
-                <p><b>OR</b></p>
-            */}
-
                 {/* FORM TO CHOOSE A FILE FROM COMPUTER */}
                 <button className="btn btn-large btn-default" type="submit" onClick={openDir(this.handleSubmit)}>
                   <span className="icon icon-list-add icon-text"></span>
@@ -81,6 +69,8 @@ class LoggedIn extends Component {
                 <div className="repo-info">
                   <h5>Repo: {this.props.userPath.slice( this.props.userPath.lastIndexOf('/')+1)}</h5>
                   <h5>Current Branch: {this.props.currentBranch}</h5>
+
+
                   <button id="files-changed-button" onClick={() => this.setState((prevState) => {
                     return {...prevState, dropdown: !prevState.dropdown};
                   })}>
@@ -91,10 +81,12 @@ class LoggedIn extends Component {
                       {this.props.status.map((e, i) => <li key={i}>{e}</li>)}
                     </ul>) : ''
                   }
+
+
+                  <BranchRemoteLists />
                 </div>
                 <hr />
                 <GitButtons />
-                <BranchRemoteLists/>
                 <hr />
                 <div>
                   {ele &&

@@ -4,32 +4,42 @@ import { getAllLocalBranches } from '../reducers/localBranch';
 import { getAllRemoteBranches } from '../reducers/remoteBranch';
 
 class BranchRemoteLists extends Component{
+  constructor(){
+    super();
+    this.state={
+      dropdownLocal: false,
+      dropdownRemote: false
+    }
+  }
   render() {
     return (
       <div>
         <div>
-          <form id="branches-dropdown">
-            <label>Local Branches</label>
-            <select >
+
+            <button id="local-branches-button" onClick={() => this.setState((prevState) => {
+              console.log(prevState.dropdownLocal)
+              return {dropdownLocal: !prevState.dropdownLocal};
+            })}>
+            <h5>Local Branches: {this.props.localBranch.length} ⌵</h5>
+            </button>
               {
-                this.props.localBranch.map((branch) =>
-                  <option key={branch} value={branch}>{branch}</option>
-                )
+                this.state.dropdownLocal ? (<ul id="local-branches-list">{this.props.localBranch.map((branch) =>
+                  <li key={branch} value={branch}>{branch}</li>)}</ul>)
+                 : ''
               }
-            </select>
-          </form>
         </div>
         <div>
-          <label>Remote Branches</label>
-          <form id="branches-dropdown">
-            <select>
+          <button id="remote-branches-button" onClick={() => this.setState((prevState) => {
+            console.log(prevState.dropdownRemote);
+
+            return {dropdownRemote: !prevState.dropdownRemote};
+          })}>
+          <h5>Remote Branches: {this.props.remoteBranch.length} ⌵</h5>
+          </button>
               {
-                this.props.remoteBranch.map((branch) =>
-                  <option key={branch} value={branch}>{branch}</option>
-                )
+                this.state.dropdownRemote ? (<ul id="remote-branches-list">{this.props.remoteBranch.map((branch) =>
+                  <li key={branch} value={branch}>{branch}</li>)}</ul>) : ''
               }
-            </select>
-          </form>
         </div>
       </div>
     );}
