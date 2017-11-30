@@ -127,14 +127,9 @@ class LoggedIn extends Component {
           </div>
         </div>
       </div>
-
     );
   }
 }
-
-
-
-// setTimeout(openDir(console.log), 200)
 
 const mapState = state => {
   return {

@@ -9,7 +9,6 @@ export const currentBranch = (path) => (dispatch) => {
       const ref=reference.toString();
       const currentBranch= ref.slice(ref.lastIndexOf('/')+1);
       return dispatch(setCurrentBranch(currentBranch));
-      // return currentBranch;
     });
 };
 

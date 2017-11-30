@@ -18,11 +18,8 @@ class Checkout extends Component {
     this.handleCheckoutClick = this.handleCheckoutClick.bind(this);
     this.handleLocalClick = this.handleLocalClick.bind(this);
     this.handleRemoteClick = this.handleRemoteClick.bind(this);
-
-
     this.handleLocalCheckout = this.handleLocalCheckout.bind(this);
     this.handleRemoteCheckout = this.handleRemoteCheckout.bind(this);
-
     this.handleChange= this.handleChange.bind(this);
   }
 
