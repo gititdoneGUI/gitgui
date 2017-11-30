@@ -88,9 +88,10 @@ class LoggedIn extends Component {
                   }
                 </div>
                 <hr />
+                <StashList/>
+                <hr />
                 <GitButtons />
                 <BranchRemoteLists/>
-                <StashList/>
                 <hr />
                 <div>
                   {ele &&
