@@ -56,6 +56,10 @@ input.form-control{
     margin-left: 0px;
 }
 
+.commit-info > * {
+  padding-left: 10px;
+}
+
 .sha{
   width: 100px;
   overflow: hidden;
@@ -90,6 +94,11 @@ input.form-control{
   margin-left: 0px;
 }
 
+.repo-status > *{
+    padding-left: 10px;
+    overflow: hidden;
+}
+
 #local-branch-button{
   margin-bottom: 7px;
 }
@@ -104,17 +113,28 @@ input.form-control{
   margin-right: 4px;
 }
 
-.form-group{
-  padding-top: 20px;
-  padding-bottom:13px;
-  background-color: rgba(148, 147, 147, 0.26);
-  padding-left: 7px;
-  padding-right: 7px;
-  border-radius: 7px;
+form:not(#clone-form) {
+    padding-top: 20px;
+    padding-bottom:13px;
+    background-color: rgba(148, 147, 147, 0.26);
+    padding-left: 7px;
+    padding-right: 7px;
+    border-radius: 7px;
 }
+
+#clone-div{
+      padding-top: 20px;
+      padding-bottom:13px;
+      background-color: rgba(148, 147, 147, 0.26);
+      padding-left: 7px;
+      padding-right: 7px;
+      border-radius: 7px;
+}
+
 
 button.btn.btn-mini.btn-primary{
   margin-top: 5px;
+  margin-bottom: 2px;
 }
 
 #files-changed-button{
@@ -141,3 +161,64 @@ select{
   overflow: scroll;
 }
 
+
+#local-branches-button {
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
+  margin: 0px;
+  padding: 0px;
+}
+#remote-branches-button {
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
+  margin: 0px;
+  padding: 0px;
+}
+
+#local-branches-list{
+  list-style-type: none;
+  padding-left: 0px;
+  margin-left: 0px;
+}
+
+#remote-branches-list {
+  list-style-type: none;
+  padding-left: 0px;
+  margin-left: 0px;
+}
+
+#local-branches-list>* {
+  padding-left: 10px;
+  overflow: hidden;
+}
+
+#remote-branches-list > *{
+  padding-left: 10px;
+  overflow: hidden;
+
+}
+
+#local-branches-button> * {
+  border: 0px;
+  margin: 0px;
+  padding-left: 0px;
+
+}
+#remote-branches-button> * {
+  border: 0px;
+  margin: 0px;
+}
+
+h5{
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+ul{
+    padding-top: 20px;
+    padding-bottom:13px;
+    background-color: rgba(148, 147, 147, 0.26);
+    padding-left: 7px;
+    padding-right: 7px;
+    border-radius: 7px;
+}

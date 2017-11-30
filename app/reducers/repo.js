@@ -14,11 +14,12 @@ const sliceMessage = string => {
     : string.slice(0, 22) + '...';
 };
 
-export const fetchHistory = rootDir => (dispatch) => {
+export const fetchHistory = (rootDir, currentBranch) => (dispatch) => {
   if(!rootDir) return;
   nodegit.Repository.open(rootDir)
     .then(function(repo){
-      return repo.getMasterCommit();
+      console.log(currentBranch);
+      return repo.getBranchCommit(currentBranch.toString());
     })
     .then(firstCommit =>{
       dispatch(eraseHistory());
