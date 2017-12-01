@@ -17,7 +17,6 @@ export const fetchHistory = (rootDir, currentBranch) => (dispatch) => {
   if(!rootDir) return;
   nodegit.Repository.open(rootDir)
     .then(function(repo){
-      console.log(currentBranch);
       return repo.getBranchCommit(currentBranch.toString());
     })
     .then(firstCommit =>{
@@ -47,7 +46,6 @@ export const fetchHistory = (rootDir, currentBranch) => (dispatch) => {
 const defaultState = { nodes: [], edges: [] };
 
 export default function reducer (state = defaultState, action){
-  // console.log('reached reducer', action.type);
   switch (action.type){
   case ADD_COMMIT:
     return {...state, nodes: [...state.nodes, action.commit]};

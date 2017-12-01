@@ -22,7 +22,7 @@ class Commit extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.commit(this.state.commitMessage, this.props.userPath);
+    this.props.commit(this.state.commitMessage, this.props.userPath, this.props.currentBranch);
     this.setState({clicked: false});
   }
 
@@ -61,14 +61,14 @@ class Commit extends Component {
   }
 }
 
-const mapState = ({ repo, status, commit, userPath }) => ({ repo, status, commit, userPath });
+const mapState = ({ repo, status, commit, userPath, currentBranch }) => ({ repo, status, commit, userPath, currentBranch });
 
 const mapDispatch = (dispatch) => {
   return {
     statusCheck: (rootDir) =>
       dispatch(statusCheck(rootDir)),
-    commit: (commitMessage, userPath) =>
-      dispatch(commit(commitMessage, userPath))
+    commit: (commitMessage, userPath, currentBranch) =>
+      dispatch(commit(commitMessage, userPath, currentBranch))
   };
 };
 

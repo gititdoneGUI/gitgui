@@ -4,11 +4,11 @@ const MAKE_COMMIT = 'MAKE_COMMIT';
 
 export const makeCommit = commit => ({type: MAKE_COMMIT, commit});
 
-export const commit = (commitMessage, userPath) => (dispatch) => {
+export const commit = (commitMessage, userPath, currentBranch) => (dispatch) => {
   require('simple-git')(userPath)
     .add('./*')
     .commit(commitMessage)
-    .exec(() => dispatch(fetchHistory(userPath)));
+    .exec(() => dispatch(fetchHistory(userPath, currentBranch)));
 };
 
 export default function reducer (state = [], action){
