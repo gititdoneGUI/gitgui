@@ -27,7 +27,7 @@ class Pull extends Component {
 
   handlePullClick(event) {
     event.preventDefault();
-    pull(this.props.userPath, this.state.value);
+    this.props.pullBranch(this.props.userPath, this.state.value);
     this.setState({clicked: false});
   }
 
@@ -73,7 +73,9 @@ const mapState = ({userPath, localBranch, remoteBranch}) => ({ userPath, localBr
 const mapDispatch = (dispatch) => {
   return {
     getAllRemoteBranches: (path) =>
-      dispatch(getAllRemoteBranches(path))
+      dispatch(getAllRemoteBranches(path)),
+    pullBranch: (path,branch) =>
+      dispatch(pull(path, branch))
   };
 };
 
