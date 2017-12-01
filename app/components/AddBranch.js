@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { checkoutLocalBranch } from '../reducers/branches';
 import { getAllLocalBranches } from '../reducers/localBranch';
 
-
 class AddBranch extends Component {
 
   constructor(props) {
@@ -21,7 +20,6 @@ class AddBranch extends Component {
       this.props.getAllLocalBranches(newProps.userPath);
       this.setState({clicked: false});
     }
-
   }
 
   handleAddClick(event) {
@@ -59,7 +57,6 @@ class AddBranch extends Component {
         }
       </div>
     );
-
   }
 }
 
@@ -70,10 +67,6 @@ const mapDispatch = (dispatch) => {
       dispatch(checkoutLocalBranch(path, branchName)),
     getAllLocalBranches: (path) =>
       dispatch(getAllLocalBranches(path))
-
   };
 };
 export default connect(mapState, mapDispatch)(AddBranch);
-
-
-

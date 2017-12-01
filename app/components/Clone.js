@@ -52,7 +52,6 @@ class Clone extends Component {
 
           <form id="clone-form" onSubmit={this.handleCloneClick}>
             <div className="form-group">
-
               <input
                 type="text"
                 className="form-control"
@@ -64,21 +63,16 @@ class Clone extends Component {
               Submit Clone
               </button>
             </div>
-
           </form>
         </div>
         }
       </div>
-
     );
   }
 }
-
 
 const mapState = ({userPath }) => ({
   userPath
 });
 
-
 export default connect(mapState, null)(Clone);
-

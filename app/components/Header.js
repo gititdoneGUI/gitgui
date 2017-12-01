@@ -4,22 +4,15 @@ import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import userActions from '../actions/user';
 
-
-// dfsdfdsfdsfdfsdfsfsdfsdf
-//sdfsdfsd
-
 class Header extends Component{
   constructor(){
     super();
   }
 
-
   render(){
     return(
       <header className="toolbar toolbar-header">
         <div className="toolbar-actions">
-
-
           <button className="btn btn-mini btn-default pull-right" onClick={this.props.onLogout}>
             <span className="icon icon-logout icon-text"></span>
             Logout

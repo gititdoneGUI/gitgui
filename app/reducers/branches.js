@@ -58,7 +58,6 @@ export const checkout = (path, checkoutWhat) => (dispatch) => {
     .catch(err => openDialogBox(err));
 };
 
-
 export default function reducer (state = [], action){
   switch (action.type){
   case ADD_BRANCH:

@@ -4,7 +4,6 @@ import React from 'react';
 import { statusCheck } from '../reducers/status';
 import chokidar from 'chokidar';
 
-
 const options = {
   layout: {
     hierarchical: {
@@ -87,8 +86,7 @@ class CommitGraph extends React.Component {
   }
 
   render() {
-    const colors = [ '#80b3ff', '#85e085', '#ff80b3', '#aa80ff', '#ff8c1a', '#ffdb4d']; 
-    
+    const colors = [ '#80b3ff', '#85e085', '#ff80b3', '#aa80ff', '#ff8c1a', '#ffdb4d'];
     const renderoptions = Object.assign({}, options, {nodes: {
       shape: 'dot',
       color: colors[this.props.localBranch.indexOf(this.props.currentBranch) % colors.length]

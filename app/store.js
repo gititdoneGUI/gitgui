@@ -1,19 +1,14 @@
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import { routerMiddleware, routerReducer as routing, push } from 'react-router-redux';
-import persistState from 'redux-localstorage';
 import thunk from 'redux-thunk';
 
 import user from './reducers/user';
 import repos from './reducers/repos';
 import status from './reducers/status';
 import commit from './reducers/commit';
-
-// import userActions from './actions/user';
 import repo from './reducers/repo';
 import userPath from './reducers/userPath';
 import {userLogin} from './reducers/user';
-// import branches from './reducers/branches';
-// import branch from './reducers/branches';
 import localBranch from './reducers/localBranch';
 import remoteBranch from './reducers/remoteBranch';
 import stashmessage from './reducers/stash';
@@ -63,7 +58,5 @@ export default function configureStore(initialState, routerHistory) {
 
   const store = createStore(rootReducer, localStorage.storeState && JSON.parse(localStorage.storeState), enhancer);
   store.subscribe(() => localStorage.storeState = JSON.stringify(store.getState()));
-
   return store;
 }
-

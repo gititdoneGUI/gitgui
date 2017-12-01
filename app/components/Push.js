@@ -9,31 +9,27 @@ class Push extends Component {
     super(props);
     this.state = {
       pushClicked: false,
-      pushToExistingClicked: false, 
+      pushToExistingClicked: false,
       pushToNewClicked: false,
-      existing: '', 
+      existing: '',
     };
-
     this.handlePushClick = this.handlePushClick.bind(this);
     this.handleExistingClick = this.handleExistingClick.bind(this);
     this.handleNewClick = this.handleNewClick.bind(this);
-
     this.pushExisting= this.pushExisting.bind(this);
     this.pushNew= this.pushNew.bind(this);
-
     this.handleSubmit = this.handleSubmit.bind(this);
-
-    this.handleChangeExisting = this.handleChangeExisting.bind(this);    
+    this.handleChangeExisting = this.handleChangeExisting.bind(this);
   }
 
   componentWillReceiveProps(newProps) {
     if (this.props.userPath !== newProps.userPath) {
-      this.props.getAllRemoteBranches(newProps.userPath);      
+      this.props.getAllRemoteBranches(newProps.userPath);
       this.setState({
         pushClicked: false,
-        pushToExistingClicked: false, 
+        pushToExistingClicked: false,
         pushToNewClicked: false
-      });      
+      });
     }
   }
 
@@ -42,9 +38,9 @@ class Push extends Component {
     push(this.props.userPath, this.state.existing);
     this.setState({
       pushClicked: false,
-      pushToExistingClicked: false, 
+      pushToExistingClicked: false,
       pushToNewClicked: false
-    }); 
+    });
   }
 
   pushNew(event) {
@@ -52,11 +48,11 @@ class Push extends Component {
     push(this.props.userPath, event.target.pushnew.value);
     this.setState({
       pushClicked: false,
-      pushToExistingClicked: false, 
+      pushToExistingClicked: false,
       pushToNewClicked: false
-    }); 
+    });
   }
-  
+
   handlePushClick(event) {
     event.preventDefault();
     this.setState({
@@ -66,18 +62,17 @@ class Push extends Component {
 
   handleExistingClick(event) {
     event.preventDefault();
-    this.props.getAllRemoteBranches(this.props.userPath);    
+    this.props.getAllRemoteBranches(this.props.userPath);
     this.setState({
-      pushToExistingClicked: true, 
+      pushToExistingClicked: true,
       pushToNewClicked: false
     });
   }
 
-
   handleNewClick(event) {
     event.preventDefault();
     this.setState({
-      pushToExistingClicked: false, 
+      pushToExistingClicked: false,
       pushToNewClicked: true
     });
   }
@@ -92,33 +87,6 @@ class Push extends Component {
   }
 
   render() {
-    // return (
-    //   <div>
-    //     { !this.state.clicked && <button className="btn btn-mini btn-primary" onClick={this.handleSubmit}>
-    //       <span className="icon icon-down-circled icon-text"></span>
-    //     Push
-    //     </button>}
-    //     { this.state.clicked &&
-    //     <form onSubmit={this.handlePushClick}>
-    //       <label>Remote Branch to Push To: </label>
-
-    //       <select value = {this.state.value} onChange={this.handleChange}>
-    //         <option></option>
-    //         {
-    //           this.props.remoteBranch.map((branch) =>
-    //             <option key={branch} value={branch}>{branch}</option>
-    //           )
-    //         }
-    //       </select>
-    //       <button type="submit" className="btn btn-mini btn-primary">
-    //         <span className="icon icon-down-circled icon-text"></span>
-    //      Push
-    //       </button>
-    //     </form>
-    //     }
-    //   </div>
-    // );
-
     return (
       <div>
         { !this.state.pushClicked && <button className="btn btn-mini btn-primary" onClick={this.handlePushClick}>
@@ -131,14 +99,12 @@ class Push extends Component {
           <span className="icon icon-switch icon-text"></span>
           Push To Existing Remote
         </button>
-
         <button className="btn btn-mini btn-primary" onClick={this.handleNewClick}>
           <span className="icon icon-switch icon-text"></span>
           Push to New Remote
         </button>
       </div>
         }
-
         { this.state.pushClicked && this.state.pushToExistingClicked &&
         <form  className="form-group" onSubmit={this.pushExisting}>
           <label>Push To: </label>
@@ -177,7 +143,6 @@ class Push extends Component {
   }
 }
 
-
 const mapState = ({userPath, localBranch, remoteBranch}) => ({ userPath, localBranch, remoteBranch});
 const mapDispatch = (dispatch) => {
   return {
@@ -187,4 +152,3 @@ const mapDispatch = (dispatch) => {
 };
 
 export default connect(mapState, mapDispatch)(Push);
-

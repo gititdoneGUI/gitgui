@@ -6,15 +6,14 @@ export const getAllLocalBranches = (path) => (dispatch)=>{
   return  require('simple-git/promise')(`${path}`).branchLocal()
     .then((obj)=> {
       dispatch(getLocalBranches(obj['all']));
-      console.log(' List of branches Successfully Completed ', obj['all']);
     })
-    .catch((err) => openDialogBox(err) ); 
+    .catch((err) => openDialogBox(err) );
 };
 
 function openDialogBox(err) {
   const title = 'Error';
   const content = `${err}`;
-  dialog.showErrorBox(title, content);  
+  dialog.showErrorBox(title, content);
 }
 
 //REDUCER

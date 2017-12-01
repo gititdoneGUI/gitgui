@@ -1,10 +1,8 @@
 import { fetchHistory } from './repo';
 
-
 const MAKE_COMMIT = 'MAKE_COMMIT';
 
 export const makeCommit = commit => ({type: MAKE_COMMIT, commit});
-
 
 export const commit = (commitMessage, userPath) => (dispatch) => {
   require('simple-git')(userPath)

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { fetch , fetchALL} from '../reducers/fetch';
 import { getAllRemoteBranches } from '../reducers/remoteBranch';
 
-
 class Fetch extends Component {
 
   constructor(props) {
@@ -21,25 +20,21 @@ class Fetch extends Component {
 
   componentWillReceiveProps(newProps) {
     if (this.props.userPath !== newProps.userPath) {
-      this.props.getAllRemoteBranches(newProps.userPath);      
+      this.props.getAllRemoteBranches(newProps.userPath);
       this.setState({
         clicked: false,
-      });      
+      });
     }
   }
 
   handleFetchClick(event) {
     event.preventDefault();
-    console.log(this.props.userPath);
-    console.log(this.state.value);
-    console.log(this.state.checked);
 
     if(this.state.checked)
     {
       fetchALL(this.props.userPath);
     }
     else {
-      console.log('in else');
       fetch(this.props.userPath, this.state.value);
     }
     this.setState({clicked: false});
@@ -71,13 +66,10 @@ class Fetch extends Component {
           <span className="icon icon-right icon-text"></span>
         Fetch
         </button>}
-
         { this.state.clicked &&
-
         <form onSubmit={this.handleFetchClick}>
           <div id="fetch-form" className="form-group">
             <label>Remote Branch to Fetch: </label>
-
             <select value = {this.state.value} onChange={this.handleChange}>
               <option></option>
               {
@@ -96,7 +88,7 @@ class Fetch extends Component {
                 onChange={this.toggleCheck}
               />
               <label htmlFor="fetch-all">
-          Fetch All
+                Fetch All
               </label>
             </div>
             <div>

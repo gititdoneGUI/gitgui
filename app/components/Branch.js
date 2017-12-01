@@ -7,24 +7,19 @@ class Branch extends Component {
 
   constructor(props) {
     super(props);
-
     this.handleBranchClick = this.handleBranchClick.bind(this);
     this.handleremoteBranchClick = this.handleremoteBranchClick.bind(this);
   }
 
   handleBranchClick(event) {
     event.preventDefault();
-    // console.log(branch(this.props.userPath));
     this.props.localbranch(this.props.userPath);
   }
 
   handleremoteBranchClick(event) {
     event.preventDefault();
-    // console.log(branch(this.props.userPath));
     this.props.remotebranch(this.props.userPath);
   }
-
-
 
   render() {
     return (
@@ -42,7 +37,6 @@ class Branch extends Component {
   }
 }
 
-
 const mapState = ({userPath }) => ({
   userPath
 });
@@ -53,10 +47,7 @@ const mapDispatch = (dispatch) => {
       dispatch(branch(path)),
     remotebranch: (path) =>
       dispatch(remoteBranch(path))
-
   };
 };
 
-
 export default connect(mapState, mapDispatch)(Branch);
-

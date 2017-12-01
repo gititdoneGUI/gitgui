@@ -4,7 +4,6 @@ import { checkout, checkoutBranch } from '../reducers/branches';
 import { getAllLocalBranches } from '../reducers/localBranch';
 import { getAllRemoteBranches } from '../reducers/remoteBranch';
 
-
 class Checkout extends Component {
 
   constructor(props) {
@@ -23,7 +22,6 @@ class Checkout extends Component {
     this.handleChange= this.handleChange.bind(this);
   }
 
-
   componentWillReceiveProps(newProps) {
     if (this.props.userPath !== newProps.userPath) {
       this.props.getAllLocalBranches(newProps.userPath);
@@ -32,7 +30,6 @@ class Checkout extends Component {
         checkoutClicked: false,
         checkoutLocalClicked: false,
         checkoutRemoteClicked: false
-
       });
     }
   }
@@ -54,7 +51,6 @@ class Checkout extends Component {
     this.setState({
       checkoutClicked: false,
       checkoutRemoteClicked: false,
-
     });
   }
 
@@ -96,13 +92,10 @@ class Checkout extends Component {
             <span className="icon icon-down-circled icon-text"></span>
               Checkout Local Branch
           </button>
-          
           <button className="btn btn-mini btn-primary" onClick={this.handleRemoteClick}>
             <span className="icon icon-down-circled icon-text"></span>
               Checkout Remote Branch
           </button>
-
-
         </div>
         }
 
@@ -139,7 +132,6 @@ class Checkout extends Component {
               name="fromRemote"
               placeholder= "Give this branch a local name..."
             />
-
             <button type="submit" className="btn btn-mini btn-primary">
               <span className="icon icon-down-circled icon-text"></span>
             Checkout
@@ -148,7 +140,6 @@ class Checkout extends Component {
         }
       </div>
     );
-
   }
 }
 
@@ -163,11 +154,6 @@ const mapDispatch = (dispatch) => {
       dispatch(getAllLocalBranches(path)),
     getAllRemoteBranches: (path) =>
       dispatch(getAllRemoteBranches(path))
-
   };
 };
 export default connect(mapState, mapDispatch)(Checkout);
-
-
-
-

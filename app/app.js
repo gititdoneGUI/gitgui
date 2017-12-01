@@ -20,9 +20,6 @@ syncHistoryWithStore(store, routerHistory);
 
 const rootElement = document.querySelector(document.currentScript.getAttribute('data-container'));
 
-// if (window.location.search)
-//   routerHistory.push('/graph' + window.location.search)
-
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={routerHistory}>

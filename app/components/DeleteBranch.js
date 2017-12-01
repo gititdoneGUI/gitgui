@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { deleteLocalBranch } from '../reducers/branches';
 import { getAllLocalBranches } from '../reducers/localBranch';
 
-
 class DeleteBranch extends Component {
 
   constructor(props) {
@@ -17,14 +16,12 @@ class DeleteBranch extends Component {
     this.handleChange= this.handleChange.bind(this);
   }
 
-
   componentWillReceiveProps(newProps) {
     if (this.props.userPath !== newProps.userPath) {
       this.props.getAllLocalBranches(newProps.userPath);
       this.setState({clicked: false});
     }
   }
-
 
   handleDeleteClick(event) {
     event.preventDefault();
@@ -42,7 +39,6 @@ class DeleteBranch extends Component {
     this.setState({clicked: true});
   }
 
-
   render() {
     return (
       <div>
@@ -53,24 +49,23 @@ class DeleteBranch extends Component {
         { this.state.clicked &&
         <form  onSubmit={this.handleDeleteClick}>
           <div  className="form-group">
-          <select value = {this.state.value} onChange={this.handleChange}>
-            <option>Branch to delete...</option>
-            {
-              this.props.localBranch.map((branch) =>
-                <option key={branch} value={branch}>{branch}</option>
-              )
-            }
-          </select>
-          <button type="submit" className="btn btn-mini btn-primary">
-            <span className="icon icon-down-circled icon-text"></span>
+            <select value = {this.state.value} onChange={this.handleChange}>
+              <option>Branch to delete...</option>
+              {
+                this.props.localBranch.map((branch) =>
+                  <option key={branch} value={branch}>{branch}</option>
+                )
+              }
+            </select>
+            <button type="submit" className="btn btn-mini btn-primary">
+              <span className="icon icon-down-circled icon-text"></span>
             Delete
-          </button>
+            </button>
           </div>
         </form>
         }
       </div>
     );
-
   }
 }
 
@@ -84,8 +79,5 @@ const mapDispatch = (dispatch) => {
 
   };
 };
+
 export default connect(mapState, mapDispatch)(DeleteBranch);
-
-
-
-

@@ -10,7 +10,6 @@ import Push from './Push';
 import Stash from './Stash';
 import Checkout from './Checkout';
 
-
 export default class GitButtons extends Component{
   constructor(){
     super();
@@ -23,7 +22,6 @@ export default class GitButtons extends Component{
 
   handleClick(event) {
     event.preventDefault();
-    console.log(this.state.commitMessage);
     this.props.commit(this.state.commitMessage, this.props.userPath);
   }
 
@@ -48,6 +46,3 @@ export default class GitButtons extends Component{
     );
   }
 }
-
-// export default connect(null)(GitButtons);
-

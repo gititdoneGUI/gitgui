@@ -1,5 +1,4 @@
 const nodegit = require('nodegit');
-const path = require('path');
 const ADD_COMMIT = 'ADD_COMMIT';
 const ERASE_HISTORY = 'ERASE_HISTORY';
 const ADD_EDGE = 'ADD_EDGE';
@@ -41,9 +40,7 @@ export const fetchHistory = (rootDir, currentBranch) => (dispatch) => {
           });
         }
       });
-
       history.start();
-
     }).done();
 };
 

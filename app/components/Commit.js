@@ -7,13 +7,12 @@ class Commit extends Component {
   constructor() {
     super();
     this.state = {
-      commitMessage: '', 
+      commitMessage: '',
       clicked: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    
   }
 
   handleClick(event) {
@@ -21,11 +20,10 @@ class Commit extends Component {
     this.setState({clicked: true});
   }
 
-
   handleSubmit(event) {
     event.preventDefault();
     this.props.commit(this.state.commitMessage, this.props.userPath);
-    this.setState({clicked: false});    
+    this.setState({clicked: false});
   }
 
   handleChange(event) {
@@ -46,9 +44,8 @@ class Commit extends Component {
             Nothing to Commit
             </button>)
         }
-
         {
-          this.state.clicked && 
+          this.state.clicked &&
           <form onSubmit={this.handleSubmit}>
             <div className='form-group'>
               <input className='form-control' value={this.state.commitMessage} onChange={this.handleChange} placeholder="Commit message..."></input>

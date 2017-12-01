@@ -82,8 +82,6 @@ class LoggedIn extends Component {
                       {this.props.status.map((e, i) => <li key={i}>{e}</li>)}
                     </ul>) : ''
                   }
-
-
                   <BranchRemoteLists />
                 </div>
                 <hr />
@@ -127,7 +125,7 @@ class LoggedIn extends Component {
   }
 }
 
-const mapState = ({repos, user, userPath, currentBranch}) => ({repos, user, userPath, currentBranch})
+const mapState = ({repos, user, userPath, currentBranch}) => ({repos, user, userPath, currentBranch});
 
 const mapDispatch = dispatch => {
   return {
@@ -135,7 +133,6 @@ const mapDispatch = dispatch => {
       dispatch(fetchRepos(username));
     },
     fetchHistory: (name, branch) => {
-      console.log(name, branch);
       dispatch(fetchHistory(name, branch));
     },
     getUserPath: path => {
@@ -147,7 +144,6 @@ const mapDispatch = dispatch => {
     getCurrentBranch: userPath => {
       dispatch(currentBranch(userPath));
     }
-
   };
 };
 

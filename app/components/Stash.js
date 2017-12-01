@@ -7,7 +7,7 @@ class Stash extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      stashMessage: '', 
+      stashMessage: '',
       clicked: false
     };
     this.handleStashClick = this.handleStashClick.bind(this);
@@ -33,7 +33,7 @@ class Stash extends Component {
   render() {
     return (
       <div>
-        { 
+        {
           (this.props.status.length !== 0) ?
             (<button className="btn btn-large btn-primary" onClick={this.handleStashClick}>
               <span className="icon icon-down-circled icon-text"></span>
@@ -42,11 +42,9 @@ class Stash extends Component {
               <span className="icon icon-list-add icon-text"></span>
             Nothing to Stash
             </button>)
-     
         }
-
         {
-          this.state.clicked && 
+          this.state.clicked &&
             <form onSubmit={this.handleSubmit}>
               <div className='form-group'>
                 <input className='form-control' value={this.state.stashMessage} onChange={this.handleChange} placeholder="Optional message..."></input>

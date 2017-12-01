@@ -1,6 +1,4 @@
 const nodegit = require('nodegit');
-const path = require('path');
-const _ = require('lodash');
 
 const ADD_FILE_STATUS = 'ADD_FILE_STATUS';
 const EMPTY_STATUS = 'EMPTY_STATUS';

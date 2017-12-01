@@ -18,10 +18,10 @@ class Pull extends Component {
 
   componentWillReceiveProps(newProps) {
     if (this.props.userPath !== newProps.userPath) {
-      this.props.getAllRemoteBranches(newProps.userPath);      
+      this.props.getAllRemoteBranches(newProps.userPath);
       this.setState({
         clicked: false,
-      });      
+      });
     }
   }
 
@@ -50,7 +50,6 @@ class Pull extends Component {
         { this.state.clicked &&
         <form onSubmit={this.handlePullClick}>
           <label>Remote Branch to Pull From: </label>
-
           <select value = {this.state.value} onChange={this.handleChange}>
             <option></option>
             {
@@ -70,7 +69,6 @@ class Pull extends Component {
   }
 }
 
-
 const mapState = ({userPath, localBranch, remoteBranch}) => ({ userPath, localBranch, remoteBranch});
 const mapDispatch = (dispatch) => {
   return {
@@ -80,4 +78,3 @@ const mapDispatch = (dispatch) => {
 };
 
 export default connect(mapState, mapDispatch)(Pull);
-

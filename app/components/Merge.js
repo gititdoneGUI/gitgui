@@ -5,7 +5,6 @@ import { getAllRemoteBranches } from '../reducers/remoteBranch';
 import { mergeFromTo } from '../reducers/merge';
 import { pull } from '../reducers/pull';
 
-
 class Merge extends Component {
 
   constructor(props) {
@@ -21,17 +20,12 @@ class Merge extends Component {
     this.handleMergeClick = this.handleMergeClick.bind(this);
     this.handleLocalClick = this.handleLocalClick.bind(this);
     this.handleRemoteClick = this.handleRemoteClick.bind(this);
-
-
     this.handleLocalMerge = this.handleLocalMerge.bind(this);
     this.handleRemoteMerge = this.handleRemoteMerge.bind(this);
-
     this.handleChange= this.handleChange.bind(this);
     this.handleChangeFrom= this.handleChangeFrom.bind(this);
     this.handleChangeTo = this.handleChangeTo.bind(this);
-
   }
-
 
   componentWillReceiveProps(newProps) {
     if (this.props.userPath !== newProps.userPath) {
@@ -41,7 +35,6 @@ class Merge extends Component {
         mergeClicked: false,
         mergeLocalClicked: false,
         mergeRemoteClicked: false
-
       });
     }
   }
@@ -65,6 +58,7 @@ class Merge extends Component {
       mergeRemoteClicked: false,
     });
   }
+
   handleChange(event) {
     this.setState({remote: event.target.value});
   }
@@ -118,7 +112,6 @@ class Merge extends Component {
           </button>
         </div>
         }
-
         { this.state.mergeClicked && this.state.mergeLocalClicked &&
           <form  className="form-group" onSubmit={this.handleLocalMerge}>
             <label>Merge From: </label>
@@ -145,7 +138,6 @@ class Merge extends Component {
             </button>
           </form>
         }
-
         { this.state.mergeClicked && this.state.mergeRemoteClicked &&
           <form  className="form-group" onSubmit={this.handleRemoteMerge}>
             <label>Branch to Merge with Current: </label>
@@ -157,7 +149,6 @@ class Merge extends Component {
                 )
               }
             </select>
-
             <button type="submit" className="btn btn-mini btn-primary">
               <span className="icon icon-switch icon-text"></span>
             Merge
@@ -166,7 +157,6 @@ class Merge extends Component {
         }
       </div>
     );
-
   }
 }
 
@@ -177,12 +167,6 @@ const mapDispatch = (dispatch) => {
       dispatch(getAllLocalBranches(path)),
     getAllRemoteBranches: (path) =>
       dispatch(getAllRemoteBranches(path))
-
   };
 };
 export default connect(mapState, mapDispatch)(Merge);
-
-
-
-
-
