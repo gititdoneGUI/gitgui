@@ -90,7 +90,7 @@ class Push extends Component {
     return (
       <div>
         { !this.state.pushClicked && <button className="btn btn-mini btn-primary" onClick={this.handlePushClick}>
-          <span className="icon icon-switch icon-text"></span>
+          <span className="icon icon-up icon-text"></span>
       Push
         </button>}
         { this.state.pushClicked &&

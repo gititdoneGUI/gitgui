@@ -76,6 +76,6 @@
     "private:watch": "npm run private:compile -- --source-maps true --watch --skip-initial-build",
     "private:serve": "babel-node scripts/serve.js",
     "private:compile": "babel app/ --copy-files --out-dir build",
-    "private:clean": "rimraf build"
+    "private:clean": "echo no"
   }
 }

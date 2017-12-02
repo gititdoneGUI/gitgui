@@ -35,10 +35,10 @@ class Stash extends Component {
       <div>
         {
           (this.props.status.length !== 0) ?
-            (<button className="btn btn-large btn-primary" onClick={this.handleStashClick}>
-              <span className="icon icon-down-circled icon-text"></span>
+            (<button className="btn btn-mini btn-primary" onClick={this.handleStashClick}>
+              <span className="icon icon-pause icon-text"></span>
           Stash
-            </button>): (<button className="btn btn-large btn-default" disabled={true}>
+            </button>): (<button className="btn btn-mini btn-default" disabled={true}>
               <span className="icon icon-list-add icon-text"></span>
             Nothing to Stash
             </button>)

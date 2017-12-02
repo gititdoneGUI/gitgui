@@ -84,17 +84,17 @@ class Checkout extends Component {
     return (
       <div>
         { !this.state.checkoutClicked && <button className="btn btn-mini btn-primary" onClick={this.handleCheckoutClick}>
-          <span className="icon icon-down-circled icon-text"></span>
+          <span className="icon icon-flow-branch icon-text"></span>
         Checkout Branch
         </button>}
         { this.state.checkoutClicked &&
         <div>
           <button className="btn btn-mini btn-primary" onClick={this.handleLocalClick}>
-            <span className="icon icon-down-circled icon-text"></span>
+            <span className="icon icon-flow-branch icon-text"></span>
               Checkout Local Branch
           </button>
           <button className="btn btn-mini btn-primary" onClick={this.handleRemoteClick}>
-            <span className="icon icon-down-circled icon-text"></span>
+            <span className="icon icon-flow-branch icon-text"></span>
               Checkout Remote Branch
           </button>
         </div>
@@ -111,7 +111,7 @@ class Checkout extends Component {
               }
             </select>
             <button type="submit" className="btn btn-mini btn-primary">
-              <span className="icon icon-down-circled icon-text"></span>
+              <span className="icon icon-flow-branch icon-text"></span>
             Checkout
             </button>
           </form>
@@ -134,7 +134,7 @@ class Checkout extends Component {
               placeholder= "Give this branch a local name..."
             />
             <button type="submit" className="btn btn-mini btn-primary">
-              <span className="icon icon-down-circled icon-text"></span>
+              <span className="icon icon-flow-branch icon-text"></span>
             Checkout
             </button>
           </form>

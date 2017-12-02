@@ -1,8 +1,8 @@
 appId: com.example.app
 copyright: Example co
-productName: MyApp
+productName: Git It Done
 
-asar: true
+asar: false
 
 directories:
   buildResources: dist-assets/

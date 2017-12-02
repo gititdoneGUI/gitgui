@@ -38,7 +38,7 @@ class AddBranch extends Component {
     return (
       <div>
         { !this.state.clicked && <button className="btn btn-mini btn-primary" onClick={this.handleSubmit}>
-          <span className="icon icon-down-circled icon-text"></span>
+          <span className="icon icon-flow-branch icon-text"></span>
         Add Branch
         </button>}
         { this.state.clicked &&
@@ -50,7 +50,7 @@ class AddBranch extends Component {
             name="branch"
           />
           <button type="submit" className="btn btn-mini btn-primary">
-            <span className="icon icon-down-circled icon-text"></span>
+            <span className="icon icon-check icon-text"></span>
             Add and Checkout
           </button>
         </form>

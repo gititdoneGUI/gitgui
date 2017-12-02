@@ -39,7 +39,7 @@ class Commit extends Component {
               <span className="icon icon-list-add icon-text"></span>
                Commit
             </button>):
-            (<button className="btn btn-large btn-default" disabled={true}>
+            (<button className="btn btn-mini btn-default" disabled={true}>
               <span className="icon icon-list-add icon-text"></span>
             Nothing to Commit
             </button>)
