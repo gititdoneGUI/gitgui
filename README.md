@@ -1,4 +1,4 @@
-# GitItDone
+# Git It Done
 
 A Git GUI that visualizes git repositories as directed acyclic graphs. Built using [Nodegit](http://www.nodegit.org/) and [SimpleGit](https://github.com/steveukx/git-js) to handle git backend, and [React Graph Vis](https://github.com/crubier/react-graph-vis) to visualize graphs. Built on top of [electron-react-redux-boilerplate](https://github.com/jschr/electron-react-redux-boilerplate).
 
